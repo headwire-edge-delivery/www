@@ -1,23 +1,23 @@
 export default async function decorate(block) {
-    const textElems = block.querySelectorAll('h2, p');
-    
-    const imageWrapper = block.querySelector('p > picture');
-    if(imageWrapper) {
-        const parentP = imageWrapper.parentNode;
-        parentP.classList.add('banner-logo'); 
-    }
+  const textElems = block.querySelectorAll('h2, p');
 
-    const bannerTextWrapper = document.createElement('div');
-    bannerTextWrapper.className = 'banner-text-wrapper';
+  const imageWrapper = block.querySelector('p > picture');
+  if (imageWrapper) {
+    const parentP = imageWrapper.parentNode;
+    parentP.classList.add('banner-logo');
+  }
 
-    for (let i = 1; i < textElems.length; i++) { 
-        bannerTextWrapper.appendChild(textElems[i].cloneNode(true));
-        textElems[i].remove();
-    }
+  const bannerTextWrapper = document.createElement('div');
+  bannerTextWrapper.className = 'banner-text-wrapper';
 
-    block.appendChild(bannerTextWrapper);
+  for (let i = 1; i < textElems.length; i += 1) {
+    bannerTextWrapper.appendChild(textElems[i].cloneNode(true));
+    textElems[i].remove();
+  }
 
-    let imageUrl = document.querySelector('.banner-text-wrapper picture img').src;
+  block.appendChild(bannerTextWrapper);
 
-    document.querySelector('.banner-wrapper').style.backgroundImage = `url(${imageUrl})`;
+  const imageUrl = document.querySelector('.banner-text-wrapper picture img').src;
+
+  document.querySelector('.banner-wrapper').style.backgroundImage = `url(${imageUrl})`;
 }
