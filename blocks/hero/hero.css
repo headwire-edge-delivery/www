@@ -1,39 +1,134 @@
-/* block specific CSS goes here */
-
-main .hero-container > div {
-  max-width: unset;
-}
-  
-main .hero-container {
-  padding: 0;
-}
-  
-main .hero {
+.hero-wrapper {
   position: relative;
-  padding: 32px;
-  min-height: 300px;
+  height: 507px;
+  overflow: hidden;
 }
 
-main .hero h1 {
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-  color: white;
-}
-
-main .hero picture {
+.hero-logo {
+  z-index: 20;
+  display: flex;
+  justify-content: center;
   position: absolute;
-  z-index: -1;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  object-fit: cover;
-  box-sizing: border-box;
+  transform: translateY(-50%);
+  top: 12%;
+  left: -30%;
+  width: 100%;
 }
 
-main .hero img {
-  object-fit: cover;
+img,
+.background-class {
+  max-width: 100%;
+  height: auto;
+}
+
+.hero-logo img {
+  height: 124px;
+  width: auto;
+  margin-left: 20px;
+}
+
+.hero-background {
+  margin: 0;
+  height: 507px;
+}
+
+.hero-background img {
   width: 100%;
   height: 100%;
+  object-fit: cover;
+  object-position: center bottom;
+}
+
+.hero-text-wrapper {
+  color: #fff;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  text-align: center;
+  width: 80%;
+  gap: 10px;
+}
+
+.hero-text-wrapper > p:last-child {
+  flex-basis: 100%;
+  text-align: center;
+  font-weight: 300;
+  font-size: 25px;
+}
+
+.hero-text-wrapper h1 {
+  font-size: 50px;
+  line-height: 1.5em;
+}
+
+.lighter-font {
+  font-weight: 300;
+}
+
+/* Media queries */
+
+@media (max-width: 1200px) {
+  .hero-logo {
+      left: -43%;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero-logo {
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
+  }
+  
+  .hero-wrapper {
+    height: 90vh;
+  }
+
+  .hero-background {
+    height: 90vh;
+  }
+
+  .hero-logo img {
+    margin: 0;
+  }
+
+  .hero-background img {
+    object-position: left;
+  }
+
+  .hero-text-wrapper {
+    margin-top: 40px;
+    width: 100%;
+    margin-top: 100px;
+  }
+
+  .hero-text-wrapper img {
+    width: 75px;
+    height: auto;
+  }
+
+  .hero-text-wrapper h1 {
+    font-size: 30px;
+  }
+
+  .hero-text-wrapper > p:first-child,
+  .hero-text-wrapper > h1,
+  .hero-text-wrapper > p:nth-child(3) {
+    margin: 0;
+  }
+
+  .hero-text-wrapper > :nth-child(-n + 3) {
+    margin: 10px 0;
+  }
+
+  .hero-text-wrapper > p:last-child {
+    padding: 0 10px;
+    font-size: 20px;
+  }
 }
