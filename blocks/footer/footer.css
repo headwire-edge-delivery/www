@@ -4,7 +4,6 @@ footer {
   overflow: hidden;
   background: 50% 50% / cover no-repeat rgb(34 34 34);
   color: #fff;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-weight: 300;
   font-size: 16px;
   display: flex;
@@ -17,6 +16,27 @@ footer .footer {
 }
 
 footer .footer p {
-  margin: 12px;
+  margin: 10px;
   text-align: center;
+}
+
+.footer .footer-info-wrapper {
+  display: flex;
+  gap: 30px;
+}
+
+.footer-info-wrapper div:not(:last-child) p {
+    line-height: 1.6; 
+}
+
+.footer .footer-info-wrapper > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 280px;
+  text-align: center;
+}
+
+.footer .footer-info-wrapper > div > p > a {
+ color: #da7b40;
 }
