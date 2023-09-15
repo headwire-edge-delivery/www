@@ -2,7 +2,7 @@
 
 ## Environments
 - Preview: https://homepage--www--headwire-edge-delivery.hlx.page/
-- Live: https:homepage--www--headwire-edge-delivery.hlx.live/
+- Live: https://homepage--www--headwire-edge-delivery.hlx.live/
 
 ## Installation
 
