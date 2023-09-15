@@ -15,19 +15,4 @@ export default function decorate(block) {
   ul.querySelectorAll('img').forEach((img) => img.closest('picture').replaceWith(createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }])));
   block.textContent = '';
   block.append(ul);
-
-  // add svg icons
-  const cardListItems = document.querySelectorAll('.cards.light.block li');
-
-  if (cardListItems.length > 1) {
-    cardListItems[1].querySelector('picture').innerHTML = `
-          <img src="/icons/tools.svg" alt="Tools Icon">
-      `;
-  }
-
-  if (cardListItems.length > 2) {
-    cardListItems[2].querySelector('picture').innerHTML = `
-          <img src="/icons/wifi.svg" alt="WiFi Icon">
-      `;
-  }
 }
