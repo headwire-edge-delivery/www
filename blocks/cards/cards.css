@@ -9,17 +9,9 @@
   max-width: 1160px;
 }
 
-.cards > ul > li img {
-  width: 40%;
-}
-
 .cards .cards-card-body h2 {
   font-size: 30px;
   font-weight: 300;
-}
-
-.cards .cards-card-image {
-  line-height: 0;
 }
 
 .cards .cards-card-body > *:first-child {
@@ -52,6 +44,11 @@
   padding: 0 20px 20px;
 }
 
+.cards-card-body .icon svg {
+  height: 100px;
+  width: auto; 
+}
+
 
 /* Cards Dark */
 
@@ -78,9 +75,6 @@
   text-decoration: underline;
 }
 
-.cards.block.dark > ul > li img {
-  width: 64%;
-}
 
 .cards.block.dark > ul > li:nth-child(1),
 .cards.block.dark > ul > li:nth-child(2) {
@@ -114,10 +108,5 @@
   .cards.block.dark > ul > li:nth-child(2) {
     padding-bottom: 50px;
     line-height: 2em;
-  }
-
-  .cards.block.dark > ul > li img {
-    width: 44%;
-    margin-top: 20px;
   }
 }
