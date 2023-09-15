@@ -1,19 +1,23 @@
 export default async function decorate(block) {
-  const textElems = block.querySelectorAll('h1, p');
-
-  const imageWrappers = block.querySelectorAll('p > picture');
-  if (imageWrappers.length >= 2) {
-    imageWrappers[0].parentNode.classList.add('hero-logo');
-    imageWrappers[1].parentNode.classList.add('hero-background');
+  
+  const firstPicture = block.querySelector('p > picture');
+  if (firstPicture) {
+    firstPicture.parentNode.classList.add('hero-background');
   }
 
   const heroTextWrapper = document.createElement('div');
   heroTextWrapper.className = 'hero-text-wrapper';
 
-  for (let i = 2; i < textElems.length; i += 1) {
-    heroTextWrapper.appendChild(textElems[i]);
-  }
+  const elementsToAppend = block.querySelectorAll('h1, p:not(.hero-background)');
+  elementsToAppend.forEach(elem => {
+    heroTextWrapper.appendChild(elem); 
+  });
 
+  const heroImage = firstPicture.querySelector('img');
+    if (heroImage) {
+      heroImage.setAttribute('loading', 'eager');
+    }
+  
   block.appendChild(heroTextWrapper);
 
   const h1Elem = block.querySelector('h1');
