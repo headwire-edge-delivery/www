@@ -12,11 +12,7 @@
 
  :root {
   /* fonts */
-
-  /* font-family doesn't work without capital */
-  
-   /* stylelint-disable-next-line value-keyword-case */
-  --body-font-family: "Raleway", -apple-system, BlinkMacSystemFont, "Segoe UI", roboto, "Helvetica Neue", arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --body-font-family: "Raleway", -apple-system, blinkmacsystemfont, "Segoe UI", roboto, "Helvetica Neue", arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
     /* nav height */
     --nav-height: 64px;
