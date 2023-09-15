@@ -1,5 +1,4 @@
 export default async function decorate(block) {
-  
   const firstPicture = block.querySelector('p > picture');
   if (firstPicture) {
     firstPicture.parentNode.classList.add('hero-background');
@@ -9,15 +8,15 @@ export default async function decorate(block) {
   heroTextWrapper.className = 'hero-text-wrapper';
 
   const elementsToAppend = block.querySelectorAll('h1, p:not(.hero-background)');
-  elementsToAppend.forEach(elem => {
-    heroTextWrapper.appendChild(elem); 
+  elementsToAppend.forEach((elem) => {
+    heroTextWrapper.appendChild(elem);
   });
 
   const heroImage = firstPicture.querySelector('img');
-    if (heroImage) {
-      heroImage.setAttribute('loading', 'eager');
-    }
-  
+  if (heroImage) {
+    heroImage.setAttribute('loading', 'eager');
+  }
+
   block.appendChild(heroTextWrapper);
 
   const h1Elem = block.querySelector('h1');

@@ -49,9 +49,6 @@
 
 /* Media queries */
 
-@media (max-width: 1200px) {
-}
-
 @media (max-width: 767px) {
   .hero-wrapper {
     height: 90vh;
