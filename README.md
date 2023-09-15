@@ -1,9 +1,8 @@
-# Your Project's Title...
-Your project's description...
+# Headwire Edge Delivery
 
 ## Environments
-- Preview: https://main--{repo}--{owner}.hlx.page/
-- Live: https://main--{repo}--{owner}.hlx.live/
+- Preview: https://homepage--www--headwire-edge-delivery.hlx.page/
+- Live: https:homepage--www--headwire-edge-delivery.hlx.live/
 
 ## Installation
 
