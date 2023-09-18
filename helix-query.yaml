@@ -1,0 +1,12 @@
+version: 1
+
+indices:
+  allpages:
+    include:
+      - '/**'
+    target: /query-index.xlsx
+    properties:
+      subtitle:
+        select: main section
+        value: |
+          innerHTML(el)
