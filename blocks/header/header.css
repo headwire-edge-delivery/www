@@ -156,7 +156,7 @@ header .nav-wrapper {
     flex: 1;
   }
 
-  header nav .nav-brand img {
+  header nav .nav-brand svg {
     width: 80px;
     height: auto;
   }
