@@ -10,31 +10,38 @@
  * governing permissions and limitations under the License.
  */
 
- :root {
-    --body-font-family: "Raleway", -apple-system, blinkmacsystemfont, "Segoe UI", roboto, "Helvetica Neue", arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-    --nav-height: 64px;
- }
-
- @font-face {
-  font-family: Raleway;
-  src: url('/fonts/raleway.woff2') format('woff2');
-  font-weight: normal; 
-  font-style: normal; 
-  font-display: swap;
+@font-face {
+    font-family: "Raleway Fallback";
+    font-style: normal;
+    font-weight: 400;
+    src: local('Arial');
+    ascent-override: 92.39%;
+    descent-override: 23.00%;
+    line-gap-override: 0.00%;
+    size-adjust: 101.74%;
 }
 
+:root {
+  --body-font-family: "Raleway", "Raleway Fallback", -apple-system, blinkmacsystemfont, "Segoe UI", roboto, "Helvetica Neue", arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --nav-height: 64px;
+}
 
 html, body {
   width: 100%;
   height: 100%;
 }
 
- body {
+body {
   margin: 0;
   font-family: var(--body-font-family);
   overflow-x: hidden;
   box-sizing: border-box;
-} 
+  display: none;
+}
+
+body.appear {
+  display: block;
+}
 
 *, *::before, *::after {
   box-sizing: border-box;
