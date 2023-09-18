@@ -1,8 +1,8 @@
 # Headwire Edge Delivery
 
 ## Environments
-- Preview: https://homepage--www--headwire-edge-delivery.hlx.page/
-- Live: https://homepage--www--headwire-edge-delivery.hlx.live/
+- Preview: https://main--www--headwire-edge-delivery.hlx.page/
+- Live: https://main--www--headwire-edge-delivery.hlx.live/
 
 ## Installation
 
