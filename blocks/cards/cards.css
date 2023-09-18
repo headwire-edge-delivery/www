@@ -3,29 +3,110 @@
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(3, 1fr); 
+  justify-content: center;
   grid-gap: 16px;
+  max-width: 1160px;
 }
 
-.cards > ul > li {
-  border: 1px solid var(--highlight-background-color);
-  background-color: var(--background-color)
-}
-
-.cards .cards-card-body {
-  margin: 16px;
-}
-
-.cards .cards-card-image {
-  line-height: 0;
+.cards .cards-card-body h2 {
+  font-size: 30px;
+  font-weight: 300;
 }
 
 .cards .cards-card-body > *:first-child {
   margin-top: 0;
 }
 
-.cards > ul > li img {
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
+/* Cards light */
+
+.cards.light.block .cards-card-body p {
+  font-weight: 300;
+  line-height: 1.5em;
+}
+
+.cards.light.block .cards-card-body {
+  margin: 16px;
+}
+
+.cards.light.block {
+  background-color: rgb(54 90 139);
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.cards.light.block ul > li  {
+  background: 50% 50% / cover no-repeat rgb(54 90 139); 
+  border: none;
+  color: #fff;
+  text-align: center;
+  padding: 0 20px 20px;
+}
+
+.cards-card-body .icon svg {
+  height: 100px;
+  width: auto; 
+}
+
+
+/* Cards Dark */
+
+.cards.dark.block {
+  background-color: rgb(43 67 100); 
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.cards.dark.block ul > li  {
+  background: 50% 50% / cover no-repeat rgb(43 67 100); 
+  border: none;
+  color: #fff;
+  text-align: center;
+  width: 240px;
+  margin: 0 40px;
+}
+
+
+.cards.dark.block .button-container a {
+  color: #da7b40;
+  text-decoration: underline;
+}
+
+
+.cards.block.dark > ul > li:nth-child(1),
+.cards.block.dark > ul > li:nth-child(2) {
+  line-height: 1.5em;
+}
+
+/* media queries */
+
+@media (max-width: 768px) {
+  .cards > ul {
+    grid-template-columns: 1fr;
+  }
+
+  .cards.dark.block ul > li {
+    width: 100%;
+    margin: 0;
+  }
+
+  .cards.block.light > ul > li:nth-child(1),
+  .cards.block.light > ul > li:nth-child(2),
+  .cards.block.dark > ul > li:nth-child(1),
+  .cards.block.dark > ul > li:nth-child(2) {
+    border-bottom: 1px solid hsl(0deg 0% 100% / 25%);
+  }
+
+  .cards.block.dark > ul > li:nth-child(1) {
+    padding-bottom: 20px;
+    line-height: 2em;
+  }
+
+  .cards.block.dark > ul > li:nth-child(2) {
+    padding-bottom: 50px;
+    line-height: 2em;
+  }
 }

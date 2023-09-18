@@ -19,6 +19,16 @@ export default async function decorate(block) {
     const footer = document.createElement('div');
     footer.innerHTML = html;
 
+    const footerInfoWrapper = document.createElement('div');
+    footerInfoWrapper.className = 'footer-info-wrapper';
+
+    const divs = footer.querySelectorAll('div > div');
+    for (let i = 0; i < 3 && i < divs.length; i += 1) {
+      footerInfoWrapper.appendChild(divs[i]);
+    }
+
+    footer.children[0].insertBefore(footerInfoWrapper, footer.children[0].firstChild);
+
     decorateIcons(footer);
     block.append(footer);
   }
