@@ -3,10 +3,23 @@ version: 1
 indices:
   articles:
     include:
-      - '/articles/**'
+      - '/blog/**'
     target: /query-index.xlsx
     properties:
       title:
         select: main h1
         value: |
           innerHTML(el)
+       image:
+        select: main img
+        value: attribute(el, 'src')
+      keywords:
+        select: meta[name="keywords"]
+        value: attribute(el, 'content')
+      Description:
+        select: meta[name="description"]
+        value: attribute(el, 'content')
+      Author:
+        select: meta[name="author"]
+        value: attribute(el, 'content')
+
