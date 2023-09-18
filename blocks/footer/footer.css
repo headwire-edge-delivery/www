@@ -25,7 +25,7 @@ footer .footer p {
 }
 
 @media (max-width: 768px) {
-  .footer .footer-info-wrapper > div {
+  .footer .footer-info-wrapper > div:not(:last-of-type) {
     border-bottom: 1px solid hsl(0deg 0% 100% / 25%);
   }
 }
