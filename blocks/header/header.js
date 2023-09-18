@@ -121,6 +121,13 @@ export default async function decorate(block) {
           }
         });
       });
+
+      const allLinks = nav.querySelectorAll('a');
+      allLinks.forEach((link) => {
+        if (link.textContent === 'Blog') {
+          link.href = '/articles/lorem1';
+        }
+      });
     }
 
     // hamburger for mobile
