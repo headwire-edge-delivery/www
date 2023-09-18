@@ -10,7 +10,7 @@ indices:
         select: main h1
         value: |
           innerHTML(el)
-       image:
+      image:
         select: main img
         value: attribute(el, 'src')
       keywords:
