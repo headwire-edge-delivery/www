@@ -1,12 +1,12 @@
 version: 1
 
 indices:
-  allpages:
+  articles:
     include:
-      - '/**'
+      - '/articles/**'
     target: /query-index.xlsx
     properties:
-      subtitle:
-        select: main section
+      title:
+        select: main h1
         value: |
           innerHTML(el)
