@@ -1,0 +1,12 @@
+version: 1
+
+indices:
+  articles:
+    include:
+      - '/articles/**'
+    target: /query-index.xlsx
+    properties:
+      title:
+        select: main h1
+        value: |
+          innerHTML(el)
