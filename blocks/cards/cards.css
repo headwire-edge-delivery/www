@@ -3,7 +3,7 @@
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(3, 1fr); 
+  grid-template-columns: repeat(3, 1fr);
   justify-content: center;
   grid-gap: 16px;
   max-width: 1160px;
@@ -11,7 +11,7 @@
 
 .cards .cards-card-body h2 {
   font-size: 30px;
-  font-weight: 300;
+  font-weight: normal;
 }
 
 .cards .cards-card-body > *:first-child {
@@ -29,7 +29,7 @@
 }
 
 .cards.light.block .cards-card-body p {
-  font-weight: 300;
+  font-weight: normal;
   line-height: 1.5em;
 }
 
@@ -54,23 +54,23 @@
 }
 
 .cards.light.block ul > li  {
-  background: 50% 50% / cover no-repeat rgb(54 90 139); 
+  background: 50% 50% / cover no-repeat rgb(54 90 139);
   border: none;
   color: #fff;
   text-align: center;
   padding: 0 20px 20px;
 }
 
-.cards-card-body .icon svg {
+.cards-card-body .icon img {
   height: 100px;
-  width: auto; 
+  width: auto;
 }
 
 
 /* Cards Dark */
 
 .cards.dark.block {
-  background-color: rgb(43 67 100); 
+  background-color: rgb(43 67 100);
   padding: 40px;
   display: flex;
   justify-content: center;
@@ -78,7 +78,7 @@
 }
 
 .cards.dark.block ul > li  {
-  background: 50% 50% / cover no-repeat rgb(43 67 100); 
+  background: 50% 50% / cover no-repeat rgb(43 67 100);
   border: none;
   color: #fff;
   text-align: center;
@@ -127,7 +127,6 @@
     line-height: 2em;
   }
 }
-
 
 
 /* Blog cards styling */

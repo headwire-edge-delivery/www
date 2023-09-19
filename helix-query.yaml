@@ -3,10 +3,22 @@ version: 1
 indices:
   articles:
     include:
-      - '/articles/**'
-    target: /query-index.xlsx
+      - '/blog/**'
+    target: /query-index.json
     properties:
       title:
         select: main h1
         value: |
           innerHTML(el)
+      image:
+        select: main img
+        value: attribute(el, 'src')
+      keywords:
+        select: meta[name="keywords"]
+        value: attribute(el, 'content')
+      description:
+        select: meta[name="description"]
+        value: attribute(el, 'content')
+      author:
+        select: meta[name="author"]
+        value: attribute(el, 'content')

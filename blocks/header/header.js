@@ -143,10 +143,19 @@ export default async function decorate(block) {
     toggleMenu(nav, navSections, isDesktop.matches);
     isDesktop.addEventListener('change', () => toggleMenu(nav, navSections, isDesktop.matches));
 
-    decorateIcons(nav);
     const navWrapper = document.createElement('div');
     navWrapper.className = 'nav-wrapper';
     navWrapper.append(nav);
     block.append(navWrapper);
+
+    // Transform logo into home page link
+    const logo = nav.querySelector('.icon-headwirelogo');
+    const link = document.createElement('a');
+    link.href = '/';
+    link.setAttribute('aria-label', 'headwire');
+    logo.parentElement.appendChild(link);
+    link.appendChild(logo);
+
+    decorateIcons(nav);
   }
 }
