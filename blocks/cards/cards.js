@@ -21,7 +21,7 @@ function generateBlogCard(blogData) {
                 ${keywordsArray.length ? `<ul class="blog-card-tags">${keywordsArray.map((keyword) => `<li>${keyword}</li>`).join('')}</ul>` : ''}
             </div>
             <button onclick="location.href='${blogData.path}'" class="blog-card-button" title="Read more about ${blogData.title}">
-              Continue reading about ${blogData.title}
+              Read More
             </button>
         </li>
     `;
