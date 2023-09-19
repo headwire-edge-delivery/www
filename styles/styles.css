@@ -11,9 +11,20 @@
  */
 
 @font-face {
-    font-family: "Raleway Fallback";
+    font-family: "raleway fallback";
     font-style: normal;
-    font-weight: 400;
+    font-weight: bold;
+    src: local('Arial Bold');
+    ascent-override: 99.96%;
+    descent-override: 24.88%;
+    line-gap-override: 0.00%;
+    size-adjust: 94.04%;
+}
+
+@font-face {
+    font-family: "raleway fallback";
+    font-style: normal;
+    font-weight: normal;
     src: local('Arial');
     ascent-override: 92.39%;
     descent-override: 23.00%;
@@ -22,7 +33,7 @@
 }
 
 :root {
-  --body-font-family: "Raleway", "Raleway Fallback", -apple-system, blinkmacsystemfont, "Segoe UI", roboto, "Helvetica Neue", arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-family: raleway, "raleway fallback", -apple-system, blinkmacsystemfont, "Segoe UI", roboto, "Helvetica Neue", arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --nav-height: 64px;
 }
 
@@ -33,7 +44,7 @@ html, body {
 
 body {
   margin: 0;
-  font-family: var(--body-font-family);
+  font-family: var(--font-family);
   overflow-x: hidden;
   box-sizing: border-box;
   display: none;

@@ -1,6 +1,6 @@
 .banner.block {
     display: flex;
-    justify-content: center; 
+    justify-content: center;
     padding: 100px 0 50px;
 }
 
@@ -10,8 +10,8 @@
 }
 
 .banner-logo img {
-    max-width: 180px; 
-    height: auto; 
+    max-width: 180px;
+    height: auto;
     margin-left: 10px;
 }
 
@@ -28,21 +28,21 @@
 .banner-text-wrapper h2,
 .banner-text-wrapper p {
     color: #777;
-    font-weight: 300;
+    font-weight: normal;
     line-height: 1.5rem;
 }
 
 .banner-text-wrapper p br {
-    margin-top: 10px; 
-    margin-bottom: 10px; 
-    display: block; 
-    content: ''; 
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: block;
+    content: '';
 }
 
 
 @media (max-width: 768px) {
     .banner-logo img {
-        display: none; 
+        display: none;
     }
 
     .banner-text-wrapper {
