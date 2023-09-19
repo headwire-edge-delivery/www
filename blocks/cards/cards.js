@@ -20,7 +20,7 @@ function generateBlogCard(blogData) {
                 </div>
                 ${keywordsArray.length ? `<ul class="blog-card-tags">${keywordsArray.map((keyword) => `<li>${keyword}</li>`).join('')}</ul>` : ''}
             </div>
-            <a href="${blogData.path}" class="blog-card-link">Read more</a>
+            <a href="${blogData.path}" class="blog-card-link" title="Read more about ${blogData.title}">Read more</a>
         </li>
     `;
 }
@@ -57,7 +57,6 @@ export default async function decorate(block) {
       });
       ul.append(li);
     });
-    ul.querySelectorAll('img').forEach((img) => img.closest('picture').replaceWith(createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }])));
   }
 
   block.textContent = '';
