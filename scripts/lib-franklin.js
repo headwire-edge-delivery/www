@@ -228,7 +228,7 @@ export async function decorateIcons(element, excluded = []) {
     const iconName = Array.from(span.classList).find((c) => c.startsWith('icon-')).substring(5);
     const parent = span.firstElementChild?.tagName === 'A' ? span.firstElementChild : span;
     if (excluded.includes(iconName)) {
-      parent.innerHTML = `<img alt="${iconName}" src="${window.hlx.codeBasePath}/icons/${iconName}.svg" />`;
+      parent.innerHTML = `<img alt="${iconName}" loading="lazy" src="${window.hlx.codeBasePath}/icons/${iconName}.svg" />`;
     } else if (ICONS_CACHE[iconName] && ICONS_CACHE[iconName].styled) {
       // Styled icons need to be inlined as-is, while unstyled ones can leverage the sprite
       parent.innerHTML = ICONS_CACHE[iconName].html;
