@@ -20,6 +20,14 @@
 
 /* Cards light */
 
+.blog-card-description p {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .cards.light.block .cards-card-body p {
   font-weight: 300;
   line-height: 1.5em;
@@ -34,6 +42,15 @@
   padding: 40px;
   display: flex;
   justify-content: center;
+}
+
+.blog-card-tags li {
+  background-color: #da7b40;
+  color: white;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: bolder;
 }
 
 .cards.light.block ul > li  {
@@ -133,7 +150,7 @@
 .blog-card {
   background-color: #fff;
   border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 15px rgba(0 0 0 / 10%);
   overflow: hidden;
   width: calc(33.333% - 20px);
   transition: transform 0.2s, box-shadow 0.3s;
@@ -146,7 +163,7 @@
 
 .blog-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  box-shadow: 0 6px 20px rgba(0 0 0 / 15%);
 }
 
 .blog-card-image {
@@ -163,7 +180,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.25) 100%);
+  background: linear-gradient(to bottom, rgba(0 0 0 / 0%) 0%, rgba(0 0 0 / 25%) 100%);
   z-index: 1;
 }
 
@@ -189,7 +206,6 @@
 
 .blog-card-title h3 {
   margin-bottom: 15px;
-  
 }
 
 .blog-card-description {
@@ -213,7 +229,7 @@
 }
 
 .blog-card-link:hover {
-  background-color: rgba(54, 89, 139, 0.815);
+  background-color: rgba(54 89 139 / 81.25%);
 }
 
 .blog-card-tags {
@@ -223,15 +239,6 @@
   gap: 5px;
   flex-wrap: wrap;
   margin-left: 15px;
-}
-
-.blog-card-tags li {
-  background-color: #da7b40;
-  color: white;
-  padding: 3px 8px;
-  border-radius: 12px;
-  font-size: 13px;
-  font-weight: bolder;
 }
 
 .blog-card-author {
@@ -245,20 +252,16 @@
   font-weight: bold; 
 }
 
-.blog-card-description p {
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 @media (max-width: 1102px) {
   .blog-card {
       width: calc(50% - 20px); 
       margin-top: 250px;
       margin-bottom: 0;
   }
+
+  .blog-card :hover {
+    box-shadow: 0 6px 20px rgba(0 0 0 / 15%);
+}
 
   .cards.blog.block > ul > .blog-card:last-child {
     margin-top: 15px; 
@@ -315,12 +318,7 @@
   }
 }
 
-.blog-card {
-  cursor: pointer;
-  transform: translateY(0);
-}
-
 .blog-card:active {
   transform: translateY(2px);
-  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 3px 10px rgba(0 0 0 / 10%);
 }
