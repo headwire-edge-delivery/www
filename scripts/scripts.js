@@ -15,6 +15,17 @@ import {
 const LCP_BLOCKS = []; // add your LCP blocks to the list
 
 /**
+ * Adds the favicons.
+ */
+export function addFavIcon() {
+  // Remove placeholder
+  document.head.querySelector('head link[rel="icon"]').remove();
+
+  // Add favicon
+  document.head.insertAdjacentHTML('beforeend', '<link rel="icon" href="/icons/headwirelogo.svg">');
+}
+
+/**
  * load fonts.css and set a session storage flag
  */
 async function loadFonts() {
@@ -81,6 +92,7 @@ async function loadLazy(doc) {
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   loadFonts();
+  addFavIcon();
 
   sampleRUM('lazy');
   sampleRUM.observe(main.querySelectorAll('div[data-block-name]'));
