@@ -34,7 +34,7 @@ async function loadFonts() {
 export function decorateMain(main) {
   // hopefully forward compatible button decoration
   decorateButtons(main);
-  decorateIcons(main);
+  decorateIcons(main, ['aem-white', 'tools', 'wifi']);
   // buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
