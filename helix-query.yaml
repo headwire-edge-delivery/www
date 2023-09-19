@@ -22,4 +22,3 @@ indices:
       author:
         select: meta[name="author"]
         value: attribute(el, 'content')
-
