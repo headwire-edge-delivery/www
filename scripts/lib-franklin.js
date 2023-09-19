@@ -161,9 +161,10 @@ const ICONS_CACHE = {};
 /**
  * Replace icons with inline SVG and prefix with codeBasePath.
  * @param {Element} [element] Element containing icons
- * @param {string[]} [excluded] List of icons to be loaded with img element
  */
-export async function decorateIcons(element, excluded = []) {
+export async function decorateIcons(element) {
+  const excluded = ['headwirelogo', 'aem-white', 'tools', 'wifi'];
+
   // Prepare the inline sprite
   let svgSprite = document.getElementById('franklin-svg-sprite');
   if (!svgSprite) {
