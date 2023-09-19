@@ -20,7 +20,9 @@ function generateBlogCard(blogData) {
                 </div>
                 ${keywordsArray.length ? `<ul class="blog-card-tags">${keywordsArray.map((keyword) => `<li>${keyword}</li>`).join('')}</ul>` : ''}
             </div>
-            <a href="${blogData.path}" class="blog-card-link" title="Read more about ${blogData.title}" aria-label="Read more about ${blogData.title}">Read more</a>
+            <button onclick="location.href='${blogData.path}'" class="blog-card-button" title="Read more about ${blogData.title}">
+              Continue reading about ${blogData.title}
+            </button>
         </li>
     `;
 }
