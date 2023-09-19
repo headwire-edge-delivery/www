@@ -4,7 +4,7 @@ footer {
   overflow: hidden;
   background-color: rgb(43 67 100);
   color: #fff;
-  font-weight: 300;
+  font-weight: normal;
   font-size: 16px;
   display: flex;
   justify-content: center;
@@ -43,7 +43,7 @@ footer .footer.block > div > div {
 }
 
 .footer .footer-info-wrapper h2 {
-  font-weight: 300;
+  font-weight: normal;
   font-size: 30px;
 }
 
