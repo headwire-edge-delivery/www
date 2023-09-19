@@ -148,9 +148,9 @@
 
 .cards.blog > ul {
   max-width: 90%; 
-  margin: 0 auto;
   display: flex;
   flex-wrap: wrap; 
+  margin: 200px 0 100px;
 }
 
 .blog-card {
@@ -163,8 +163,6 @@
   position: relative;
   min-width: 320px;
   max-width: 420px;
-  margin-top: 220px;
-  margin-bottom: 140px;
 }
 
 .blog-card:hover {
@@ -255,34 +253,18 @@
 @media (max-width: 1102px) {
   .blog-card {
       width: calc(50% - 20px); 
-      margin-top: 250px;
-      margin-bottom: 0;
   }
 
   .blog-card :hover {
     box-shadow: 0 6px 20px rgba(0 0 0 / 15%);
 }
 
-  .cards.blog.block > ul > .blog-card:last-child {
-    margin-top: 15px; 
-    margin-bottom: 180px;
-  }
 }
 
 @media (max-width: 728px) {
   .blog-card {
       width: calc(50% - 20px); 
-      margin-top: 50px;
-      margin-bottom: 50px;
   }
-
-  .cards.blog.block > ul > .blog-card:first-child {
-    margin-top: 200px; 
-}
-
-  .cards.blog.block > ul > .blog-card:last-child {
-    margin-bottom: 180px; 
-}
 
   .cards.blog.block > ul > li {
     margin: 15px;
@@ -293,13 +275,8 @@
 @media (max-width: 480px) {
   .blog-card {
       width: calc(100% - 40px); 
-      margin-top: 30px;
-      margin-bottom: 30px;
-  }
 
-  .cards.blog.block > ul > .blog-card:first-child {
-    margin-top: 180px; 
-}
+  }
 
   .blog-card-title {
       font-size: 1.5em;
