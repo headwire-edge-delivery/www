@@ -15,7 +15,7 @@ function generateBlogCard(blogData) {
                 <div class="blog-card-description">
                     <p>${blogData.description}</p>
                     <div class="blog-card-author">
-                        Written by: <span>${blogData.author}</span>
+                    ${blogData.author ? `<div class="blog-card-author">Written by: <span>${blogData.author}</span></div>` : ''}
                     </div>
                 </div>
                 ${keywordsArray.length ? `<ul class="blog-card-tags">${keywordsArray.map((keyword) => `<li>${keyword}</li>`).join('')}</ul>` : ''}
