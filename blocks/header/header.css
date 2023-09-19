@@ -19,12 +19,13 @@ header nav {
 'brand hamburger tools' var(--nav-height)
 'sections sections sections' 1fr / auto 1fr auto;
   align-items: center;
-  gap: 0 15em;
+  gap: 0 41vw;
   margin: auto;
   max-width: 1264px;
   height: var(--nav-height);
   font-family: var(--font-family);
 }
+
 
 header nav[aria-expanded="true"] {
   grid-template:
