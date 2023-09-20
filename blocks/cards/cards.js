@@ -35,7 +35,9 @@ export default async function decorate(block) {
       const req = await fetch('/query-index.json');
       if (req.ok) {
         const res = await req.json();
-        data = res.data.sort((a, b) => new Date(b.publicationDate) - new Date(a.publicationDate));
+        data = res.data
+          .filter((item) => item.path.startsWith('/blog/'))
+          .sort((a, b) => new Date(b.publicationDate) - new Date(a.publicationDate));
       } else {
         return;
       }
