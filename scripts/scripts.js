@@ -10,6 +10,7 @@ import {
   waitForLCP,
   loadBlocks,
   loadCSS,
+  buildBlock,
 } from './lib-franklin.js';
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
@@ -38,15 +39,41 @@ async function loadFonts() {
 }
 
 /**
+ * Builds hero block and prepends to main in a new section.
+ * @param {Element} main The container element
+ */
+function buildHeroBlock(main) {
+  const h1 = main.querySelector('h1');
+  const picture = main.querySelector('p > picture');
+  if (picture.parentElement.nextElementSibling === h1) {
+    const section = document.createElement('div');
+    section.append(buildBlock('hero', { elems: [picture, h1] }));
+    main.prepend(section);
+  }
+}
+
+/**
+ * Builds all synthetic blocks in a container element.
+ * @param {Element} main The container element
+ */
+function buildAutoBlocks(main) {
+  try {
+    buildHeroBlock(main);
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('Auto Blocking failed', error);
+  }
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
-// eslint-disable-next-line import/prefer-default-export
 export function decorateMain(main) {
   // hopefully forward compatible button decoration
   decorateButtons(main);
   decorateIcons(main);
-  // buildAutoBlocks(main);
+  buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
 }
@@ -59,6 +86,8 @@ async function loadEager(doc) {
   if (!document.title.includes('headwire')) {
     document.title += ' | headwire';
   }
+
+  document.body.classList.add(window.location.pathname === '/' ? 'homepage' : 'default');
 
   document.documentElement.lang = 'en';
   decorateTemplateAndTheme();
