@@ -56,6 +56,10 @@ export function decorateMain(main) {
  * @param {Element} doc The container element
  */
 async function loadEager(doc) {
+  if (!document.title.includes('headwire')) {
+    document.title += ' | headwire';
+  }
+
   document.documentElement.lang = 'en';
   decorateTemplateAndTheme();
   const main = doc.querySelector('main');
