@@ -34,12 +34,23 @@
 
 :root {
   --font-family: raleway, "raleway fallback", -apple-system, blinkmacsystemfont, "Segoe UI", roboto, "Helvetica Neue", arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --nav-height: 64px;
+  --nav-height: 140px;
+  --layout-width: 1170px;
 }
 
 html, body {
   width: 100%;
   height: 100%;
+}
+
+header {
+    position: fixed;
+    height: var(--nav-height);
+    width: 100vw;
+    top: 0;
+    z-index: 1000;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgb(30 30 30 / 50%);
 }
 
 body {
@@ -63,13 +74,13 @@ body.appear {
 
 main .default-content-wrapper picture img {
   display: block;
-  max-width: 80%;
-  margin: 40px auto 0px;
+  max-width: var(--layout-width);
+  margin: 40px auto 0;
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0 0 0 / 10%);
   height: auto;
-  max-height: 700px; 
-  object-fit: cover; 
+  max-height: 700px;
+  object-fit: cover;
   overflow: hidden;
 }
 
@@ -115,7 +126,7 @@ main .default-content-wrapper h2 {
 
 @media (min-width: 900px) {
   main .default-content-wrapper{
-    max-width: 1200px;
+    max-width: var(--layout-width);
     margin: auto;
   }
 }

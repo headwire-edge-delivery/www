@@ -28,7 +28,8 @@
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  width: 80%;
+  width: 100%;
+  max-width: var(--layout-width);
   gap: 10px;
 }
 

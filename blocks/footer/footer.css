@@ -38,7 +38,7 @@ footer .footer.block > div > div {
 .footer .footer-info-wrapper {
   display: flex;
   gap: 30px;
-  max-width: 1200px;
+  max-width: var(--layout-width);
   margin: auto;
 }
 
