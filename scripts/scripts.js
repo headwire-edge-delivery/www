@@ -45,7 +45,7 @@ async function loadFonts() {
 function buildHeroBlock(main) {
   const h1 = main.querySelector('h1');
   const picture = main.querySelector('p > picture');
-  if (picture.parentElement.nextElementSibling === h1) {
+  if (picture && picture.parentElement.nextElementSibling === h1) {
     const section = document.createElement('div');
     section.append(buildBlock('hero', { elems: [picture, h1] }));
     main.prepend(section);
