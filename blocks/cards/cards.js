@@ -29,13 +29,13 @@ export default async function decorate(block) {
   const ul = document.createElement('ul');
 
   if (block.classList.contains('blog')) {
-    let blogData = [];
+    let data = [];
 
     try {
       const req = await fetch('/query-index.json');
       if (req.ok) {
         const res = await req.json();
-        blogData = res.data;
+        data = res.data.sort((a, b) => new Date(b.publicationDate) - new Date(a.publicationDate));
       } else {
         return;
       }
@@ -43,8 +43,8 @@ export default async function decorate(block) {
       return;
     }
 
-    blogData.forEach((data) => {
-      const li = generateBlogCard(data);
+    data.forEach((item) => {
+      const li = generateBlogCard(item);
       ul.innerHTML += li;
     });
   } else {
