@@ -17,13 +17,14 @@
 
 .default .hero img {
   width: 100vw;
-  height: auto;
+  height: 70vh;
+  object-fit: cover;
 }
 
 .default .hero h1 {
   position: absolute;
   text-align: center;
-  top: 300px;
+  top: 30vh;
   width: 100vw;
   color: white;
   z-index: 10;
