@@ -1,4 +1,4 @@
-export default async function decorate(block) {
+export default async function decorateHero(block) {
   const firstPicture = block.querySelector('p > picture');
   if (firstPicture) {
     firstPicture.parentNode.classList.add('hero-background');
