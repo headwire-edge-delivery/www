@@ -1,15 +1,15 @@
-:not(.homepage) .hero picture {
+.blog .hero picture {
   display: block;
   position: relative;
 }
 
-:not(.homepage) .hero img {
+.blog .hero img {
   width: 100vw;
   height: 50vh;
   object-fit: cover;
 }
 
-:not(.homepage) .hero h1 {
+.blog .hero h1 {
   font-size: 50px;
   max-width: 1440px;
   display: block;

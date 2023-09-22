@@ -90,6 +90,7 @@ async function loadEager(doc) {
   if (window.location.pathname === '/') {
     document.body.classList.add('homepage');
   } else if (window.location.pathname.startsWith('/blog/')) {
+    document.body.classList.add('blog');
     document.querySelector('main div').append(buildBlock('blog', { elems: [] }));
   }
 
