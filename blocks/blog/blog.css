@@ -26,7 +26,7 @@
 .blog-main :is(h2, h3) {
     color: #777;
     font-weight: 400;
-    scroll-margin-top: 160px;
+    scroll-margin-top: 184px;
 }
 
 .blog-main h2 {
@@ -49,11 +49,19 @@
     min-width: 200px;
     width: 100%;
     margin-top: 1em;
+    background: rgb(240 240 240);
+    padding: 16px;
+    border-radius: 8px;
+}
+
+.blog-main .toc .sticky {
+    position: sticky;
+    top: 184px;
 }
 
 .blog-main .toc strong {
     display: block;
-    margin-bottom: 32px;
+    margin-bottom: 16px;
     font-size: 24px;
     font-weight: normal;
 }

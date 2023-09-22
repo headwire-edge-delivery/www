@@ -6,12 +6,12 @@ import {
 export default async function decorate(block) {
   const defaultContent = document.querySelector('.default-content-wrapper');
   if (defaultContent) {
-    let toc = '<div class="toc"><strong>Table of content</strong><ul>';
+    let toc = '<div class="toc"><div class="sticky"><strong>Table of content</strong><ul>';
     defaultContent.querySelectorAll('h2, h3').forEach((heading) => {
       const level = parseInt(heading.tagName.slice(1), 10) - 1;
       toc += `<li class="level-${level}"><a href="#${heading.id}">${heading.textContent}</a></li>`;
     });
-    toc += '</ul></div>';
+    toc += '</ul></div></div>';
 
     const authors = {
       'Ruben Reusser': {
