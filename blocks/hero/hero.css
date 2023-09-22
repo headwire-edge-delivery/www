@@ -124,7 +124,7 @@
 }
 
 .hero.blog.block .hero-image {
-  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 10px 20px rgba(0 0 0 / 25%);
   border-radius: 15px;
   overflow: hidden;
   max-height: 500px;
@@ -164,10 +164,10 @@
 .hero.blog.block .hero-author-date {
   font-size: 1rem;
   color: rgb(54 90 139);
-  font-size: 14px;
   font-style: normal;
   font-weight: 600;
   line-height: 20px;
+  letter-spacing: 2px;
 }
 
 .hero.blog.block .hero-keywords {
@@ -206,7 +206,7 @@
 }
 
 .hero.blog.block .hero-link:hover {
-  transform: translateY(-3px); /
+  transform: translateY(-3px); 
 }
 
 .read-icon {
@@ -222,7 +222,6 @@
 
 @media (max-width: 1515px) {
   .hero.blog.block {
-    flex-direction: column;  
     align-items: center;    
     flex-direction: column-reverse;
     padding: 60px 20px;
@@ -231,13 +230,12 @@
 
   .hero.blog.block .hero-content-wrapper {
     padding: 0;
-}
+  }
 }
 
 
 @media (max-width: 768px) {
   .hero.blog.block {
-    flex-direction: column;  
     align-items: center;    
     flex-direction: column-reverse;
     padding: 60px 20px;

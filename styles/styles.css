@@ -64,7 +64,7 @@ body.appear {
 main .default-content-wrapper picture img {
   display: block;
   max-width: 80%;
-  margin: 40px auto 0px;
+  margin: 40px auto;
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0 0 0 / 10%);
   height: auto;
