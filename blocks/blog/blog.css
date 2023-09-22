@@ -51,10 +51,6 @@
     margin-top: 1em;
 }
 
-.blog-main .toc a {
-    padding: 4px;
-}
-
 .blog-main .toc strong {
     display: block;
     margin-bottom: 32px;
@@ -69,7 +65,7 @@
 }
 
 .blog-main .toc li {
-    padding: 4px;
+    padding: 8px;
 }
 
 .blog-main .toc li.level-2 {
@@ -115,7 +111,7 @@
 
 .blog-main .tags span {
     padding: 4px;
-    background-color: rgb(240 240 240);
+    background-color: rgb(250 240 240);
     color: rgb(250 50 50);
     font-weight: bold;
     border-radius: 5px;
