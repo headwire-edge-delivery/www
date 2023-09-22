@@ -87,7 +87,11 @@ async function loadEager(doc) {
     document.title += ' | headwire';
   }
 
-  document.body.classList.add(window.location.pathname === '/' ? 'homepage' : 'default');
+  if (window.location.pathname === '/') {
+    document.body.classList.add('homepage');
+  } else if (window.location.pathname.startsWith('/blog/')) {
+    document.querySelector('main div').append(buildBlock('blog', { elems: [] }));
+  }
 
   document.documentElement.lang = 'en';
   decorateTemplateAndTheme();
