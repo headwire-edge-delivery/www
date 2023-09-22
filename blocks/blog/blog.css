@@ -110,10 +110,10 @@
 }
 
 .blog-main .tags span {
-    padding: 4px;
-    background-color: rgb(250 240 240);
-    color: rgb(250 50 50);
+    padding: 4px 8px;
+    background-color: rgb(179 0 0);
     font-weight: bold;
+    color: white;
     border-radius: 5px;
 }
 
@@ -132,6 +132,7 @@
 
 .blog-main .contact:hover {
     background-color: rgb(50 50 255);
+    text-decoration: none;
 }
 
 @media (max-width: 768px) {
