@@ -17,11 +17,9 @@ export default async function decorateHero(block) {
       heroImage.setAttribute('loading', 'eager');
     }
 
-    block.appendChild(heroTextWrapper);
-
     const h1Elem = block.querySelector('h1');
     if (h1Elem) {
       h1Elem.innerHTML = h1Elem.innerHTML.replace(/&amp;/g, '<span class="lighter-font">&</span>');
     }
-  }
 }
+

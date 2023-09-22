@@ -27,15 +27,13 @@ function generateBlogCard(blogData) {
 
 export default async function decorate(block) {
   const ul = document.createElement('ul');
-
   if (block.classList.contains('blog')) {
-    let data = [];
-
+    let blogData = [];
     try {
       const req = await fetch('/query-index.json');
       if (req.ok) {
         const res = await req.json();
-        data = res.data
+        blogData = res.data                     
           .filter((item) => item.path.startsWith('/blog/'))
           .sort((a, b) => new Date(b.publicationDate) - new Date(a.publicationDate));
       } else {
@@ -43,8 +41,8 @@ export default async function decorate(block) {
       }
     } catch (err) {
       return;
-    }
-
+    }           
+    
     // Lastest blog becomes Hero
     const heroData = blogData.shift();
     if (heroData) {
@@ -88,7 +86,6 @@ export default async function decorate(block) {
       ul.append(li);
     });
   }
-
   block.textContent = '';
   block.append(ul);
 }
