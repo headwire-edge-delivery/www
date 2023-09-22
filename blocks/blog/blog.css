@@ -51,6 +51,10 @@
     margin-top: 1em;
 }
 
+.blog-main .toc a {
+    padding: 4px;
+}
+
 .blog-main .toc strong {
     display: block;
     margin-bottom: 32px;
