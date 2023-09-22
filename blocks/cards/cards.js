@@ -48,7 +48,7 @@ export default async function decorate(block) {
       const heroBlock = document.querySelector('.hero.blog.block');
       if (heroBlock) {
         const publishedDate = heroData.publicationDate;
-        const heroImageData = createOptimizedPicture(heroData.image, heroData.imageAlt || heroData.title, false, [{ width: '750' }]).outerHTML;
+        const heroImageData = createOptimizedPicture(heroData.image, heroData.imageAlt || heroData.title, true, [{ width: '750' }]).outerHTML;
         const keywordsList = heroData.keywords ? heroData.keywords.split(',').map((keyword) => `<li>${keyword.trim()}</li>`).join('') : '';
 
         heroBlock.innerHTML = `

@@ -199,6 +199,7 @@
   font-weight: 600;
   line-height: 20px;
   letter-spacing: 2px;
+  margin-bottom: 20px;
 }
 
 .hero.blog.block .hero-keywords {
@@ -255,7 +256,7 @@
   .hero.blog.block {
     align-items: center;    
     flex-direction: column-reverse;
-    padding: 150px 10px 0;
+    padding: 0 10px;
   }
 
   .hero.blog.block .hero-content-wrapper {
