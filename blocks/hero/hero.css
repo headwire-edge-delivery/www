@@ -1,15 +1,15 @@
-.blog .hero picture {
+.page .hero picture {
   display: block;
   position: relative;
 }
 
-.blog .hero img {
+.page .hero img {
   width: 100vw;
   height: 50vh;
   object-fit: cover;
 }
 
-.blog .hero h1 {
+.page .hero h1 {
   font-size: 50px;
   max-width: 1440px;
   display: block;
