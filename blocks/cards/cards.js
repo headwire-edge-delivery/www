@@ -33,7 +33,7 @@ export default async function decorate(block) {
       const req = await fetch('/query-index.json');
       if (req.ok) {
         const res = await req.json();
-        blogData = res.data                     
+        blogData = res.data
           .filter((item) => item.path.startsWith('/blog/'))
           .sort((a, b) => new Date(b.publicationDate) - new Date(a.publicationDate));
       } else {
@@ -41,8 +41,7 @@ export default async function decorate(block) {
       }
     } catch (err) {
       return;
-    }           
-    
+    }
     // Lastest blog becomes Hero
     const heroData = blogData.shift();
     if (heroData) {
@@ -56,7 +55,7 @@ export default async function decorate(block) {
           <div class="hero-content-wrapper">
               <div class="hero-latest">Our latest article</div>
               <div class="hero-author-date">${heroData.author ? `${heroData.author} • ` : ''}<span>${publishedDate}</span></div>
-              <h2 class="hero-title">${heroData.title}</h2>
+              <h1 class="hero-title">${heroData.title}</h1>
               <div class="hero-description">${heroData.description}</div>
               <ul class="hero-keywords">${keywordsList}</ul>
               <a href="${heroData.path}" class="hero-link">Read Post <img src="../../icons/arrow-up-right.svg" alt="Read Icon" class="read-icon"></a>
