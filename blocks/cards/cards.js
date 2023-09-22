@@ -29,13 +29,15 @@ export default async function decorate(block) {
   const ul = document.createElement('ul');
 
   if (block.classList.contains('blog')) {
-    let blogData = [];
+    let data = [];
 
     try {
       const req = await fetch('/query-index.json');
       if (req.ok) {
         const res = await req.json();
-        blogData = res.data;
+        data = res.data
+          .filter((item) => item.path.startsWith('/blog/'))
+          .sort((a, b) => new Date(b.publicationDate) - new Date(a.publicationDate));
       } else {
         return;
       }

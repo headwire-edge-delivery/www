@@ -2,7 +2,7 @@
 header .nav-wrapper {
   background-color: transparent;
   width: 100%;
-  z-index: 2;
+  z-index: 100;
   color: white;
   height: 80px;
   display: flex;
