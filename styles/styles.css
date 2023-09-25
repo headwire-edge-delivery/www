@@ -57,3 +57,40 @@ body.appear {
 *, *::before, *::after {
   box-sizing: border-box;
 }
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    color: white;
+    border-radius: 7px;
+    padding: 8px 16px;
+    background-color: #363F72;
+    border: 1px solid #363F72;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: border-color 0.3s, background-color 0.3s;
+    width: auto;
+}
+
+.button:hover {
+    background-color: rgb(34 34 34);
+    border-color: rgb(34 34 34);
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.tags li {
+    padding: 4px 8px;
+    border: 1px solid #363F72;
+    font-weight: bold;
+    color: #363F72;
+    border-radius: 5px;
+}

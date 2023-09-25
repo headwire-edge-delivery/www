@@ -1,8 +1,10 @@
-import { createOptimizedPicture } from '../../scripts/lib-franklin.js';
+import {
+  buildBlock, createOptimizedPicture, decorateBlock, loadBlock,
+} from '../../scripts/lib-franklin.js';
 
 function generateBlogCard(blogData) {
   const keywordsArray = blogData.keywords ? blogData.keywords.split(',').map((keyword) => keyword.trim()) : [];
-  const publishedDate = blogData.publicationDate;
+
   return `
   <li class="blog-card">
       <a href="${blogData.path}" class="blog-card-image-link"> 
@@ -11,70 +13,95 @@ function generateBlogCard(blogData) {
           </div>
       </a>
       <div class="blog-card-content">
-          <div class="blog-card-author-date">${blogData.author ? `${blogData.author} • ` : ''}${publishedDate}</div>
           <div class="blog-card-title">
               <h3>${blogData.title}</h3>
           </div>
           <div class="blog-card-description">
               <p>${blogData.description}</p>
           </div>
-          ${keywordsArray.length ? `<ul class="blog-card-tags">${keywordsArray.map((keyword) => `<li>${keyword}</li>`).join('')}</ul>` : ''}
+          <div class="blog-card-author-date">
+            <strong>By ${blogData.author}</strong>
+            <span>${blogData.publicationDate}</span>
+          </div>
+          ${keywordsArray.length ? `<ul class="tags">${keywordsArray.map((keyword) => `<li>${keyword}</li>`).join('')}</ul>` : ''}
       </div>
-      <a href="${blogData.path}" class="blog-card-link">Read Post <img src="../../icons/arrow-up-right.svg" alt="Read Icon" class="read-icon"></a>
+      <a href="${blogData.path}" class="button">Read Post</a>
   </li>
 `;
 }
 
 export default async function decorate(block) {
-  const ul = document.createElement('ul');
-  if (block.classList.contains('blog')) {
+  const isBlog = block.classList.contains('blog');
+
+  if (isBlog) {
     let blogData = [];
-    try {
-      const req = await fetch('/query-index.json');
-      if (req.ok) {
-        const res = await req.json();
-        blogData = res.data
-          .filter((item) => item.path.startsWith('/blog/'))
-          .sort((a, b) => new Date(b.publicationDate) - new Date(a.publicationDate));
-      } else {
-        return;
-      }
-    } catch (err) {
-      return;
-    }
-    // Lastest blog becomes Hero
-    const heroData = blogData.shift();
-    if (heroData) {
-      const heroBlock = document.querySelector('.hero.blog.block');
-      if (heroBlock) {
-        const publishedDate = heroData.publicationDate;
-        const heroImageData = createOptimizedPicture(heroData.image, heroData.imageAlt || heroData.title, true, [{ width: '750' }]).outerHTML;
-        const keywordsList = heroData.keywords ? heroData.keywords.split(',').map((keyword) => `<li>${keyword.trim()}</li>`).join('') : '';
 
-        heroBlock.innerHTML = `
-          <div class="hero-content-wrapper">
-              <div class="hero-latest">Our latest article</div>
-              <div class="hero-author-date">${heroData.author ? `${heroData.author} • ` : ''}<span>${publishedDate}</span></div>
-              <h1 class="hero-title">${heroData.title}</h1>
-              <div class="hero-description">${heroData.description}</div>
-              <ul class="hero-keywords">${keywordsList}</ul>
-              <a href="${heroData.path}" class="hero-link">Read Post <img src="../../icons/arrow-up-right.svg" alt="Read Icon" class="read-icon"></a>
-          </div>
-          <div class="hero-image-wrapper">
-          <a href="${heroData.path}" class="hero-image-link"> 
-          <div class="hero-image">${heroImageData}</div>
-      </a>
-          </div>
-        `;
+    const req = await fetch('/query-index.json');
+    if (req.ok) {
+      const res = await req.json();
+      blogData = res.data
+        .filter((item) => item.path.startsWith('/blog/'))
+        .sort((a, b) => new Date(b.publicationDate) - new Date(a.publicationDate));
+
+      // First blog becomes Hero
+      const heroData = blogData.shift();
+      if (heroData) {
+        const image = createOptimizedPicture(heroData.image, '', true);
+
+        const title = document.createElement('h1');
+        title.textContent = heroData.title;
+
+        const details = document.createElement('p');
+
+        const description = document.createElement('em');
+        description.textContent = heroData.description;
+
+        const author = document.createElement('strong');
+        author.className = 'author';
+        author.textContent = `By ${heroData.author}`;
+        const date = document.createElement('span');
+        date.className = 'date';
+        date.textContent = heroData.publicationDate;
+        const keywords = document.createElement('ul');
+        keywords.className = 'tags';
+        heroData.keywords.split(',').forEach((keyword) => {
+          const li = document.createElement('li');
+          li.textContent = keyword.trim();
+          keywords.append(li);
+        });
+        const link = document.createElement('a');
+        link.className = 'button';
+        link.href = heroData.path;
+        link.textContent = 'Read Post';
+
+        details.append(description);
+        details.append(author);
+        details.append(date);
+        details.append(keywords);
+        details.append(link);
+
+        const hero = buildBlock('hero', { elems: [image, title, details] });
+        hero.classList.add('blog');
+
+        const section = document.createElement('div');
+        section.className = 'section';
+        section.append(hero);
+
+        // Load hero
+        await decorateBlock(hero);
+        await loadBlock(hero);
+
+        // Add hero to main once loaded
+        document.querySelector('main').prepend(section);
+
+        // Process the rest of the blogs
+        if (blogData.length) {
+          block.innerHTML = `<h2>More Blog Posts</h2><ul class="blog-cards">${blogData.map((data) => generateBlogCard(data)).join('')}</ul>`;
+        }
       }
     }
-
-    // Process the rest of the blogs
-    blogData.forEach((data) => {
-      const li = generateBlogCard(data);
-      ul.innerHTML += li;
-    });
   } else {
+    const ul = document.createElement('ul');
     [...block.children].forEach((row) => {
       const li = document.createElement('li');
       while (row.firstElementChild) li.append(row.firstElementChild);
@@ -84,7 +111,8 @@ export default async function decorate(block) {
       });
       ul.append(li);
     });
+
+    block.textContent = '';
+    block.append(ul);
   }
-  block.textContent = '';
-  block.append(ul);
 }
