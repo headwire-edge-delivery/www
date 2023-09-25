@@ -92,6 +92,13 @@
     min-width: 500px;
 }
 
+.blog-main .content p {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizelegibility;
+}
+
 .blog-main .author {
     display: flex;
     gap: 32px;
@@ -104,6 +111,11 @@
     object-fit: cover;
     border-radius: 50%;
     background-color: #ddd;
+}
+
+.blog-main .author strong {
+    display: block;
+    padding: 4px 0;
 }
 
 .blog-main .date {
