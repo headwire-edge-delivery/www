@@ -12,14 +12,11 @@ export default async function decorate(block) {
     elementsToAppend.forEach((elem) => {
       heroTextWrapper.appendChild(elem);
     });
-
     const heroImage = firstPicture.querySelector('img');
     if (heroImage) {
       heroImage.setAttribute('loading', 'eager');
     }
-
     block.appendChild(heroTextWrapper);
-
     const h1Elem = block.querySelector('h1');
     if (h1Elem) {
       h1Elem.innerHTML = h1Elem.innerHTML.replace(/&amp;/g, '<span class="lighter-font">&</span>');

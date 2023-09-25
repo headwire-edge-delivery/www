@@ -55,7 +55,7 @@ export default async function decorate(block) {
         </div>
     </div>`;
 
-    const tagsTemplate = `<div class="tags">${keywords.split(',').map((keyword) => `<span>${keyword.trim()}</span>`).join('')}</div>`;
+    const tagsTemplate = `<ul class="tags">${keywords.split(',').map((keyword) => `<li>${keyword.trim()}</li>`).join('')}</ul>`;
 
     const template = `<div class="blog-main">
             <div class="details">
@@ -67,7 +67,7 @@ export default async function decorate(block) {
             <div class="content-container">
               ${toc}
               <div class="content">
-                <a class="contact" href="/contact-us">Contact us</a>
+                <a class="button contact" href="/contact-us">Contact us</a>
                 <div class="details">
                     ${authorTemplate}
                     ${shareTemplate}
