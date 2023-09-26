@@ -23,18 +23,18 @@ header .nav-brand a {
   line-height: 1.5em;
 }
 
-header nav a:hover {
-  text-decoration: underline;
-}
-
 header nav .nav-sections ul > li a {
   transition: background-color 0.3s, color 0.3s, font-family 0.3s;
-  text-decoration: none;
   padding: 0 20px;
   display: block;
   border-radius: 15px;
   color: rgb(43 67 100);
   font-weight: bold;
+  text-decoration: none;
+}
+
+header nav .nav-sections ul > li a:hover {
+  text-decoration: underline;
 }
 
 header nav .nav-sections ul > li {
