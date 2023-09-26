@@ -9,6 +9,12 @@ header .nav-wrapper {
   position: fixed;
   justify-content: center;
   margin-top: 30px;
+  pointer-events: none;
+}
+
+header nav a,
+header .nav-hamburger button {
+  pointer-events: auto;
 }
 
 header nav a {
@@ -88,16 +94,27 @@ header nav .nav-hamburger {
 }
 
 header nav .nav-hamburger button {
-  height: 22px;
+  height: 32px;
   margin: 0;
   border: 0;
-  border-radius: 0;
-  padding: 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px;
   background-color: transparent;
   color: inherit;
   overflow: initial;
   text-overflow: initial;
   white-space: initial;
+}
+
+header nav[aria-expanded="true"] .nav-hamburger button {
+  border: none;
+}
+
+header nav[aria-expanded="true"] .nav-hamburger-icon,
+header nav .nav-hamburger-icon::before,
+header nav .nav-hamburger-icon::after {
+  box-shadow: none;
 }
 
 header nav .nav-hamburger-icon,
@@ -107,6 +124,7 @@ header nav .nav-hamburger-icon::after {
   display: block;
   position: relative;
   width: 20px;
+  box-shadow: 0 0 1px rgb(0, 0, 0);
 }
 
 header nav .nav-hamburger-icon::before,
