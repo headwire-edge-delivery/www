@@ -10,10 +10,33 @@ import {
   waitForLCP,
   loadBlocks,
   loadCSS,
-  buildBlock,
+  buildBlock, createOptimizedPicture,
 } from './lib-franklin.js';
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
+const AUTHORS = {
+  'Ruben Reusser': {
+    image: '/team/rr.jpeg',
+    title: 'CTO, headwire',
+  },
+};
+export function createBlogDetails(data) {
+  return `
+    <div class="author">
+      ${createOptimizedPicture(`${window.location.origin}${AUTHORS[data.author].image}`, data.author).outerHTML}
+      <div>
+        <div>
+            <strong>By ${data.author}</strong>
+        </div>
+        <div>
+            <div>${AUTHORS[data.author].title}</div>
+        </div>
+      </div>
+    </div>
+    <div class="date">${data.publicationDate}</div>
+    <ul class="tags">${data.keywords.split(',').map((keyword) => `<li>${keyword.trim()}</li>`).join('')}</ul>
+   `;
+}
 
 /**
  * Adds the favicons.
@@ -44,10 +67,11 @@ async function loadFonts() {
  */
 function buildHeroBlock(main) {
   const h1 = main.querySelector('h1');
+  const description = main.querySelector('h1 + p');
   const picture = main.querySelector('p > picture');
   if (picture && picture.parentElement.nextElementSibling === h1) {
     const section = document.createElement('div');
-    section.append(buildBlock('hero', { elems: [picture, h1] }));
+    section.append(buildBlock('hero', { elems: [picture, h1, description] }));
     main.prepend(section);
   }
 }

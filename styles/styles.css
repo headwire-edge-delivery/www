@@ -94,3 +94,28 @@ body.appear {
     color: #363F72;
     border-radius: 5px;
 }
+
+.author {
+    display: flex;
+    gap: 32px;
+    align-items: center;
+}
+
+.author img {
+    width: 100px !important;
+    height: 100px !important;
+    object-fit: cover;
+    border-radius: 50%;
+    background-color: #ddd;
+    max-width: 100%;
+}
+
+.author strong {
+    display: block;
+    padding: 4px 0;
+}
+
+.date {
+    font-style: italic;
+    padding: 8px 0;
+}
