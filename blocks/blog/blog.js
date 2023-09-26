@@ -1,7 +1,7 @@
 import {
-  createOptimizedPicture,
   getMetadata,
 } from '../../scripts/lib-franklin.js';
+import { createBlogDetails } from '../../scripts/scripts.js';
 
 export default async function decorate(block) {
   const defaultContent = document.querySelector('.default-content-wrapper');
@@ -13,18 +13,13 @@ export default async function decorate(block) {
     });
     toc += '</ul></div></div>';
 
-    const authors = {
-      'Ruben Reusser': {
-        image: '/team/rr.jpeg',
-        title: 'CTO, headwire',
-      },
-    };
-
     const title = getMetadata('og:title');
     const url = getMetadata('og:url');
     const author = getMetadata('author');
-    const date = getMetadata('publication-date');
+    const publicationDate = getMetadata('publication-date');
     const keywords = getMetadata('keywords');
+
+    const blogDetails = createBlogDetails({ author, keywords, publicationDate });
 
     const shareTemplate = `<div class="social-share">
       <span class="label">Share story</span>
@@ -48,20 +43,9 @@ export default async function decorate(block) {
     </div>
     `;
 
-    const authorTemplate = `<div class="author">
-        <div>
-          <div><strong>By ${author}</strong></div>
-          <div>${authors[author].title}</div>
-        </div>
-    </div>`;
-
-    const tagsTemplate = `<ul class="tags">${keywords.split(',').map((keyword) => `<li>${keyword.trim()}</li>`).join('')}</ul>`;
-
     const template = `<div class="blog-main">
             <div class="details">
-                ${authorTemplate}
-                <div class="date">${date}</div>
-                ${tagsTemplate}
+                ${blogDetails}
                 ${shareTemplate}
             </div>
             <div class="content-container">
@@ -69,7 +53,7 @@ export default async function decorate(block) {
               <div class="content">
                 <a class="button contact" href="/contact-us">Contact us</a>
                 <div class="details">
-                    ${authorTemplate}
+                    ${blogDetails}
                     ${shareTemplate}
                 </div>
               </div>  
@@ -78,13 +62,6 @@ export default async function decorate(block) {
 
     block.insertAdjacentHTML('beforeend', template);
     const container = document.querySelector('.blog-container');
-
-    const authorImage = `${window.location.origin}${authors[author].image}`;
-    if (authorImage) {
-      container.querySelectorAll('.author').forEach((el) => {
-        el.prepend(createOptimizedPicture(authorImage, author));
-      });
-    }
 
     container.querySelector('.content').prepend(defaultContent);
   }

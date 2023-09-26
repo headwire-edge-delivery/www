@@ -1,6 +1,7 @@
 import {
   buildBlock, createOptimizedPicture, decorateBlock, loadBlock,
 } from '../../scripts/lib-franklin.js';
+import { createBlogDetails } from '../../scripts/scripts.js';
 
 function generateBlogCard(blogData) {
   const keywordsArray = blogData.keywords ? blogData.keywords.split(',').map((keyword) => keyword.trim()) : [];
@@ -51,36 +52,22 @@ export default async function decorate(block) {
         const title = document.createElement('h1');
         title.textContent = heroData.title;
 
-        const details = document.createElement('p');
-
-        const description = document.createElement('em');
+        const description = document.createElement('p');
         description.textContent = heroData.description;
 
-        const author = document.createElement('strong');
-        author.className = 'author';
-        author.textContent = `By ${heroData.author}`;
-        const date = document.createElement('span');
-        date.className = 'date';
-        date.textContent = heroData.publicationDate;
-        const keywords = document.createElement('ul');
-        keywords.className = 'tags';
-        heroData.keywords.split(',').forEach((keyword) => {
-          const li = document.createElement('li');
-          li.textContent = keyword.trim();
-          keywords.append(li);
-        });
         const link = document.createElement('a');
         link.className = 'button';
         link.href = heroData.path;
         link.textContent = 'Read Post';
+        description.append(link);
+
+        const details = document.createElement('div');
+        details.className = 'details';
 
         details.append(description);
-        details.append(author);
-        details.append(date);
-        details.append(keywords);
-        details.append(link);
+        details.insertAdjacentHTML('beforeend', createBlogDetails(heroData));
 
-        const hero = buildBlock('hero', { elems: [image, title, details] });
+        const hero = buildBlock('hero', { elems: [image, title, description, details] });
         hero.classList.add('blog');
 
         const section = document.createElement('div');

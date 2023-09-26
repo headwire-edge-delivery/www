@@ -99,44 +99,6 @@
     text-rendering: optimizelegibility;
 }
 
-.blog-main .author {
-    display: flex;
-    gap: 32px;
-    align-items: center;
-}
-
-.blog-main .author img {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 50%;
-    background-color: #ddd;
-}
-
-.blog-main .author strong {
-    display: block;
-    padding: 4px 0;
-}
-
-.blog-main .date {
-    font-style: italic;
-    padding: 8px 0;
-}
-
-.blog-main .tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px
-}
-
-.blog-main .tags span {
-    padding: 4px 8px;
-    background-color: rgb(179 0 0);
-    font-weight: bold;
-    color: white;
-    border-radius: 5px;
-}
-
 .blog-main .contact {
     margin: 32px 0;
     color: white;
