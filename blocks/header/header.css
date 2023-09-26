@@ -118,13 +118,7 @@ header nav .nav-hamburger-icon::after {
   display: block;
   position: relative;
   width: 20px;
-  box-shadow: 0 0 1px rgb(0, 0, 0);
-}
-
-header nav[aria-expanded="true"] .nav-hamburger-icon,
-header nav[aria-expanded="true"] .nav-hamburger-icon::before,
-header nav[aria-expanded="true"] .nav-hamburger-icon::after {
-  box-shadow: none;
+  box-shadow: 0 0 1px rgb(0 0 0);
 }
 
 header nav .nav-hamburger-icon::before,
@@ -132,6 +126,12 @@ header nav .nav-hamburger-icon::after {
   content: "";
   position: absolute;
   background: currentcolor;
+}
+
+header nav[aria-expanded="true"] .nav-hamburger-icon::before,
+header nav[aria-expanded="true"] .nav-hamburger-icon,
+header nav[aria-expanded="true"] .nav-hamburger-icon::after {
+  box-shadow: none;
 }
 
 header nav[aria-expanded="false"] .nav-hamburger-icon,
