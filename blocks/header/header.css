@@ -10,15 +10,12 @@ header .nav-wrapper {
   justify-content: center;
   margin-top: 30px;
   pointer-events: none;
+  transition: top 0.3s ease-in-out;
 }
 
 header nav a,
 header .nav-hamburger button {
   pointer-events: auto;
-}
-
-header nav a {
-  text-decoration: none;
 }
 
 header .nav-brand a {
@@ -27,8 +24,7 @@ header .nav-brand a {
 }
 
 header nav a:hover {
-  text-decoration: none;
-  font-style: italic;
+  text-decoration: underline;
 }
 
 header nav .nav-sections ul > li a {
