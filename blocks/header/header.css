@@ -48,7 +48,7 @@ header nav .nav-sections ul {
   box-shadow: 0 0 10px rgba(30 30 30 /  30%);
   border-radius: 25px;
   background-color: #fff;
-  width: 320px;
+  padding: 0;
 }
 
 
@@ -278,8 +278,9 @@ header .icon-search {
 
   header nav .nav-sections ul {
     display: flex;
-    gap: 2em;
+    gap: 1.5em;
     margin: 0;
+    padding: 0 2em;
   }
 
   header nav .nav-sections > ul > li {
