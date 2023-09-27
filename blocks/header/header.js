@@ -103,7 +103,6 @@ window.onscroll = function handleScroll() {
   prevScrollpos = currentScrollPos;
 };
 
-
 /**
  * decorates the header, mainly the nav
  * @param {Element} block The header block element
