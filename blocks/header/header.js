@@ -96,9 +96,11 @@ window.onscroll = function handleScroll() {
   }
 
   if (prevScrollpos > currentScrollPos || currentScrollPos <= 0) {
-    navWrapper.style.top = '0';
+    navWrapper.classList.remove('hide');
+    navWrapper.classList.add('show');
   } else {
-    navWrapper.style.top = '-150px';
+    navWrapper.classList.remove('show');
+    navWrapper.classList.add('hide');
   }
   prevScrollpos = currentScrollPos;
 };
