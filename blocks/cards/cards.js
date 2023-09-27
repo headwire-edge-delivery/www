@@ -7,29 +7,27 @@ function generateBlogCard(blogData) {
   const keywordsArray = blogData.keywords ? blogData.keywords.split(',').map((keyword) => keyword.trim()) : [];
 
   return `
-  <li class="blog-card">
-      <a href="${blogData.path}" class="blog-card-image-link"> 
-          <div class="blog-card-image">
-              ${createOptimizedPicture(blogData.image, blogData.imageAlt || blogData.title, false, [{ width: '750' }]).outerHTML}
+        <li class="blog-card">
+          <a href="${blogData.path}" class="blog-card-image-link"> 
+              <div class="blog-card-image">
+                  ${createOptimizedPicture(blogData.image, blogData.imageAlt || blogData.title, false, [{ width: '750' }]).outerHTML}
+              </div>
+          </a>
+          <div class="blog-card-content">
+              <div class="blog-card-author-date">${blogData.author ? `${blogData.author} • ` : ''}${blogData.publicationDate}</div>
+              <div class="blog-card-title">
+                  <h3>${blogData.title}</h3>
+              </div>
+              <div class="blog-card-description">
+                  <p>${blogData.description}</p>
+              </div>
+              ${keywordsArray.length ? `<ul class="blog-card-tags">${keywordsArray.map((keyword) => `<li>${keyword}</li>`).join('')}</ul>` : ''}
           </div>
-      </a>
-      <div class="blog-card-content">
-          <div class="blog-card-title">
-              <h3>${blogData.title}</h3>
-          </div>
-          <div class="blog-card-description">
-              <p>${blogData.description}</p>
-          </div>
-          <div class="blog-card-author-date">
-            <strong>By ${blogData.author}</strong>
-            <span>${blogData.publicationDate}</span>
-          </div>
-          ${keywordsArray.length ? `<ul class="tags">${keywordsArray.map((keyword) => `<li>${keyword}</li>`).join('')}</ul>` : ''}
-      </div>
-      <a href="${blogData.path}" class="button">Read Post</a>
-  </li>
-`;
+          <a href="${blogData.path}" class="blog-card-link">Read Post <img src="../../icons/arrow-up-right.svg" alt="Read Icon" class="read-icon"></a>
+      </li>
+     `;
 }
+
 
 export default async function decorate(block) {
   const isBlog = block.classList.contains('blog');
@@ -52,22 +50,36 @@ export default async function decorate(block) {
         const title = document.createElement('h1');
         title.textContent = heroData.title;
 
-        const description = document.createElement('p');
+        const details = document.createElement('p');
+
+        const description = document.createElement('em');
         description.textContent = heroData.description;
 
+        const author = document.createElement('strong');
+        author.className = 'author';
+        author.textContent = `By ${heroData.author}`;
+        const date = document.createElement('span');
+        date.className = 'date';
+        date.textContent = heroData.publicationDate;
+        const keywords = document.createElement('ul');
+        keywords.className = 'tags';
+        heroData.keywords.split(',').forEach((keyword) => {
+          const li = document.createElement('li');
+          li.textContent = keyword.trim();
+          keywords.append(li);
+        });
         const link = document.createElement('a');
         link.className = 'button';
         link.href = heroData.path;
         link.textContent = 'Read Post';
-        description.append(link);
-
-        const details = document.createElement('div');
-        details.className = 'details';
 
         details.append(description);
-        details.insertAdjacentHTML('beforeend', createBlogDetails(heroData));
+        details.append(author);
+        details.append(date);
+        details.append(keywords);
+        details.append(link);
 
-        const hero = buildBlock('hero', { elems: [image, title, description, details] });
+        const hero = buildBlock('hero', { elems: [image, title, details] });
         hero.classList.add('blog');
 
         const section = document.createElement('div');
