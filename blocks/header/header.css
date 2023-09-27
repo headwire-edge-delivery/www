@@ -9,34 +9,34 @@ header .nav-wrapper {
   position: fixed;
   justify-content: center;
   margin-top: 30px;
+  pointer-events: none;
+  top: 0;
+  transition: top 0.3s ease-in-out;
 }
 
-header nav a {
-  text-decoration: none;
+header nav a,
+header .nav-hamburger button {
+  pointer-events: auto;
 }
-
 
 header .nav-brand a {
   text-decoration: none;
   line-height: 1.5em;
 }
 
-header nav a:hover {
-  text-decoration: none;
-  font-style: italic;
-}
-
-
 header nav .nav-sections ul > li a {
   transition: background-color 0.3s, color 0.3s, font-family 0.3s;
-  text-decoration: none;
-  padding: 10px 20px;
+  padding: 0 20px;
   display: block;
   border-radius: 15px;
   color: rgb(43 67 100);
   font-weight: bold;
+  text-decoration: none;
 }
 
+header nav .nav-sections ul > li a:hover {
+  text-decoration: underline;
+}
 
 header nav .nav-sections ul > li {
   display: inline-block;
@@ -45,19 +45,18 @@ header nav .nav-sections ul > li {
 }
 
 header nav .nav-sections ul {
-  box-shadow: 0 0 10px rgba(30 30 30 /  30%);
+  box-shadow: 0 0 10px rgba(30 30 30 / 30%);
   border-radius: 25px;
   background-color: #fff;
   padding: 0;
 }
 
-
 header nav {
   box-sizing: border-box;
   display: grid;
   grid-template:
-'brand hamburger tools' var(--nav-height)
-'sections sections sections' 1fr / auto 1fr auto;
+    "brand hamburger tools" var(--nav-height)
+    "sections sections sections" 1fr / auto 1fr auto;
   align-items: center;
   gap: 0 41vw;
   margin: auto;
@@ -66,35 +65,13 @@ header nav {
   font-family: var(--font-family);
 }
 
-
 header nav[aria-expanded="true"] {
   grid-template:
-'brand hamburger' var(--nav-height)
-'sections sections' 1fr
-'tools tools' var(--nav-height) / auto 1fr;
+    "brand hamburger" var(--nav-height)
+    "sections sections" 1fr
+    "tools tools" var(--nav-height) / auto 1fr;
   overflow-y: auto;
   min-height: 100vh;
-}
-
-@media (max-width: 900px) {
-  header nav {
-    grid-template:
-        'brand tools hamburger ' var(--nav-height)
-        'sections sections sections' 1fr / auto 1fr auto;
-    gap: 0 31vw;
-  }
-}
-
-@media (min-width: 900px) {
-  header nav {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  header nav[aria-expanded="true"] {
-    min-height: 0;
-    overflow: visible;
-  }
 }
 
 header nav p {
@@ -106,26 +83,29 @@ header nav p {
   width: 100px;
 }
 
-
 /* hamburger */
 header nav .nav-hamburger {
-  grid-area: hamburger;
-  height: 22px;
-  display: flex;
-  align-items: center;
+  position: absolute;
+  top: 20px;
+  right: 20px;
 }
 
 header nav .nav-hamburger button {
-  height: 22px;
+  height: 32px;
   margin: 0;
   border: 0;
-  border-radius: 0;
-  padding: 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px;
   background-color: transparent;
   color: inherit;
   overflow: initial;
   text-overflow: initial;
   white-space: initial;
+}
+
+header nav[aria-expanded="true"] .nav-hamburger button {
+  border: none;
 }
 
 header nav .nav-hamburger-icon,
@@ -135,13 +115,20 @@ header nav .nav-hamburger-icon::after {
   display: block;
   position: relative;
   width: 20px;
+  box-shadow: 0 0 1px rgb(0 0 0);
 }
 
 header nav .nav-hamburger-icon::before,
 header nav .nav-hamburger-icon::after {
-  content: '';
+  content: "";
   position: absolute;
   background: currentcolor;
+}
+
+header nav[aria-expanded="true"] .nav-hamburger-icon::before,
+header nav[aria-expanded="true"] .nav-hamburger-icon,
+header nav[aria-expanded="true"] .nav-hamburger-icon::after {
+  box-shadow: none;
 }
 
 header nav[aria-expanded="false"] .nav-hamburger-icon,
@@ -162,7 +149,6 @@ header nav[aria-expanded="false"] .nav-hamburger-icon::after {
 
 header nav[aria-expanded="true"] .nav-hamburger-icon {
   height: 22px;
-  margin-top: 30px;
 }
 
 header nav[aria-expanded="true"] .nav-hamburger-icon::before,
@@ -182,13 +168,6 @@ header nav[aria-expanded="true"] .nav-hamburger-icon::after {
   transform: rotate(-45deg);
 }
 
-@media (min-width: 900px) {
-  header nav .nav-hamburger {
-    display: none;
-    visibility: hidden;
-  }
-}
-
 /* brand */
 header .nav-brand {
   grid-area: brand;
@@ -206,7 +185,6 @@ header nav .nav-brand img {
 
 /* sections */
 header nav .nav-sections {
-  grid-area: sections;
   flex: 1 1 auto;
   display: none;
   visibility: hidden;
@@ -217,7 +195,6 @@ header nav[aria-expanded="true"] .nav-sections {
   visibility: visible;
   align-self: start;
 }
-
 
 header nav .nav-sections ul > li > ul {
   margin-top: 0;
@@ -231,14 +208,22 @@ header .icon-search {
   display: none;
 }
 
-@media (min-width: 2500px) {
-  .icon-headwirelogo  {
-      margin-left: -500px;
-  }
+/* tools */
+header nav .nav-tools {
+  grid-area: tools;
 }
 
-
 @media (min-width: 900px) {
+  header nav .nav-hamburger {
+    display: none;
+    visibility: hidden;
+  }
+
+  header nav[aria-expanded="true"] {
+    min-height: 0;
+    overflow: visible;
+  }
+
   header nav .nav-sections {
     display: block;
     visibility: visible;
@@ -256,10 +241,10 @@ header .icon-search {
   }
 
   header nav .nav-sections .nav-drop::after {
-    content: '';
+    content: "";
     display: inline-block;
     position: absolute;
-    top: .5em;
+    top: 0.5em;
     right: 2px;
     transform: rotate(135deg);
     width: 6px;
@@ -269,10 +254,9 @@ header .icon-search {
     border-width: 2px 2px 0 0;
   }
 
-
   header nav .nav-sections .nav-drop[aria-expanded="true"]::after {
     top: unset;
-    bottom: .5em;
+    bottom: 0.5em;
     transform: rotate(315deg);
   }
 
@@ -280,7 +264,7 @@ header .icon-search {
     display: flex;
     gap: 1.5em;
     margin: 0;
-    padding: 0 2em;
+    padding: 0.6em 2em;
   }
 
   header nav .nav-sections > ul > li {
@@ -312,89 +296,55 @@ header .icon-search {
   }
 }
 
-/* tools */
-header nav .nav-tools {
-  grid-area: tools;
-}
-
-
-header nav[aria-expanded="true"] .nav-hamburger {
-  grid-area: hamburger;
-  justify-self: end;
-  margin-right: 30px;
-}
-
-@media (max-width: 600px) {
-  header nav {
-    grid-template:
-        'brand tools hamburger ' var(--nav-height)
-        'sections sections sections' 1fr / auto 1fr auto;
-    gap: 0 31vw;
-  }
-
-  header nav .nav-hamburger {
-    grid-area: hamburger;
-    justify-self: end;
-    margin-right: 0;
-    margin-top: -70px;
-  }
-
-  header .nav-brand {
-    justify-self: center;
-  }
-}
-
 @media (max-width: 900px) {
-  header nav .nav-hamburger {
-    justify-self: start;
-    margin-top: -60px;
-    margin-left: 10px;
+  header nav[aria-expanded="true"] {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(54 89 139 / 90%);
+    backdrop-filter: blur(4px);
+    z-index: 1000;
+    min-height: 0;
+    overflow: visible;
   }
 
-  header nav[aria-expanded="true"] .nav-brand {
-    grid-area: brand;
-    justify-self: start;
-    margin-top: 60px;
-    margin-left: 10px;
-}
+  header nav .nav-brand {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+  }
 
-header nav[aria-expanded="true"] {
-  width: 100vw;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background-color: rgba(54 89 139 / 90%);
-  backdrop-filter: blur(4px);
-  z-index: 1000;
-  gap: 100px;
-}
+  header .nav-wrapper {
+    margin-top: 0;
+  }
 
   header nav[aria-expanded="true"] .nav-sections ul {
     border: none;
     box-shadow: none;
-    background-color: transparent
+    background-color: transparent;
+    margin-left: 20px;
   }
 
   header nav[aria-expanded="true"] .nav-sections ul li {
     background-color: white;
     width: 200px;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     margin: 10px 0;
     border-radius: 50px;
   }
-
 
   header nav[aria-expanded="true"] .nav-sections {
     justify-content: center;
     text-align: left;
     font-size: 30px;
     line-height: 1.5em;
+    width: 100px;
+    margin-top: 200px;
   }
-
 
   body[aria-expanded="true"] {
     overflow: hidden;
   }
 }
-

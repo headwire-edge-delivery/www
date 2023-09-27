@@ -85,6 +85,24 @@ function toggleMenu(nav, navSections, forceExpanded = null) {
   }
 }
 
+let prevScrollpos = window.pageYOffset;
+
+window.onscroll = function handleScroll() {
+  const currentScrollPos = window.pageYOffset;
+  const navWrapper = document.querySelector('header .nav-wrapper');
+
+  if (!navWrapper) {
+    return;
+  }
+
+  if (prevScrollpos > currentScrollPos || currentScrollPos <= 0) {
+    navWrapper.style.top = '0';
+  } else {
+    navWrapper.style.top = '-150px';
+  }
+  prevScrollpos = currentScrollPos;
+};
+
 /**
  * decorates the header, mainly the nav
  * @param {Element} block The header block element
