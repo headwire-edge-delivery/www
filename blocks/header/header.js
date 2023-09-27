@@ -95,13 +95,14 @@ window.onscroll = function handleScroll() {
     return;
   }
 
-  if (prevScrollpos > currentScrollPos) {
+  if (prevScrollpos > currentScrollPos || currentScrollPos <= 0) {
     navWrapper.style.top = '0';
   } else {
     navWrapper.style.top = '-150px';
   }
   prevScrollpos = currentScrollPos;
 };
+
 
 /**
  * decorates the header, mainly the nav
