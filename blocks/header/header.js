@@ -91,6 +91,10 @@ window.onscroll = function handleScroll() {
   const currentScrollPos = window.pageYOffset;
   const navWrapper = document.querySelector('header .nav-wrapper');
 
+  if (!navWrapper) {
+    return;
+  }
+
   if (prevScrollpos > currentScrollPos) {
     navWrapper.style.top = '0';
   } else {
