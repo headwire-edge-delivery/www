@@ -10,7 +10,7 @@ import {
   waitForLCP,
   loadBlocks,
   loadCSS,
-  buildBlock, createOptimizedPicture,
+  buildBlock, createOptimizedPicture, toClassName,
 } from './lib-franklin.js';
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
@@ -21,20 +21,21 @@ const AUTHORS = {
   },
 };
 export function createBlogDetails(data) {
+  console.log("\x1b[31m ~ data:", data)
   return `
     <div class="author">
-      ${createOptimizedPicture(`${window.location.origin}${AUTHORS[data.author].image}`, data.author).outerHTML}
+      ${AUTHORS?.[data.author]?.image ? createOptimizedPicture(`${window.location.origin}${AUTHORS[data.author].image}`, data.author).outerHTML : ''}
       <div>
         <div>
             <strong>By ${data.author}</strong>
         </div>
         <div>
-            <div>${AUTHORS[data.author].title}</div>
+            <div>${AUTHORS?.[data.author]?.title || ''}</div>
         </div>
       </div>
     </div>
     <div class="date">${data.publicationDate}</div>
-    <ul class="tags">${data.keywords.split(',').map((keyword) => `<li>${keyword.trim()}</li>`).join('')}</ul>
+    <ul class="tags">${data.keywords.split(',').map((keyword) => `<a href="/blog/categories/${toClassName(keyword)}"><li>${keyword}</li></a>`).join('')}</ul>
    `;
 }
 
