@@ -147,7 +147,7 @@
 
 @media (max-width: 1515px) {
 .cards-container .cards.blog {
-  padding: 0 20px;
+  padding: 0 10px;
  }
 }
 
@@ -165,6 +165,7 @@
   justify-content: center;
   align-items: center;
   display: flex;
+  color: #363F72;
 }
 
 .cards.blog.block .cards.blog .read-icon {

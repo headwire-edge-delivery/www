@@ -59,23 +59,20 @@ body.appear {
 }
 
 .button {
-    display: inline-flex;
-    align-items: center;
-    color: white;
-    border-radius: 7px;
-    padding: 8px 16px;
-    background-color: #363F72;
-    border: 1px solid #363F72;
-    font-weight: bold;
-    text-transform: uppercase;
-    text-decoration: none;
-    transition: border-color 0.3s, background-color 0.3s;
-    width: auto;
+  margin-top: 15px;
+  display: inline-flex;
+  align-items: center;
+  color: #363F72; 
+  border-radius: 7px;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: transform 0.3s, color 0.3s;
+  width: auto;
 }
 
 .button:hover {
-    background-color: rgb(34 34 34);
-    border-color: rgb(34 34 34);
+  transform: translateY(-3px); 
 }
 
 .tags {
@@ -88,11 +85,11 @@ body.appear {
 }
 
 .tags li {
-    padding: 4px 8px;
-    border: 1px solid #363F72;
-    font-weight: bold;
-    color: #363F72;
-    border-radius: 5px;
+  background-color: #fee2f7;
+  padding: 5px 10px;
+  border-radius: 7px;
+  color: #C11574;
+  font-weight: bolder;
 }
 
 .author {
