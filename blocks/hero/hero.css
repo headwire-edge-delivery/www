@@ -127,6 +127,7 @@
 /* blog hero styling */
 .hero.blog.block {
   background-color:#004990;
+  height: 650px;
 }
 
 .hero.blog.block .hero-blog-wrapper {
@@ -138,7 +139,7 @@
   justify-content: center;
   gap: 30px;
   align-items: center;
-  margin-bottom: 50px;
+  margin-bottom: 170px;
 }
 
 .hero .image-wrapper img {
@@ -213,7 +214,6 @@
 .hero.blog.block .details button:hover .read-icon {
   transform: translateY(-19px);
 }
-
 
 
 @media (max-width: 1150px) {
