@@ -29,7 +29,7 @@ header nav .nav-sections ul > li a {
   padding: 0 20px;
   display: block;
   border-radius: 15px;
-  color: rgb(43 67 100);
+  color: var(--color-dark-blue);
   font-weight: bold;
   text-decoration: none;
 }
@@ -94,17 +94,22 @@ header nav .nav-hamburger button {
   height: 32px;
   margin: 0;
   border: 0;
-  border: 1px solid #ccc;
+  border: 1px solid var(--color-dark-blue);
   border-radius: 4px;
   padding: 8px;
-  background-color: transparent;
   color: inherit;
   overflow: initial;
   text-overflow: initial;
   white-space: initial;
+  cursor: pointer;
+  transition: all .3s;
+  box-shadow: 0 0 3px 1px var(--color-dark-blue);
+  background-color: #fff;
 }
 
 header nav[aria-expanded="true"] .nav-hamburger button {
+  padding: 5px 8px;
+  box-shadow: none;
   border: none;
 }
 
@@ -115,14 +120,15 @@ header nav .nav-hamburger-icon::after {
   display: block;
   position: relative;
   width: 20px;
-  box-shadow: 0 0 1px rgb(0 0 0);
+  transition-duration: .3s;
+  transition-property: top, left, transform;
 }
 
 header nav .nav-hamburger-icon::before,
 header nav .nav-hamburger-icon::after {
   content: "";
   position: absolute;
-  background: currentcolor;
+  background: var(--color-dark-blue);
 }
 
 header nav[aria-expanded="true"] .nav-hamburger-icon::before,
@@ -136,7 +142,7 @@ header nav[aria-expanded="false"] .nav-hamburger-icon::before,
 header nav[aria-expanded="false"] .nav-hamburger-icon::after {
   height: 2px;
   border-radius: 2px;
-  background: currentcolor;
+  background: var(--color-dark-blue);
 }
 
 header nav[aria-expanded="false"] .nav-hamburger-icon::before {
