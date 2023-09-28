@@ -14,6 +14,10 @@ header .nav-wrapper {
   transition: top 0.3s ease-in-out;
 }
 
+header .nav-wrapper:has(nav[aria-expanded="true"]) {
+  pointer-events: all;
+}
+
 header nav a,
 header .nav-hamburger button {
   pointer-events: auto;
