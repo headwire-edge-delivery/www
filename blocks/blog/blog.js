@@ -44,15 +44,17 @@ export default async function decorate(block) {
     `;
 
     const template = `<div class="blog-main">
-            <div class="details">
-                ${blogDetails}
-                ${shareTemplate}
+            <div class="details-container">
+              <div class="details">
+                  ${blogDetails}
+                  ${shareTemplate}
+              </div>
             </div>
             <div class="content-container">
               ${toc}
               <div class="content">
                 <a class="button contact" href="/contact-us">Contact us</a>
-                <div class="details">
+                <div class="details hide">
                     ${blogDetails}
                     ${shareTemplate}
                 </div>

@@ -50,9 +50,6 @@ export default async function decorate(block) {
         imageWrapper.className = 'image-wrapper';
         imageWrapper.append(image);
 
-        const subTitle = document.createElement('h2');
-        subTitle.textContent = 'Our Latest Article';
-
         const title = document.createElement('h1');
         title.textContent = heroData.title;
 
@@ -77,7 +74,7 @@ export default async function decorate(block) {
         link.href = heroData.path;
 
         const readIcon = document.createElement('img');
-        readIcon.src = '../../icons/arrow-up-right.svg';
+        readIcon.src = '../../icons/arrow-up-right-white.svg';
         readIcon.alt = 'Read Icon';
         readIcon.className = 'read-icon';
 
@@ -88,7 +85,7 @@ export default async function decorate(block) {
 
         const contentWrapper = document.createElement('div');
         contentWrapper.className = 'content-wrapper';
-        contentWrapper.append(subTitle, heroAuthorDate, title, description, details);
+        contentWrapper.append(heroAuthorDate, title, description, details);
 
         const flexParent = document.createElement('div');
         flexParent.className = 'hero-blog-wrapper';

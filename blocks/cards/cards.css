@@ -55,9 +55,9 @@
 }
 
 .blog-card .blog-card-tags li {
-  background-color: #fee2f7;
+  background-color: #f89728;
   padding: 5px 10px;
-  color: #C11574;
+  color: #FFF;
   border-radius: 7px;
 }
 
@@ -157,7 +157,7 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  margin-bottom: 180px;
+  margin-bottom: 80px;
 }
 
 .cards.blog.block h2 {
@@ -166,6 +166,7 @@
   align-items: center;
   display: flex;
   color: #363F72;
+  margin-bottom: 40px;
 }
 
 .cards.blog.block .cards.blog .read-icon {

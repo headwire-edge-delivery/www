@@ -59,10 +59,10 @@ body.appear {
 }
 
 .button {
-  margin-top: 15px;
+  margin-top: 35px;
   display: inline-flex;
   align-items: center;
-  color: #363F72; 
+  color: #fff; 
   border-radius: 7px;
   font-weight: bold;
   text-transform: uppercase;
@@ -75,6 +75,14 @@ body.appear {
   transform: translateY(-3px); 
 }
 
+.button .read-icon {
+  transition: transform 0.3s; 
+}
+
+.button:hover .read-icon {
+  transform: translateY(-9px); 
+}
+
 .tags {
     display: flex;
     flex-wrap: wrap;
@@ -85,10 +93,10 @@ body.appear {
 }
 
 .tags li {
-  background-color: #fee2f7;
+  background-color: #f89728;
   padding: 5px 10px;
   border-radius: 7px;
-  color: #C11574;
+  color: #fFF;
   font-weight: bolder;
 }
 
