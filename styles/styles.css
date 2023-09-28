@@ -35,6 +35,8 @@
 :root {
   --font-family: raleway, "raleway fallback", -apple-system, blinkmacsystemfont, "Segoe UI", roboto, "Helvetica Neue", arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --nav-height: 64px;
+  --color-dark-blue: rgb(43 67 100);
+  --color-light-blue: rgb(54 90 139);
 }
 
 html, body {
