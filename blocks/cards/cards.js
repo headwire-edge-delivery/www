@@ -49,7 +49,6 @@ function blogFilter(blogData, isBlogCategory) {
 export default async function decorate(block) {
   const isBlog = block.classList.contains('blog');
   const isBlogCategory = block.classList.contains('blog-category')
-  console.log("\x1b[31m ~ isBlogCategory:", isBlogCategory)
   
   if (isBlog) {
     let blogData = [];

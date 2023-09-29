@@ -10,7 +10,7 @@ import {
   waitForLCP,
   loadBlocks,
   loadCSS,
-  buildBlock, createOptimizedPicture, toClassName,
+  buildBlock, createOptimizedPicture, toClassName, getMetadata,
 } from './lib-franklin.js';
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
@@ -21,7 +21,6 @@ const AUTHORS = {
   },
 };
 export function createBlogDetails(data) {
-  console.log("\x1b[31m ~ data:", data)
   return `
     <div class="author">
       ${AUTHORS?.[data.author]?.image ? createOptimizedPicture(`${window.location.origin}${AUTHORS[data.author].image}`, data.author).outerHTML : ''}
@@ -83,7 +82,9 @@ function buildHeroBlock(main) {
  */
 function buildAutoBlocks(main) {
   try {
-    buildHeroBlock(main);
+    if (!document.querySelector('main.error')) {
+      buildHeroBlock(main);
+    }
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);
@@ -118,8 +119,13 @@ async function loadEager(doc) {
     document.body.classList.add('page');
   }
 
-  if (window.location.pathname.startsWith('/blog/')) {
-    document.querySelector('main div').append(buildBlock('blog', { elems: [] }));
+  const template = getMetadata('template')
+  if (template) {
+    document.querySelector('main div').append(buildBlock(toClassName(template), { elems: [] }))
+  } else {
+    if (window.location.pathname.startsWith('/blog/') && !doc.querySelector('main.error')) {
+      document.querySelector('main div').append(buildBlock('blog', { elems: [] }));
+    }
   }
 
   document.documentElement.lang = 'en';
