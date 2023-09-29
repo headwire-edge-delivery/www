@@ -85,10 +85,10 @@ function toggleMenu(nav, navSections, forceExpanded = null) {
   }
 }
 
-let prevScrollpos = window.pageYOffset;
+let prevScrollpos = document.body.scrollTop;
 
-window.onscroll = function handleScroll() {
-  const currentScrollPos = window.pageYOffset;
+document.body.addEventListener('scroll', () => {
+  const currentScrollPos = document.body.scrollTop;
   const navWrapper = document.querySelector('header .nav-wrapper');
 
   if (!navWrapper) {
@@ -96,12 +96,14 @@ window.onscroll = function handleScroll() {
   }
 
   if (prevScrollpos > currentScrollPos || currentScrollPos <= 0) {
-    navWrapper.style.top = '0';
+    navWrapper.classList.remove('hide');
+    navWrapper.classList.add('show');
   } else {
-    navWrapper.style.top = '-150px';
+    navWrapper.classList.remove('show');
+    navWrapper.classList.add('hide');
   }
   prevScrollpos = currentScrollPos;
-};
+});
 
 /**
  * decorates the header, mainly the nav
