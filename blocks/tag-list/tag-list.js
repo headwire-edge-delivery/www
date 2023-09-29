@@ -1,3 +1,5 @@
+import { createTagList } from '../../scripts/scripts.js';
+
 export default async function decorate(block) {
   block.innerHTML = '';
   const response = await fetch('/query-index.json');
@@ -5,7 +7,7 @@ export default async function decorate(block) {
 
   // match paths that start with "/blog/categories/" and have at least one extra character
   // so that the index page will not appear
-  const tagList = data.data.filter((item) => item.path.match(/^\/blog\/categories\/./g));
+  const tagList = createTagList(data);
 
   const title = document.createElement('h1');
   title.className = 'categories-title';

@@ -186,3 +186,10 @@ async function loadPage() {
 }
 
 loadPage();
+
+/**
+ * Generates a list of tag-blog-pages from a query-index request.
+ */
+export function createTagList(queryIndexData) {
+  return queryIndexData.data.filter((item) => item.path.match(/^\/blog\/categories\/./g));
+}

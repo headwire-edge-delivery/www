@@ -1,4 +1,5 @@
 import { getMetadata, decorateIcons } from '../../scripts/lib-franklin.js';
+import { createTagList } from '../../scripts/scripts.js';
 
 // media query match that indicates mobile/tablet width
 const isDesktop = window.matchMedia('(min-width: 900px)');
@@ -53,6 +54,9 @@ function toggleAllNavSections(sections, expanded = false) {
  * @param {*} forceExpanded Optional param to force nav expand behavior when not null
  */
 function toggleMenu(nav, navSections, forceExpanded = null) {
+  if (!nav || !navSections) {
+    return;
+  }
   const expanded = forceExpanded !== null ? !forceExpanded : nav.getAttribute('aria-expanded') === 'true';
   const button = nav.querySelector('.nav-hamburger button');
 
@@ -111,15 +115,14 @@ export default async function decorate(block) {
   // fetch nav content
   const navMeta = getMetadata('nav');
   const navPath = navMeta ? new URL(navMeta).pathname : '/nav';
-  const resp = await fetch(`${navPath}.plain.html`);
 
-  if (resp.ok) {
-    const html = await resp.text();
+  const [navHtml, queryData] = await Promise.allSettled([(await fetch(`${navPath}.plain.html`)).text(), (await fetch('/query-index.json')).json()]);
 
+  if (navHtml) {
     // decorate nav DOM
     const nav = document.createElement('nav');
     nav.id = 'nav';
-    nav.innerHTML = html;
+    nav.innerHTML = navHtml.value;
 
     const classes = ['brand', 'sections', 'tools'];
     classes.forEach((c, i) => {
@@ -143,7 +146,37 @@ export default async function decorate(block) {
       const allLinks = nav.querySelectorAll('a');
       allLinks.forEach((link) => {
         if (link.textContent === 'Blog') {
-          link.href = '/blog';
+          const blogButton = document.createElement('button');
+          blogButton.className = 'blog-link';
+          const tagMenu = document.createElement('div');
+          blogButton.textContent = 'Blog';
+          tagMenu.className = 'tag-menu';
+          blogButton.onclick = (e) => {
+            e.target.classList.toggle('open');
+          };
+          isDesktop.addEventListener('change', () => blogButton.classList.remove('open'));
+
+          const tagList = createTagList(queryData.value);
+          const tagListElement = document.createElement('ul');
+          tagListElement.className = 'tag-list';
+          tagListElement.innerHTML = `<li class="tag-list-item">
+              <a href="/blog">
+                All Blogs
+              </a>
+            </li>`;
+
+          tagList.forEach((tag) => {
+            tagListElement.innerHTML += `
+            <li class="tag-list-item">
+              <a href="${tag.path}">
+                ${tag.description.includes(' Blog Articles') ? tag.description.split(' Blog Articles')[0] : tag.path.replace('/blog/categories/', '').toUpperCase()}
+              </a>
+            </li>
+            `;
+          });
+          tagMenu.append(tagListElement);
+          blogButton.append(tagMenu);
+          link.replaceWith(blogButton);
         }
       });
     }

@@ -28,20 +28,6 @@ header .nav-brand a {
   line-height: 1.5em;
 }
 
-header nav .nav-sections ul > li a {
-  transition: background-color 0.3s, color 0.3s, font-family 0.3s;
-  padding: 0 20px;
-  display: block;
-  border-radius: 15px;
-  color: var(--color-dark-blue);
-  font-weight: bold;
-  text-decoration: none;
-}
-
-header nav .nav-sections ul > li a:hover {
-  text-decoration: underline;
-}
-
 header nav .nav-sections ul > li {
   display: inline-block;
   border-radius: 15px;
@@ -109,6 +95,71 @@ header nav .nav-hamburger button {
   transition: all .3s;
   box-shadow: 0 0 3px 1px var(--color-dark-blue);
   background-color: #fff;
+}
+
+header nav .nav-sections ul > li button,
+header nav .nav-sections ul > li a {
+  transition: background-color 0.3s, color 0.3s, font-family 0.3s;
+  padding: 0 20px;
+  display: block;
+  border-radius: 15px;
+  color: var(--color-dark-blue);
+  font-weight: bold;
+  text-decoration: none;
+}
+
+header nav .nav-sections ul > li a:hover {
+  text-decoration: underline;
+}
+
+header nav .nav-sections ul > li button {
+  display: flex;
+  align-items: center;
+  border: none;
+  background: none;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+}
+
+header nav .nav-sections ul > li button::after {
+  content: "";
+  top: 2px;
+  right: 0;
+  position: absolute;
+  display: block;
+  width: 16px;
+  height: 16px;
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='none' stroke='%232b4364' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/></svg>");
+  transform: rotate(180deg);
+  transition: transform .3s;
+}
+
+header nav .nav-sections ul > li button.open::after {
+  transform: rotate(0deg);
+}
+
+header nav .nav-sections ul > li button .tag-menu {
+  border: none;
+  background: none;
+  position: absolute;
+  visibility: collapse;
+  opacity: 0;
+  top: 140px;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: all .3s;
+}
+
+header nav .nav-sections ul > li button.open .tag-menu {
+  top: 40px;
+  visibility: visible;
+  opacity: 1;
+}
+
+header nav .nav-sections ul > li button .tag-menu .tag-list {
+  display: flex;
+  flex-direction: column;
 }
 
 header nav[aria-expanded="true"] .nav-hamburger button {
@@ -223,6 +274,8 @@ header nav .nav-tools {
   grid-area: tools;
 }
 
+
+
 @media (min-width: 900px) {
   header nav .nav-hamburger {
     display: none;
@@ -307,6 +360,41 @@ header nav .nav-tools {
 }
 
 @media (max-width: 900px) {
+  header nav .nav-sections ul > li button {
+    height: 45px;
+    width: 100%;
+    position: relative;
+  }
+
+  header nav .nav-sections ul > li button::after {
+    top: 14.5px;
+    right: 15px;
+    transform: rotate(90deg);
+    transition: transform .3s;
+  }
+  
+  header nav .nav-sections ul > li button.open::after {
+    transform: rotate(270deg);
+  }
+
+  header nav .nav-sections ul.tag-list  > li {
+    height: 45px;
+    display: flex;
+    align-items: center;
+  }
+
+  
+  header nav .nav-sections ul > li button .tag-menu {
+    top: -10px;
+    left: unset;
+    right: -450px;
+  }
+
+  header nav .nav-sections ul > li button.open .tag-menu {
+    top: -10px;
+    right: -320px;
+  }
+  
   header nav[aria-expanded="true"] {
     width: 100vw;
     height: 100vh;
