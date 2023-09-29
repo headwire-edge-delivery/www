@@ -1,7 +1,6 @@
 .tag-list-wrapper .tag-list.block {
   box-sizing: border-box;
-  padding: 250px 0 100px 0;
-  background-color: var(--color-logo-blue);
+  padding: 250px 0 100px;
   background: linear-gradient(180deg, var(--color-logo-blue) 130px, #fff 220px);
 }
 

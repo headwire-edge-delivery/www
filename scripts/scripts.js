@@ -119,13 +119,11 @@ async function loadEager(doc) {
     document.body.classList.add('page');
   }
 
-  const template = getMetadata('template')
+  const template = getMetadata('template');
   if (template) {
-    document.querySelector('main div').append(buildBlock(toClassName(template), { elems: [] }))
-  } else {
-    if (window.location.pathname.startsWith('/blog/') && !doc.querySelector('main.error')) {
-      document.querySelector('main div').append(buildBlock('blog', { elems: [] }));
-    }
+    document.querySelector('main div').append(buildBlock(toClassName(template), { elems: [] }));
+  } else if (window.location.pathname.startsWith('/blog/') && !doc.querySelector('main.error')) {
+    document.querySelector('main div').append(buildBlock('blog', { elems: [] }));
   }
 
   document.documentElement.lang = 'en';
