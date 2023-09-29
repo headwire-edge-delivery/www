@@ -22,10 +22,6 @@ header .nav-wrapper.hide:focus-within {
   top: 0;
 }
 
-header .nav-wrapper:has(nav[aria-expanded="true"]) {
-  pointer-events: all;
-}
-
 header nav a,
 header .nav-hamburger button {
   pointer-events: auto;
@@ -328,14 +324,18 @@ header nav .nav-tools {
     overflow: visible;
   }
 
+  header .nav-wrapper {
+    margin-top: 0;
+  }
+
+  header .nav-wrapper:has(nav[aria-expanded="true"]) {
+    pointer-events: all;
+  }
+
   header nav .nav-brand {
     position: absolute;
     top: 20px;
     left: 20px;
-  }
-
-  header .nav-wrapper {
-    margin-top: 0;
   }
 
   header nav[aria-expanded="true"] .nav-sections ul {

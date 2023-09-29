@@ -85,10 +85,10 @@ function toggleMenu(nav, navSections, forceExpanded = null) {
   }
 }
 
-let prevScrollpos = window.pageYOffset;
+let prevScrollpos = document.body.scrollTop;
 
-window.onscroll = function handleScroll() {
-  const currentScrollPos = window.pageYOffset;
+document.body.addEventListener('scroll', () => {
+  const currentScrollPos = document.body.scrollTop;
   const navWrapper = document.querySelector('header .nav-wrapper');
 
   if (!navWrapper) {
@@ -103,7 +103,7 @@ window.onscroll = function handleScroll() {
     navWrapper.classList.add('hide');
   }
   prevScrollpos = currentScrollPos;
-};
+});
 
 /**
  * decorates the header, mainly the nav
