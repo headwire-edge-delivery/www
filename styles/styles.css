@@ -37,6 +37,15 @@
   --nav-height: 64px;
   --color-dark-gray: rgb(34 34 34);
   --color-logo-blue: rgb(0 73 144);
+  --color-dark-blue: rgb(43 67 100);
+  --color-light-blue: rgb(54 90 139);
+}
+
+/* disabling scroll on html in favor of 
+having it on the body, so scrolling can be blocked
+by the mobile nav menu. */
+html {
+  overflow: hidden;
 }
 
 html, body {
@@ -48,6 +57,7 @@ body {
   margin: 0;
   font-family: var(--font-family);
   overflow-x: hidden;
+  overflow-y: auto;
   box-sizing: border-box;
   display: none;
   flex-direction: column;

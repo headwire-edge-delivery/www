@@ -29,14 +29,14 @@
 }
 
 .cards.light.block {
-  background-color: rgb(54 90 139);
+  background-color: var(--color-light-blue);
   padding: 40px;
   display: flex;
   justify-content: center;
 }
 
 .cards.light.block ul > li  {
-  background: 50% 50% / cover no-repeat rgb(54 90 139);
+  background: 50% 50% / cover no-repeat var(--color-light-blue);
   border: none;
   color: #fff;
   text-align: center;
@@ -52,7 +52,7 @@
 /* Cards Dark */
 
 .cards.dark.block {
-  background-color: rgb(43 67 100);
+  background-color: var(--color-dark-blue);
   padding: 40px;
   display: flex;
   justify-content: center;
@@ -60,7 +60,7 @@
 }
 
 .cards.dark.block ul > li  {
-  background: 50% 50% / cover no-repeat rgb(43 67 100);
+  background: 50% 50% / cover no-repeat var(--color-dark-blue);
   border: none;
   color: #fff;
   text-align: center;
@@ -116,7 +116,7 @@
 /* TODO Revisit naming of classes ... */
 .blog.cards {
   padding: 36px;
-  background-color: rgb(54 90 139);
+  background-color: var(--color-light-blue);
 }
 
 .blog.cards > h2 {
