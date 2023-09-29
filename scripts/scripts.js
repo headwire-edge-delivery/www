@@ -34,7 +34,7 @@ export function createBlogDetails(data) {
       </div>
     </div>
     <div class="date">${data.publicationDate}</div>
-    <ul class="tags">${data.keywords.split(',').map((keyword) => `<a href="/blog/categories/${toClassName(keyword)}"><li>${keyword}</li></a>`).join('')}</ul>
+    <ul class="tags">${data.keywords.split(',').map((keyword) => `<li><a href="/blog/categories/${toClassName(keyword)}">${keyword}</a></li>`).join('')}</ul>
    `;
 }
 

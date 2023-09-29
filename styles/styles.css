@@ -73,6 +73,10 @@ body.appear {
   box-sizing: border-box;
 }
 
+a {
+  color: inherit;
+}
+
 .button {
     display: inline-flex;
     align-items: center;

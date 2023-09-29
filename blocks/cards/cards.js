@@ -24,7 +24,7 @@ function generateBlogCard(blogData) {
             <strong>By ${blogData.author}</strong>
             <span>${blogData.publicationDate}</span>
           </div>
-          ${keywordsArray.length ? `<ul class="tags">${keywordsArray.map((keyword) => `<a href="/blog/categories/${toClassName(keyword)}"><li>${keyword}</li></a>`).join('')}</ul>` : ''}
+          ${keywordsArray.length ? `<ul class="tags">${keywordsArray.map((keyword) => `<li><a href="/blog/categories/${toClassName(keyword)}">${keyword}</a></li>`).join('')}</ul>` : ''}
       </div>
       <a href="${blogData.path}" class="button">Read Post</a>
   </li>
