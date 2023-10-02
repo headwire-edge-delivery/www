@@ -32,33 +32,6 @@ header .nav-brand a {
   line-height: 1.5em;
 }
 
-header nav .nav-sections ul > li a {
-  transition: background-color 0.3s, color 0.3s, font-family 0.3s;
-  padding: 0 20px;
-  display: block;
-  border-radius: 15px;
-  color: var(--color-dark-blue);
-  font-weight: bold;
-  text-decoration: none;
-}
-
-header nav .nav-sections ul > li a:hover {
-  text-decoration: underline;
-}
-
-header nav .nav-sections ul > li {
-  display: inline-block;
-  border-radius: 15px;
-  margin: 0 2px;
-}
-
-header nav .nav-sections ul {
-  box-shadow: 0 0 10px rgba(30 30 30 / 30%);
-  border-radius: 25px;
-  background-color: #fff;
-  padding: 0;
-}
-
 header nav {
   box-sizing: border-box;
   display: grid;
@@ -113,6 +86,73 @@ header nav .nav-hamburger button {
   transition: all .3s;
   box-shadow: 0 0 3px 1px var(--color-dark-blue);
   background-color: #fff;
+}
+
+header nav .nav-sections ul > li button,
+header nav .nav-sections ul > li a {
+  transition: background-color 0.3s, color 0.3s, font-family 0.3s;
+  padding: 0 20px;
+  display: block;
+  border-radius: 15px;
+  color: var(--color-dark-blue);
+  font-weight: bold;
+  text-decoration: none;
+}
+
+header nav .nav-sections .blog-link-wrapper {
+  position: absolute;
+  top: 0;
+  visibility: collapse;
+  opacity: 0;
+  left: 200px;
+  transition: all .3s;
+}
+
+header nav .nav-sections .blog-link-wrapper.open {
+  visibility: visible;
+  opacity: 1;
+  left: 0;
+}
+
+header nav .nav-sections ul > li a:hover {
+  text-decoration: underline;
+}
+
+header nav .nav-sections ul > li button {
+  display: flex;
+  align-items: center;
+  border: none;
+  background: none;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  position: relative;
+}
+
+header nav .nav-sections ul > li button::after {
+  content: "";
+  top: 2px;
+  right: 0;
+  position: absolute;
+  display: block;
+  width: 16px;
+  height: 16px;
+  background-image: var(--arrow-svg);
+  transform: rotate(180deg);
+  transition: transform .3s;
+}
+
+header nav .nav-sections ul > li button.open::after {
+  transform: rotate(0deg);
+}
+
+header nav .nav-sections .blog-link-wrapper .mobile-back-button {
+  pointer-events: all;
+}
+
+header nav .nav-sections .blog-link-wrapper .mobile-back-button::after {
+  right: unset;
+  left: 15px;
 }
 
 header nav[aria-expanded="true"] .nav-hamburger button {
@@ -202,6 +242,7 @@ header nav .nav-sections {
   flex: 1 1 auto;
   display: none;
   visibility: hidden;
+  position: relative;
 }
 
 header nav[aria-expanded="true"] .nav-sections {
@@ -210,12 +251,39 @@ header nav[aria-expanded="true"] .nav-sections {
   align-self: start;
 }
 
+header nav .nav-sections ul {
+  box-shadow: 0 0 10px rgba(30 30 30 / 30%);
+  border-radius: 25px;
+  background-color: #fff;
+  padding: 0;
+  width: 200px;
+  transition: all .3s;
+  pointer-events: all;
+}
+
 header nav .nav-sections ul > li > ul {
   margin-top: 0;
 }
 
+header nav .nav-sections ul > li {
+  display: inline-block;
+  border-radius: 15px;
+  margin: 0 2px;
+}
+
 header nav .nav-sections ul > li > ul > li {
   font-weight: normal;
+}
+
+header nav .nav-sections .blog-link-wrapper ul {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  height: calc(100vh - 230px);
+}
+
+header nav .nav-sections:has(.blog-link-wrapper.open) > ul {
+  transform: translateX(-120%);
 }
 
 header .icon-search {
@@ -227,7 +295,40 @@ header nav .nav-tools {
   grid-area: tools;
 }
 
+
+
 @media (min-width: 900px) {
+  header nav .nav-sections ul > li button::after {
+    transform: rotate(0deg);
+  }
+
+  header nav .nav-sections ul > li[aria-expanded="true"] button::after {
+    transform: rotate(180deg);
+  }
+
+  header nav .nav-sections .blog-link-wrapper {
+    top: 95px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  header nav .nav-sections .blog-link-wrapper.open {
+    top: 45px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  header nav .nav-sections .blog-link-wrapper .tag-list {
+    height: auto;
+    padding: .6em 1em;
+  }
+
+  header nav .nav-sections .blog-link-wrapper .tag-list-item:has(.mobile-back-button){
+    display: none;
+  }
+
   header nav .nav-hamburger {
     display: none;
     visibility: hidden;
@@ -275,6 +376,7 @@ header nav .nav-tools {
   }
 
   header nav .nav-sections ul {
+    width: auto;
     display: flex;
     gap: 1.5em;
     margin: 0;
@@ -305,12 +407,28 @@ header nav .nav-tools {
     border-radius: 5px;
   }
 
+  header nav .nav-sections:has(.blog-link-wrapper.open) > ul {
+    transform: translateX(0%);
+  }
+
   header nav .nav-sections > ul > li > ul > li {
     padding: 8px 0;
   }
 }
 
 @media (max-width: 900px) {
+  header nav .nav-sections ul > li button {
+    height: 45px;
+    width: 100%;
+  }
+
+  header nav .nav-sections ul > li button::after {
+    top: 14.5px;
+    right: 15px;
+    transform: rotate(90deg);
+    transition: transform .3s;
+  }
+  
   header nav[aria-expanded="true"] {
     width: 100vw;
     height: 100vh;
@@ -343,11 +461,16 @@ header nav .nav-tools {
     box-shadow: none;
     background-color: transparent;
     margin-left: 20px;
+    width: calc(100vw - 40px);
+  }
+
+  header nav .nav-sections:has(.blog-link-wrapper.open) > ul {
+    visibility: collapse;
   }
 
   header nav[aria-expanded="true"] .nav-sections ul li {
     background-color: white;
-    width: 200px;
+    width: calc(100vw - 40px);
     font-size: 1.2rem;
     margin: 10px 0;
     border-radius: 50px;

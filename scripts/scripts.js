@@ -10,7 +10,7 @@ import {
   waitForLCP,
   loadBlocks,
   loadCSS,
-  buildBlock, createOptimizedPicture,
+  buildBlock, createOptimizedPicture, toClassName, getMetadata,
 } from './lib-franklin.js';
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
@@ -23,18 +23,18 @@ const AUTHORS = {
 export function createBlogDetails(data) {
   return `
     <div class="author">
-      ${createOptimizedPicture(`${window.location.origin}${AUTHORS[data.author].image}`, data.author).outerHTML}
+      ${AUTHORS?.[data.author]?.image ? createOptimizedPicture(`${window.location.origin}${AUTHORS[data.author].image}`, data.author).outerHTML : ''}
       <div>
         <div>
             <strong>By ${data.author}</strong>
         </div>
         <div>
-            <div>${AUTHORS[data.author].title}</div>
+            <div>${AUTHORS?.[data.author]?.title || ''}</div>
         </div>
       </div>
     </div>
     <div class="date">${data.publicationDate}</div>
-    <ul class="tags">${data.keywords.split(',').map((keyword) => `<li>${keyword.trim()}</li>`).join('')}</ul>
+    <ul class="tags">${data.keywords.split(',').map((keyword) => `<li><a href="/blog/categories/${toClassName(keyword)}">${keyword}</a></li>`).join('')}</ul>
    `;
 }
 
@@ -82,7 +82,9 @@ function buildHeroBlock(main) {
  */
 function buildAutoBlocks(main) {
   try {
-    buildHeroBlock(main);
+    if (!document.querySelector('main.error')) {
+      buildHeroBlock(main);
+    }
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);
@@ -117,7 +119,10 @@ async function loadEager(doc) {
     document.body.classList.add('page');
   }
 
-  if (window.location.pathname.startsWith('/blog/')) {
+  const template = getMetadata('template');
+  if (template) {
+    document.querySelector('main div').append(buildBlock(toClassName(template), { elems: [] }));
+  } else if (window.location.pathname.startsWith('/blog/') && !doc.querySelector('main.error')) {
     document.querySelector('main div').append(buildBlock('blog', { elems: [] }));
   }
 
@@ -181,3 +186,10 @@ async function loadPage() {
 }
 
 loadPage();
+
+/**
+ * Generates a list of tag-blog-pages from a query-index request.
+ */
+export function createTagList(queryIndexData) {
+  return queryIndexData.data.filter((item) => item.path.match(/^\/blog\/categories\/./g));
+}

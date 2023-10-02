@@ -1,4 +1,5 @@
 import { getMetadata, decorateIcons } from '../../scripts/lib-franklin.js';
+import { createTagList } from '../../scripts/scripts.js';
 
 // media query match that indicates mobile/tablet width
 const isDesktop = window.matchMedia('(min-width: 900px)');
@@ -53,6 +54,9 @@ function toggleAllNavSections(sections, expanded = false) {
  * @param {*} forceExpanded Optional param to force nav expand behavior when not null
  */
 function toggleMenu(nav, navSections, forceExpanded = null) {
+  if (!nav || !navSections) {
+    return;
+  }
   const expanded = forceExpanded !== null ? !forceExpanded : nav.getAttribute('aria-expanded') === 'true';
   const button = nav.querySelector('.nav-hamburger button');
 
@@ -82,6 +86,7 @@ function toggleMenu(nav, navSections, forceExpanded = null) {
     window.addEventListener('keydown', closeOnEscape);
   } else {
     window.removeEventListener('keydown', closeOnEscape);
+    navSections.querySelector('.blog-link-wrapper')?.classList?.remove('open');
   }
 }
 
@@ -97,10 +102,15 @@ document.body.addEventListener('scroll', () => {
 
   if (prevScrollpos > currentScrollPos || currentScrollPos <= 0) {
     navWrapper.classList.remove('hide');
-    navWrapper.classList.add('show');
   } else {
-    navWrapper.classList.remove('show');
     navWrapper.classList.add('hide');
+    const blogLinkWrapper = navWrapper.querySelector('.blog-link-wrapper:not(:focus-within)');
+    if (blogLinkWrapper?.classList?.contains('open')) {
+      blogLinkWrapper.classList.remove('open');
+      document.activeElement.blur();
+      const expandedItems = navWrapper.querySelectorAll('li[aria-expanded="true"]');
+      expandedItems.forEach((item) => item.setAttribute('aria-expanded', 'false'));
+    }
   }
   prevScrollpos = currentScrollPos;
 });
@@ -113,15 +123,14 @@ export default async function decorate(block) {
   // fetch nav content
   const navMeta = getMetadata('nav');
   const navPath = navMeta ? new URL(navMeta).pathname : '/nav';
-  const resp = await fetch(`${navPath}.plain.html`);
 
-  if (resp.ok) {
-    const html = await resp.text();
+  const [navHtml, queryData] = await Promise.allSettled([(await fetch(`${navPath}.plain.html`)).text(), (await fetch('/query-index.json')).json()]);
 
+  if (navHtml) {
     // decorate nav DOM
     const nav = document.createElement('nav');
     nav.id = 'nav';
-    nav.innerHTML = html;
+    nav.innerHTML = navHtml.value;
 
     const classes = ['brand', 'sections', 'tools'];
     classes.forEach((c, i) => {
@@ -145,7 +154,56 @@ export default async function decorate(block) {
       const allLinks = nav.querySelectorAll('a');
       allLinks.forEach((link) => {
         if (link.textContent === 'Blog') {
-          link.href = '/blog';
+          const blogTagWrapper = document.createElement('div');
+          blogTagWrapper.className = 'blog-link-wrapper';
+
+          const blogButton = document.createElement('button');
+          blogButton.className = 'blog-link';
+
+          const tagMenu = document.createElement('div');
+          blogButton.textContent = 'Blog';
+          tagMenu.className = 'tag-menu';
+          blogButton.onclick = () => {
+            blogTagWrapper.classList.toggle('open');
+          };
+          isDesktop.addEventListener('change', () => blogTagWrapper.classList.remove('open'));
+
+          const tagList = createTagList(queryData.value);
+          const tagListElement = document.createElement('ul');
+          tagListElement.className = 'tag-list';
+          tagListElement.innerHTML = `<li class="tag-list-item">
+              <a href="/blog">
+                All Blogs
+              </a>
+            </li>`;
+          const mobileBackButtonWrapper = document.createElement('li');
+          mobileBackButtonWrapper.className = 'tag-list-item';
+          const mobileBackButton = document.createElement('button');
+          mobileBackButton.className = 'mobile-back-button';
+
+          // click listener doesn't function if it is set here without waiting first.
+          window.requestAnimationFrame(() => {
+            document.querySelector('.mobile-back-button').onclick = () => {
+              blogTagWrapper.classList.remove('open');
+            };
+          });
+
+          mobileBackButtonWrapper.prepend(mobileBackButton);
+          tagListElement.prepend(mobileBackButtonWrapper);
+
+          tagList.forEach((tag) => {
+            tagListElement.innerHTML += `
+            <li class="tag-list-item">
+              <a href="${tag.path}">
+                ${tag.description.includes(' Blog Articles') ? tag.description.split(' Blog Articles')[0] : tag.path.replace('/blog/categories/', '').toUpperCase()}
+              </a>
+            </li>
+            `;
+          });
+          tagMenu.append(tagListElement);
+          blogTagWrapper.append(tagMenu);
+          navSections.append(blogTagWrapper);
+          link.replaceWith(blogButton);
         }
       });
     }

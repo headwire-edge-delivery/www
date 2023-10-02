@@ -1,5 +1,5 @@
 import {
-  buildBlock, createOptimizedPicture, decorateBlock, loadBlock,
+  buildBlock, createOptimizedPicture, decorateBlock, loadBlock, toClassName,
 } from '../../scripts/lib-franklin.js';
 import { createBlogDetails } from '../../scripts/scripts.js';
 
@@ -24,15 +24,31 @@ function generateBlogCard(blogData) {
             <strong>By ${blogData.author}</strong>
             <span>${blogData.publicationDate}</span>
           </div>
-          ${keywordsArray.length ? `<ul class="tags">${keywordsArray.map((keyword) => `<li>${keyword}</li>`).join('')}</ul>` : ''}
+          ${keywordsArray.length ? `<ul class="tags">${keywordsArray.map((keyword) => `<li><a href="/blog/categories/${toClassName(keyword)}">${keyword}</a></li>`).join('')}</ul>` : ''}
       </div>
       <a href="${blogData.path}" class="button">Read Post</a>
   </li>
 `;
 }
 
+function blogFilter(blogData, isBlogCategory) {
+  if (!blogData.path.startsWith('/blog/')) {
+    return false;
+  }
+
+  const blogCategoryFilter = isBlogCategory ? window.location.pathname.replace('/blog/categories/', '') : null;
+
+  if (!blogCategoryFilter) {
+    return !blogData.path.startsWith('/blog/categories');
+  }
+
+  const tags = blogData.keywords.split(',').map((word) => toClassName(word.trim()));
+  return tags.includes(blogCategoryFilter);
+}
+
 export default async function decorate(block) {
   const isBlog = block.classList.contains('blog');
+  const isBlogCategory = block.classList.contains('blog-category');
 
   if (isBlog) {
     let blogData = [];
@@ -41,7 +57,7 @@ export default async function decorate(block) {
     if (req.ok) {
       const res = await req.json();
       blogData = res.data
-        .filter((item) => item.path.startsWith('/blog/'))
+        .filter((item) => blogFilter(item, isBlogCategory))
         .sort((a, b) => new Date(b.publicationDate) - new Date(a.publicationDate));
 
       // First blog becomes Hero

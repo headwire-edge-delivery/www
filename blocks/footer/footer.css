@@ -1,4 +1,7 @@
 footer {
+  margin-top: auto;
+  height: auto;
+  flex-shrink: 0;
   padding: 0 20px;
   position: relative;
   overflow: hidden;
@@ -70,7 +73,7 @@ footer .footer.block > div > div {
 }
 
 .footer .footer-info-wrapper + p {
-  background-color: rgb(34 34 34);
+  background-color: var(--color-dark-gray);
   margin: 0;
   width: 200vw;
   padding-top: 40px;
