@@ -91,7 +91,7 @@ function toggleMenu(nav, navSections, forceExpanded = null) {
 
 let prevScrollpos = document.body.scrollTop;
 
-document.body.addEventListener('scroll', function handleScroll() {
+document.body.addEventListener('scroll', () => {
   const currentScrollPos = document.body.scrollTop;
   const navWrapper = document.querySelector('header .nav-wrapper');
 
@@ -100,9 +100,11 @@ document.body.addEventListener('scroll', function handleScroll() {
   }
 
   if (prevScrollpos > currentScrollPos || currentScrollPos <= 0) {
-    navWrapper.style.top = '0';
+    navWrapper.classList.remove('hide');
+    navWrapper.classList.add('show');
   } else {
-    navWrapper.style.top = '-150px';
+    navWrapper.classList.remove('show');
+    navWrapper.classList.add('hide');
     const blogLinkWrapper = navWrapper.querySelector('.blog-link-wrapper')
     blogLinkWrapper?.classList?.remove('open')
     const expandedItems = navWrapper.querySelectorAll('li[aria-expanded="true"]')
