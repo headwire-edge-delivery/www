@@ -21,9 +21,14 @@ export default async function decorate(block) {
 
     const blogDetails = createBlogDetails({ author, keywords, publicationDate });
 
-    const shareTemplate = `<div class="social-share">
-      <span class="label">Share story</span>
+    const shareTemplate = `
+    <div class="social-share">
       <ul class="columns">
+        <li>
+          <button class="copy-to-clipboard-btn" data-url="${url}" title="Copy to Clipboard">
+            <img src="/icons/copy.svg" alt="copy" loading="lazy"/>
+          </button>      
+        </li>
         <li>
           <a href="https://www.facebook.com/sharer.php?u=${url}" target="_blank" title="Share on Facebook">
             <img src="/icons/facebook.svg" alt="facebook" loading="lazy"/>
@@ -41,28 +46,41 @@ export default async function decorate(block) {
         </li>
       </ul>
     </div>
-    `;
+`;
 
     const template = `<div class="blog-main">
-            <div class="details">
-                ${blogDetails}
-                ${shareTemplate}
+            <div class="details-container">
+              <div class="details">
+                  <hr>
+                  ${blogDetails}
+                  <hr>
+                  ${toc}
+                  <hr>
+                  ${shareTemplate}
+              </div>
             </div>
             <div class="content-container">
-              ${toc}
               <div class="content">
+              <div class="details hide">
+                ${blogDetails}
+                <p>Published on ${publicationDate} </p>
+              </div>
+              <div class="content-end"> 
                 <a class="button contact" href="/contact-us">Contact us</a>
-                <div class="details">
-                    ${blogDetails}
-                    ${shareTemplate}
-                </div>
-              </div>  
-            </div>
-        </div>`;
+                ${shareTemplate}
+              </div>
+            </div>  
+          </div>
+      </div>`;
 
     block.insertAdjacentHTML('beforeend', template);
     const container = document.querySelector('.blog-container');
 
     container.querySelector('.content').prepend(defaultContent);
+
+    document.querySelector('.copy-to-clipboard-btn').addEventListener('click', (event) => {
+      const button = event.currentTarget;
+      navigator.clipboard.writeText(button.dataset.url);
+    });
   }
 }

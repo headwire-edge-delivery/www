@@ -12,14 +12,37 @@ export default async function decorate(block) {
     elementsToAppend.forEach((elem) => {
       heroTextWrapper.appendChild(elem);
     });
+
     const heroImage = firstPicture.querySelector('img');
     if (heroImage) {
       heroImage.setAttribute('loading', 'eager');
     }
     block.appendChild(heroTextWrapper);
+
     const h1Elem = block.querySelector('h1');
     if (h1Elem) {
       h1Elem.innerHTML = h1Elem.innerHTML.replace(/&amp;/g, '<span class="lighter-font">&</span>');
+    }
+  } else if (document.body.classList.contains('page')) {
+    if (block.querySelector('h1') && !block.querySelector('div.details')) {
+      const articleHeroDiv = document.createElement('div');
+      articleHeroDiv.className = 'article-hero';
+
+      const elementsToMove = block.querySelectorAll('h1, p:not(.hero-background)');
+      elementsToMove.forEach((elem) => {
+        articleHeroDiv.appendChild(elem);
+      });
+
+      const pictureElem = block.querySelector('picture');
+      if (pictureElem) {
+        const articleHeroWrapper = document.createElement('div');
+        articleHeroWrapper.className = 'article-hero-wrapper';
+
+        articleHeroWrapper.appendChild(pictureElem);
+        articleHeroWrapper.appendChild(articleHeroDiv);
+
+        block.appendChild(articleHeroWrapper);
+      }
     }
   }
 }

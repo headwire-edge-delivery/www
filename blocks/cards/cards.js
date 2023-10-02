@@ -1,33 +1,27 @@
 import {
   buildBlock, createOptimizedPicture, decorateBlock, loadBlock, toClassName,
 } from '../../scripts/lib-franklin.js';
-import { createBlogDetails } from '../../scripts/scripts.js';
 
 function generateBlogCard(blogData) {
   const keywordsArray = blogData.keywords ? blogData.keywords.split(',').map((keyword) => keyword.trim()) : [];
-
   return `
-  <li class="blog-card">
-      <a href="${blogData.path}" class="blog-card-image-link"> 
-          <div class="blog-card-image">
-              ${createOptimizedPicture(blogData.image, blogData.imageAlt || blogData.title, false, [{ width: '750' }]).outerHTML}
-          </div>
-      </a>
-      <div class="blog-card-content">
-          <div class="blog-card-title">
-              <h3>${blogData.title}</h3>
-          </div>
-          <div class="blog-card-description">
-              <p>${blogData.description}</p>
-          </div>
-          <div class="blog-card-author-date">
-            <strong>By ${blogData.author}</strong>
-            <span>${blogData.publicationDate}</span>
-          </div>
-          ${keywordsArray.length ? `<ul class="tags">${keywordsArray.map((keyword) => `<li><a href="/blog/categories/${toClassName(keyword)}">${keyword}</a></li>`).join('')}</ul>` : ''}
-      </div>
-      <a href="${blogData.path}" class="button">Read Post</a>
-  </li>
+    <li class="blog-card">
+        <a href="${blogData.path}" class="blog-card-wrapper">
+            <div class="blog-card-image">
+                ${createOptimizedPicture(blogData.image, blogData.imageAlt || blogData.title, false, [{ width: '750' }]).outerHTML}
+            </div>
+            <div class="blog-card-content">
+                <div class="blog-card-author-date">${blogData.author ? `${blogData.author} • ` : ''}${blogData.publicationDate}</div>
+                <div class="blog-card-title">
+                    <h3>${blogData.title}</h3>
+                </div>
+                <div class="blog-card-description">
+                    <p>${blogData.description}</p>
+                </div>
+                ${keywordsArray.length ? `<ul class="blog-card-tags">${keywordsArray.map((keyword) => `<li>${keyword}</li>`).join('')}</ul>` : ''}
+            </div>
+        </a>
+    </li>
 `;
 }
 
@@ -63,7 +57,13 @@ export default async function decorate(block) {
       // First blog becomes Hero
       const heroData = blogData.shift();
       if (heroData) {
+        const keywordsArray = heroData.keywords ? heroData.keywords.split(',').map((keyword) => keyword.trim()) : [];
+
         const image = createOptimizedPicture(heroData.image, '', true);
+
+        const imageWrapper = document.createElement('div');
+        imageWrapper.className = 'image-wrapper';
+        imageWrapper.append(image);
 
         const title = document.createElement('h1');
         title.textContent = heroData.title;
@@ -71,19 +71,31 @@ export default async function decorate(block) {
         const description = document.createElement('p');
         description.textContent = heroData.description;
 
-        const link = document.createElement('a');
-        link.className = 'button';
-        link.href = heroData.path;
-        link.textContent = 'Read Post';
-        description.append(link);
+        const heroAuthorDate = document.createElement('div');
+        heroAuthorDate.className = 'blog-card-author-date';
+        heroAuthorDate.textContent = heroData.author ? `${heroData.author} • ${heroData.publicationDate}` : `${heroData.publicationDate}`;
 
         const details = document.createElement('div');
         details.className = 'details';
-
         details.append(description);
-        details.insertAdjacentHTML('beforeend', createBlogDetails(heroData));
 
-        const hero = buildBlock('hero', { elems: [image, title, description, details] });
+        const tagsHTML = keywordsArray.length ? `<ul class="tags">${keywordsArray.map((keyword) => `<li>${keyword}</li>`).join('')}</ul>` : '';
+        details.insertAdjacentHTML('beforeend', tagsHTML);
+
+        const contentWrapper = document.createElement('div');
+        contentWrapper.className = 'content-wrapper';
+        contentWrapper.append(heroAuthorDate, title, description, details);
+
+        const flexParent = document.createElement('div');
+        flexParent.className = 'hero-blog-wrapper';
+        flexParent.append(imageWrapper, contentWrapper);
+
+        const link = document.createElement('a');
+        link.className = 'hero-blog-link';
+        link.href = heroData.path;
+        link.appendChild(flexParent);
+
+        const hero = buildBlock('hero', { elems: [link] });
         hero.classList.add('blog');
 
         const section = document.createElement('div');

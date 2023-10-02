@@ -21,21 +21,23 @@ const AUTHORS = {
   },
 };
 export function createBlogDetails(data) {
+  const authorExists = AUTHORS[data.author] && AUTHORS[data.author].image;
+  const imageUrl = authorExists ? `${window.location.origin}${AUTHORS[data.author].image}` : '../icons/headwirelogo.svg';
+  const authorTitle = authorExists ? AUTHORS[data.author].title : 'Employee at Headwire';
+
   return `
     <div class="author">
-      ${AUTHORS?.[data.author]?.image ? createOptimizedPicture(`${window.location.origin}${AUTHORS[data.author].image}`, data.author).outerHTML : ''}
+      ${createOptimizedPicture(imageUrl, data.author).outerHTML}
       <div>
         <div>
-            <strong>By ${data.author}</strong>
+            <strong>${data.author}</strong>
         </div>
         <div>
-            <div>${AUTHORS?.[data.author]?.title || ''}</div>
+            <div class="title">${authorTitle}</div>
         </div>
       </div>
     </div>
-    <div class="date">${data.publicationDate}</div>
-    <ul class="tags">${data.keywords.split(',').map((keyword) => `<li><a href="/blog/categories/${toClassName(keyword)}">${keyword}</a></li>`).join('')}</ul>
-   `;
+  `;
 }
 
 /**
