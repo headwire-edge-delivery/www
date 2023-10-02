@@ -99,10 +99,10 @@ body.appear {
 
 .tags li {
   padding: 4px 8px;
-  border: 1px solid #f89728;
+  border: 1px solid #fff;
   font-weight: bolder;
-  color: #f89728;
   border-radius: 5px;
+  color: #FFF; 
 }
 
 .author {
