@@ -4,26 +4,45 @@ export default async function decorate(block) {
     if (firstPicture) {
       firstPicture.parentNode.classList.add('hero-background');
     }
-  } else if (block.querySelector('h1[id^="the-"]')) {
-    const articleHeroDiv = document.createElement('div');
-    articleHeroDiv.className = 'article-hero';
 
-    const elementsToWrap = block.querySelectorAll('h1, p:not(.hero-background)');
-    elementsToWrap.forEach((elem) => {
-      articleHeroDiv.appendChild(elem);
+    const heroTextWrapper = document.createElement('div');
+    heroTextWrapper.className = 'hero-text-wrapper';
+
+    const elementsToAppend = block.querySelectorAll('h1, p:not(.hero-background)');
+    elementsToAppend.forEach((elem) => {
+      heroTextWrapper.appendChild(elem);
     });
 
-    const pictureElem = block.querySelector('picture');
-    if (pictureElem) {
-      const articleHeroWrapper = document.createElement('div');
-      articleHeroWrapper.className = 'article-hero-wrapper';
+    const heroImage = firstPicture.querySelector('img');
+    if (heroImage) {
+      heroImage.setAttribute('loading', 'eager');
+    }
+    block.appendChild(heroTextWrapper);
 
-      articleHeroWrapper.appendChild(pictureElem);
-      articleHeroWrapper.appendChild(articleHeroDiv);
+    const h1Elem = block.querySelector('h1');
+    if (h1Elem) {
+      h1Elem.innerHTML = h1Elem.innerHTML.replace(/&amp;/g, '<span class="lighter-font">&</span>');
+    }
+  } else if (document.body.classList.contains('page')) {
+    if (block.querySelector('h1') && !block.querySelector('div.details')) {
+      const articleHeroDiv = document.createElement('div');
+      articleHeroDiv.className = 'article-hero';
 
-      block.appendChild(articleHeroWrapper);
-    } else {
-      block.appendChild(articleHeroDiv);
+      const elementsToMove = block.querySelectorAll('h1, p:not(.hero-background)');
+      elementsToMove.forEach((elem) => {
+        articleHeroDiv.appendChild(elem);
+      });
+
+      const pictureElem = block.querySelector('picture');
+      if (pictureElem) {
+        const articleHeroWrapper = document.createElement('div');
+        articleHeroWrapper.className = 'article-hero-wrapper';
+
+        articleHeroWrapper.appendChild(pictureElem);
+        articleHeroWrapper.appendChild(articleHeroDiv);
+
+        block.appendChild(articleHeroWrapper);
+      }
     }
   }
 }
