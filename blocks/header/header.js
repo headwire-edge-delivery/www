@@ -38,6 +38,7 @@ function toggleMenu(nav, navSections, forceExpanded = null) {
   const dialog = document.querySelector('header dialog');
   const expanded = dialog.hasAttribute('open');
 
+
   if (isDesktop.matches) {
     dialog?.close();
     window.requestAnimationFrame(() => {
@@ -63,6 +64,7 @@ function toggleMenu(nav, navSections, forceExpanded = null) {
     nav.setAttribute('aria-expanded', 'false');
     toggleAllNavSections(navSections, 'false');
     button.setAttribute('aria-label', 'Open navigation');
+
     navSections.querySelector('.blog-link-wrapper')?.classList?.remove('open');
   }
 }
