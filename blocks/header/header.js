@@ -38,7 +38,6 @@ function toggleMenu(nav, navSections, forceExpanded = null) {
   const dialog = document.querySelector('header dialog');
   const expanded = dialog.hasAttribute('open');
 
-
   if (isDesktop.matches) {
     dialog?.close();
     window.requestAnimationFrame(() => {
