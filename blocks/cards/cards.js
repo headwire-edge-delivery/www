@@ -1,5 +1,5 @@
 import {
-  buildBlock, createOptimizedPicture, decorateBlock, loadBlock,
+  buildBlock, createOptimizedPicture, decorateBlock, loadBlock, toClassName,
 } from '../../scripts/lib-franklin.js';
 
 function generateBlogCard(blogData) {
@@ -25,8 +25,25 @@ function generateBlogCard(blogData) {
 `;
 }
 
+function blogFilter(blogData, isBlogCategory) {
+  if (!blogData.path.startsWith('/blog/')) {
+    return false;
+  }
+
+  const blogCategoryFilter = isBlogCategory ? window.location.pathname.replace('/blog/categories/', '') : null;
+
+  if (!blogCategoryFilter) {
+    return !blogData.path.startsWith('/blog/categories');
+  }
+
+  const tags = blogData.keywords.split(',').map((word) => toClassName(word.trim()));
+  return tags.includes(blogCategoryFilter);
+}
+
 export default async function decorate(block) {
   const isBlog = block.classList.contains('blog');
+  const isBlogCategory = block.classList.contains('blog-category');
+
   if (isBlog) {
     let blogData = [];
 
@@ -34,7 +51,7 @@ export default async function decorate(block) {
     if (req.ok) {
       const res = await req.json();
       blogData = res.data
-        .filter((item) => item.path.startsWith('/blog/'))
+        .filter((item) => blogFilter(item, isBlogCategory))
         .sort((a, b) => new Date(b.publicationDate) - new Date(a.publicationDate));
 
       // First blog becomes Hero

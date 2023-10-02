@@ -1,0 +1,18 @@
+.tag-list-wrapper .tag-list.block {
+  box-sizing: border-box;
+  padding: 250px 0 100px;
+  background: linear-gradient(180deg, var(--color-logo-blue) 130px, #fff 220px);
+}
+
+.tag-list-wrapper .tag-list.block > * {
+  max-width: 1264px;
+  margin: auto;
+  padding: 0 15px;
+}
+
+.tag-list-wrapper .tag-list.block article {
+  margin: 30px auto;
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat( auto-fit, minmax(250px, 1fr));
+}

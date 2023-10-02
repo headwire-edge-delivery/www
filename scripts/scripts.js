@@ -10,7 +10,7 @@ import {
   waitForLCP,
   loadBlocks,
   loadCSS,
-  buildBlock, createOptimizedPicture,
+  buildBlock, createOptimizedPicture, toClassName, getMetadata,
 } from './lib-franklin.js';
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
@@ -84,7 +84,9 @@ function buildHeroBlock(main) {
  */
 function buildAutoBlocks(main) {
   try {
-    buildHeroBlock(main);
+    if (!document.querySelector('main.error')) {
+      buildHeroBlock(main);
+    }
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);
@@ -119,7 +121,10 @@ async function loadEager(doc) {
     document.body.classList.add('page');
   }
 
-  if (window.location.pathname.startsWith('/blog/')) {
+  const template = getMetadata('template');
+  if (template) {
+    document.querySelector('main div').append(buildBlock(toClassName(template), { elems: [] }));
+  } else if (window.location.pathname.startsWith('/blog/') && !doc.querySelector('main.error')) {
     document.querySelector('main div').append(buildBlock('blog', { elems: [] }));
   }
 
@@ -183,3 +188,10 @@ async function loadPage() {
 }
 
 loadPage();
+
+/**
+ * Generates a list of tag-blog-pages from a query-index request.
+ */
+export function createTagList(queryIndexData) {
+  return queryIndexData.data.filter((item) => item.path.match(/^\/blog\/categories\/./g));
+}

@@ -37,6 +37,18 @@
     "Segoe UI", roboto, "Helvetica Neue", arial, "Noto Sans", sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --nav-height: 64px;
+  --color-dark-gray: rgb(34 34 34);
+  --color-logo-blue: rgb(0 73 144);
+  --color-dark-blue: rgb(43 67 100);
+  --color-light-blue: rgb(54 90 139);
+  --arrow-svg: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='none' stroke='%232b4364' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/></svg>");
+}
+
+/* disabling scroll on html in favor of 
+having it on the body, so scrolling can be blocked
+by the mobile nav menu. */
+html {
+  overflow: hidden;
 }
 
 html,
@@ -49,18 +61,25 @@ body {
   margin: 0;
   font-family: var(--font-family);
   overflow-x: hidden;
+  overflow-y: auto;
   box-sizing: border-box;
   display: none;
+  flex-direction: column;
+  min-height: 100%;
 }
 
 body.appear {
-  display: block;
+  display: flex;
 }
 
 *,
 *::before,
 *::after {
   box-sizing: border-box;
+}
+
+a {
+  color: inherit;
 }
 
 .button {
@@ -72,20 +91,7 @@ body.appear {
   font-weight: bold;
   text-transform: uppercase;
   text-decoration: none;
-  transition: transform 0.3s, color 0.3s;
   width: auto;
-}
-
-.button:hover {
-  transform: translateY(-3px);
-}
-
-.button .read-icon {
-  transition: transform 0.3s;
-}
-
-.button:hover .read-icon {
-  transform: translateY(-9px);
 }
 
 .tags {
