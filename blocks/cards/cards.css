@@ -147,7 +147,6 @@
   margin-bottom: 80px;
 }
 
-
 .cards.blog.block h2 {
   width: 100%;
   justify-content: center;
@@ -158,11 +157,6 @@
  }
   
 /* TODO Revisit naming of classes ... */
-.blog.cards {
-  padding: 36px;
-  background-color: var(--color-light-blue);
-}
-
 .cards.blog.block .cards.blog .read-icon {
   width: 20px;
   height: 20px;
