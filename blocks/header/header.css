@@ -28,6 +28,10 @@ header .nav-brand a {
   line-height: 1.5em;
 }
 
+header nav .nav-sections {
+  position: relative;
+}
+
 header nav .nav-sections ul > li {
   display: inline-block;
   border-radius: 15px;
@@ -39,6 +43,12 @@ header nav .nav-sections ul {
   border-radius: 25px;
   background-color: #fff;
   padding: 0;
+  width: 200px;
+  transition: all .3s;
+}
+
+header nav .nav-sections:has(.blog-link-wrapper.open) > ul {
+  transform: translateX(-120%);
 }
 
 header nav {
@@ -108,6 +118,29 @@ header nav .nav-sections ul > li a {
   text-decoration: none;
 }
 
+header nav .nav-sections .blog-link-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  visibility: collapse;
+  opacity: 0;
+  left: 200px;
+  transition: all .3s;
+}
+
+header nav .nav-sections .blog-link-wrapper.open {
+  visibility: visible;
+  opacity: 1;
+  left: 0;
+}
+
+header nav .nav-sections .blog-link-wrapper ul {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  height: calc(100vh - 230px);
+}
+
 header nav .nav-sections ul > li a:hover {
   text-decoration: underline;
 }
@@ -120,6 +153,7 @@ header nav .nav-sections ul > li button {
   font-family: inherit;
   font-size: inherit;
   cursor: pointer;
+  position: relative;
 }
 
 header nav .nav-sections ul > li button::after {
@@ -130,7 +164,7 @@ header nav .nav-sections ul > li button::after {
   display: block;
   width: 16px;
   height: 16px;
-  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='none' stroke='%232b4364' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/></svg>");
+  background-image: var(--arrow-svg);
   transform: rotate(180deg);
   transition: transform .3s;
 }
@@ -139,27 +173,13 @@ header nav .nav-sections ul > li button.open::after {
   transform: rotate(0deg);
 }
 
-header nav .nav-sections ul > li button .tag-menu {
-  border: none;
-  background: none;
-  position: absolute;
-  visibility: collapse;
-  opacity: 0;
-  top: 140px;
-  left: 50%;
-  transform: translateX(-50%);
-  transition: all .3s;
+header nav .nav-sections .blog-link-wrapper .mobile-back-button {
+  pointer-events: all;
 }
 
-header nav .nav-sections ul > li button.open .tag-menu {
-  top: 40px;
-  visibility: visible;
-  opacity: 1;
-}
-
-header nav .nav-sections ul > li button .tag-menu .tag-list {
-  display: flex;
-  flex-direction: column;
+header nav .nav-sections .blog-link-wrapper .mobile-back-button::after {
+  right: unset;
+  left: 15px;
 }
 
 header nav[aria-expanded="true"] .nav-hamburger button {
@@ -277,6 +297,41 @@ header nav .nav-tools {
 
 
 @media (min-width: 900px) {
+  header nav .nav-sections ul > li button::after {
+    transform: rotate(0deg);
+  }
+
+  header nav .nav-sections ul > li[aria-expanded="true"] button::after {
+    transform: rotate(180deg);
+  }
+
+  header nav .nav-sections:has(.blog-link-wrapper.open) > ul {
+    transform: translateX(0%);
+  }
+
+  header nav .nav-sections .blog-link-wrapper {
+    top: 95px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  header nav .nav-sections .blog-link-wrapper.open {
+    top: 45px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  header nav .nav-sections .blog-link-wrapper .tag-list {
+    height: auto;
+    padding: .6em 1em;
+  }
+
+  header nav .nav-sections .blog-link-wrapper .tag-list-item:has(.mobile-back-button){
+    display: none;
+  }
+
   header nav .nav-hamburger {
     display: none;
     visibility: hidden;
@@ -324,6 +379,7 @@ header nav .nav-tools {
   }
 
   header nav .nav-sections ul {
+    width: auto;
     display: flex;
     gap: 1.5em;
     margin: 0;
@@ -363,7 +419,6 @@ header nav .nav-tools {
   header nav .nav-sections ul > li button {
     height: 45px;
     width: 100%;
-    position: relative;
   }
 
   header nav .nav-sections ul > li button::after {
@@ -371,28 +426,6 @@ header nav .nav-tools {
     right: 15px;
     transform: rotate(90deg);
     transition: transform .3s;
-  }
-  
-  header nav .nav-sections ul > li button.open::after {
-    transform: rotate(270deg);
-  }
-
-  header nav .nav-sections ul.tag-list  > li {
-    height: 45px;
-    display: flex;
-    align-items: center;
-  }
-
-  
-  header nav .nav-sections ul > li button .tag-menu {
-    top: -10px;
-    left: unset;
-    right: -450px;
-  }
-
-  header nav .nav-sections ul > li button.open .tag-menu {
-    top: -10px;
-    right: -320px;
   }
   
   header nav[aria-expanded="true"] {

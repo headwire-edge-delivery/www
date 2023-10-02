@@ -89,10 +89,10 @@ function toggleMenu(nav, navSections, forceExpanded = null) {
   }
 }
 
-let prevScrollpos = window.pageYOffset;
+let prevScrollpos = document.body.scrollTop;
 
-window.onscroll = function handleScroll() {
-  const currentScrollPos = window.pageYOffset;
+document.body.addEventListener('scroll', function handleScroll() {
+  const currentScrollPos = document.body.scrollTop;
   const navWrapper = document.querySelector('header .nav-wrapper');
 
   if (!navWrapper) {
@@ -103,9 +103,13 @@ window.onscroll = function handleScroll() {
     navWrapper.style.top = '0';
   } else {
     navWrapper.style.top = '-150px';
+    const blogLinkWrapper = navWrapper.querySelector('.blog-link-wrapper')
+    blogLinkWrapper?.classList?.remove('open')
+    const expandedItems = navWrapper.querySelectorAll('li[aria-expanded="true"]')
+    expandedItems.forEach(item => item.setAttribute('aria-expanded', 'false'))
   }
   prevScrollpos = currentScrollPos;
-};
+});
 
 /**
  * decorates the header, mainly the nav
@@ -146,15 +150,19 @@ export default async function decorate(block) {
       const allLinks = nav.querySelectorAll('a');
       allLinks.forEach((link) => {
         if (link.textContent === 'Blog') {
+          const blogTagWrapper = document.createElement('div')
+          blogTagWrapper.className = 'blog-link-wrapper'
+
           const blogButton = document.createElement('button');
           blogButton.className = 'blog-link';
+
           const tagMenu = document.createElement('div');
           blogButton.textContent = 'Blog';
           tagMenu.className = 'tag-menu';
           blogButton.onclick = (e) => {
-            e.target.classList.toggle('open');
+            blogTagWrapper.classList.toggle('open')
           };
-          isDesktop.addEventListener('change', () => blogButton.classList.remove('open'));
+          isDesktop.addEventListener('change', () => blogTagWrapper.classList.remove('open'));
 
           const tagList = createTagList(queryData.value);
           const tagListElement = document.createElement('ul');
@@ -164,6 +172,21 @@ export default async function decorate(block) {
                 All Blogs
               </a>
             </li>`;
+          const mobileBackButtonWrapper = document.createElement('li')
+          mobileBackButtonWrapper.className = 'tag-list-item'
+          const mobileBackButton = document.createElement('button')
+          mobileBackButton.className = 'mobile-back-button'
+          mobileBackButton.addEventListener('click', (e) => console.log(e))
+
+          // click listener doesn't function if it is set here without waiting first.
+          window.requestAnimationFrame(() => {
+            document.querySelector('.mobile-back-button').onclick = () => {
+              blogTagWrapper.classList.remove('open')
+            }
+          })
+
+          mobileBackButtonWrapper.prepend(mobileBackButton)
+          tagListElement.prepend(mobileBackButtonWrapper)
 
           tagList.forEach((tag) => {
             tagListElement.innerHTML += `
@@ -175,7 +198,8 @@ export default async function decorate(block) {
             `;
           });
           tagMenu.append(tagListElement);
-          blogButton.append(tagMenu);
+          blogTagWrapper.append(tagMenu);
+          navSections.append(blogTagWrapper)
           link.replaceWith(blogButton);
         }
       });
