@@ -3,7 +3,7 @@
   justify-content: center;
   align-items: center;
   height: 100%;
-  padding: 80px 20px 30px;
+  padding: 145px 10px 40px;
 }
 
 .page .hero picture {
@@ -20,6 +20,7 @@
   max-height: 500px;
   transition: transform 1s, color 0.3s;
   object-position: top;
+  object-fit: cover;
 }
 
 .page .hero .article-hero {
@@ -96,8 +97,13 @@
 
   .page .hero .article-hero-wrapper {
     flex-wrap: wrap;
-    justify-content: flex-start;
+    justify-content: center;
     margin: 0;
+    padding: 0 10px 40px;
+  }
+
+  .page .hero .article-hero {
+    width: 400px;
   }
 
   .page .hero img {
@@ -117,7 +123,7 @@
   }
 
   .page .hero .article-hero-wrapper {
-    padding: 0 20px 30px;
+    padding: 0 16px 30px;
   }
 }
 
@@ -218,7 +224,8 @@
   background-color: #004990;
 }
 
-.hero.block {
+
+.page .hero.block {
   background-color: #004990;
   margin-bottom: 50px;
 }
