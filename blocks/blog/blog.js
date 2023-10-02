@@ -63,6 +63,7 @@ export default async function decorate(block) {
               <div class="content">
               <div class="details hide">
                 ${blogDetails}
+                <p>Published on ${publicationDate} </p>
               </div>
               <div class="content-end"> 
                 <a class="button contact" href="/contact-us">Contact us</a>
