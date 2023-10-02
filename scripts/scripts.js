@@ -21,19 +21,23 @@ const AUTHORS = {
   },
 };
 export function createBlogDetails(data) {
+  const authorExists = AUTHORS[data.author] && AUTHORS[data.author].image;
+  const imageUrl = authorExists ? `${window.location.origin}${AUTHORS[data.author].image}` : '../icons/headwirelogo.svg';
+  const authorTitle = authorExists ? AUTHORS[data.author].title : 'Employee at Headwire';
+
   return `
     <div class="author">
-      ${createOptimizedPicture(`${window.location.origin}${AUTHORS[data.author].image}`, data.author).outerHTML}
+      ${createOptimizedPicture(imageUrl, data.author).outerHTML}
       <div>
         <div>
             <strong>${data.author}</strong>
         </div>
         <div>
-            <div class="title">${AUTHORS[data.author].title}</div>
+            <div class="title">${authorTitle}</div>
         </div>
       </div>
     </div>
-   `;
+  `;
 }
 
 /**
