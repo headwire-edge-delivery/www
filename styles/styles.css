@@ -11,33 +11,36 @@
  */
 
 @font-face {
-    font-family: "raleway fallback";
-    font-style: normal;
-    font-weight: bold;
-    src: local('Arial Bold');
-    ascent-override: 99.96%;
-    descent-override: 24.88%;
-    line-gap-override: 0.00%;
-    size-adjust: 94.04%;
+  font-family: "raleway fallback";
+  font-style: normal;
+  font-weight: bold;
+  src: local("Arial Bold");
+  ascent-override: 99.96%;
+  descent-override: 24.88%;
+  line-gap-override: 0%;
+  size-adjust: 94.04%;
 }
 
 @font-face {
-    font-family: "raleway fallback";
-    font-style: normal;
-    font-weight: normal;
-    src: local('Arial');
-    ascent-override: 92.39%;
-    descent-override: 23.00%;
-    line-gap-override: 0.00%;
-    size-adjust: 101.74%;
+  font-family: "raleway fallback";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Arial");
+  ascent-override: 92.39%;
+  descent-override: 23%;
+  line-gap-override: 0%;
+  size-adjust: 101.74%;
 }
 
 :root {
-  --font-family: raleway, "raleway fallback", -apple-system, blinkmacsystemfont, "Segoe UI", roboto, "Helvetica Neue", arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-family: raleway, "raleway fallback", -apple-system, blinkmacsystemfont,
+    "Segoe UI", roboto, "Helvetica Neue", arial, "Noto Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --nav-height: 64px;
 }
 
-html, body {
+html,
+body {
   width: 100%;
   height: 100%;
 }
@@ -54,7 +57,9 @@ body.appear {
   display: block;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -62,7 +67,7 @@ body.appear {
   margin-top: 35px;
   display: inline-flex;
   align-items: center;
-  color: #fff; 
+  color: #fff;
   border-radius: 7px;
   font-weight: bold;
   text-transform: uppercase;
@@ -72,55 +77,57 @@ body.appear {
 }
 
 .button:hover {
-  transform: translateY(-3px); 
+  transform: translateY(-3px);
 }
 
 .button .read-icon {
-  transition: transform 0.3s; 
+  transition: transform 0.3s;
 }
 
 .button:hover .read-icon {
-  transform: translateY(-9px); 
+  transform: translateY(-9px);
 }
 
 .tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin: 0;
-    padding: 0;
-    list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 .tags li {
-  background-color: #f89728;
-  padding: 5px 10px;
-  border-radius: 7px;
-  color: #fFF;
+  padding: 4px 8px;
+  border: 1px solid #f89728;
   font-weight: bolder;
+  color: #f89728;
+  border-radius: 5px;
 }
 
 .author {
-    display: flex;
-    gap: 32px;
-    align-items: center;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  padding: 30px 0;
 }
 
 .author img {
-    width: 100px !important;
-    height: 100px !important;
-    object-fit: cover;
-    border-radius: 50%;
-    background-color: #ddd;
-    max-width: 100%;
+  width: 56px !important;
+  height: 56px !important;
+  object-fit: cover;
+  border-radius: 50%;
+  background-color: #ddd;
+  max-width: 100%;
 }
 
 .author strong {
-    display: block;
-    padding: 4px 0;
+  display: block;
+  padding: 0 0 6px;
 }
 
-.date {
-    font-style: italic;
-    padding: 8px 0;
+.author .title {
+  color: #667085;
+  font-size: 14px;
 }
+

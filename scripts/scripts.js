@@ -26,15 +26,13 @@ export function createBlogDetails(data) {
       ${createOptimizedPicture(`${window.location.origin}${AUTHORS[data.author].image}`, data.author).outerHTML}
       <div>
         <div>
-            <strong>By ${data.author}</strong>
+            <strong>${data.author}</strong>
         </div>
         <div>
-            <div>${AUTHORS[data.author].title}</div>
+            <div class="title">${AUTHORS[data.author].title}</div>
         </div>
       </div>
     </div>
-    <div class="date">${data.publicationDate}</div>
-    <ul class="tags">${data.keywords.split(',').map((keyword) => `<li>${keyword.trim()}</li>`).join('')}</ul>
    `;
 }
 
