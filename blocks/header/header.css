@@ -14,6 +14,20 @@ header .nav-wrapper {
   transition: top 0.3s ease-in-out;
 }
 
+header dialog {
+  border: 0;
+  padding: 0;
+  background: none;
+  margin: unset;
+  overflow: visible;
+  max-width: 100vw;
+  max-height: 100vh;
+}
+
+header dialog::backdrop {
+  display: none;
+}
+
 header .nav-wrapper.hide {
   top: -150px;
 }
@@ -257,7 +271,7 @@ header nav .nav-sections ul {
   background-color: #fff;
   padding: 0;
   width: 200px;
-  transition: all .3s;
+  transition: left .3s, transform .3s, visibility .3s;
   pointer-events: all;
 }
 
@@ -417,6 +431,12 @@ header nav .nav-tools {
 }
 
 @media (max-width: 900px) {
+  header dialog::backdrop {
+    display: block;
+    background-color: rgba(54 89 139 / 90%);
+    backdrop-filter: blur(4px);
+  }
+
   header nav .nav-sections ul > li button {
     height: 45px;
     width: 100%;
@@ -435,9 +455,6 @@ header nav .nav-tools {
     position: fixed;
     top: 0;
     left: 0;
-    background-color: rgba(54 89 139 / 90%);
-    backdrop-filter: blur(4px);
-    z-index: 1000;
     min-height: 0;
     overflow: visible;
   }
