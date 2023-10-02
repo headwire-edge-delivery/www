@@ -39,7 +39,6 @@
   --color-logo-blue: rgb(0 73 144);
   --color-dark-blue: rgb(43 67 100);
   --color-light-blue: rgb(54 90 139);
-
   --arrow-svg: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='none' stroke='%232b4364' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/></svg>");
 }
 

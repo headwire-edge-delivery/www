@@ -86,6 +86,7 @@ function toggleMenu(nav, navSections, forceExpanded = null) {
     window.addEventListener('keydown', closeOnEscape);
   } else {
     window.removeEventListener('keydown', closeOnEscape);
+    navSections.querySelector('.blog-link-wrapper')?.classList?.remove('open');
   }
 }
 
@@ -101,14 +102,15 @@ document.body.addEventListener('scroll', () => {
 
   if (prevScrollpos > currentScrollPos || currentScrollPos <= 0) {
     navWrapper.classList.remove('hide');
-    navWrapper.classList.add('show');
   } else {
-    navWrapper.classList.remove('show');
     navWrapper.classList.add('hide');
-    const blogLinkWrapper = navWrapper.querySelector('.blog-link-wrapper')
-    blogLinkWrapper?.classList?.remove('open')
-    const expandedItems = navWrapper.querySelectorAll('li[aria-expanded="true"]')
-    expandedItems.forEach(item => item.setAttribute('aria-expanded', 'false'))
+    const blogLinkWrapper = navWrapper.querySelector('.blog-link-wrapper:not(:focus-within)');
+    if (blogLinkWrapper?.classList?.contains('open')) {
+      blogLinkWrapper.classList.remove('open');
+      document.activeElement.blur();
+      const expandedItems = navWrapper.querySelectorAll('li[aria-expanded="true"]');
+      expandedItems.forEach((item) => item.setAttribute('aria-expanded', 'false'));
+    }
   }
   prevScrollpos = currentScrollPos;
 });
@@ -152,8 +154,8 @@ export default async function decorate(block) {
       const allLinks = nav.querySelectorAll('a');
       allLinks.forEach((link) => {
         if (link.textContent === 'Blog') {
-          const blogTagWrapper = document.createElement('div')
-          blogTagWrapper.className = 'blog-link-wrapper'
+          const blogTagWrapper = document.createElement('div');
+          blogTagWrapper.className = 'blog-link-wrapper';
 
           const blogButton = document.createElement('button');
           blogButton.className = 'blog-link';
@@ -161,8 +163,8 @@ export default async function decorate(block) {
           const tagMenu = document.createElement('div');
           blogButton.textContent = 'Blog';
           tagMenu.className = 'tag-menu';
-          blogButton.onclick = (e) => {
-            blogTagWrapper.classList.toggle('open')
+          blogButton.onclick = () => {
+            blogTagWrapper.classList.toggle('open');
           };
           isDesktop.addEventListener('change', () => blogTagWrapper.classList.remove('open'));
 
@@ -174,21 +176,20 @@ export default async function decorate(block) {
                 All Blogs
               </a>
             </li>`;
-          const mobileBackButtonWrapper = document.createElement('li')
-          mobileBackButtonWrapper.className = 'tag-list-item'
-          const mobileBackButton = document.createElement('button')
-          mobileBackButton.className = 'mobile-back-button'
-          mobileBackButton.addEventListener('click', (e) => console.log(e))
+          const mobileBackButtonWrapper = document.createElement('li');
+          mobileBackButtonWrapper.className = 'tag-list-item';
+          const mobileBackButton = document.createElement('button');
+          mobileBackButton.className = 'mobile-back-button';
 
           // click listener doesn't function if it is set here without waiting first.
           window.requestAnimationFrame(() => {
             document.querySelector('.mobile-back-button').onclick = () => {
-              blogTagWrapper.classList.remove('open')
-            }
-          })
+              blogTagWrapper.classList.remove('open');
+            };
+          });
 
-          mobileBackButtonWrapper.prepend(mobileBackButton)
-          tagListElement.prepend(mobileBackButtonWrapper)
+          mobileBackButtonWrapper.prepend(mobileBackButton);
+          tagListElement.prepend(mobileBackButtonWrapper);
 
           tagList.forEach((tag) => {
             tagListElement.innerHTML += `
@@ -201,7 +202,7 @@ export default async function decorate(block) {
           });
           tagMenu.append(tagListElement);
           blogTagWrapper.append(tagMenu);
-          navSections.append(blogTagWrapper)
+          navSections.append(blogTagWrapper);
           link.replaceWith(blogButton);
         }
       });
