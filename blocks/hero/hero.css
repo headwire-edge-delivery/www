@@ -140,12 +140,12 @@
 }
 
 .hero-block {
-  height: 857px;
+  height: 509px;
 }
 
 .homepage .hero-background {
   margin: 0;
-  height: 857px;
+  height: 509px;
 }
 
 .homepage .hero-text-wrapper {
@@ -187,11 +187,6 @@
 
   .homepage .hero-background img {
     object-position: left;
-  }
-
-  .homepage .hero-text-wrapper {
-    width: 100%;
-    margin-top: 100px;
   }
 
   .homepage .hero-text-wrapper img {
