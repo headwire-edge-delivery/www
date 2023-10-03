@@ -203,6 +203,7 @@
 
 .social-share .columns button {
   background-color: transparent;
+  cursor: pointer;
 }
 
 .social-share .columns button img {
