@@ -22,5 +22,4 @@ export default async function decorate(block) {
       <input type="submit" value="Submit">
     </form>
   `);
-  // block.innerHTML=''
 }

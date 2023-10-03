@@ -16,11 +16,8 @@ const placeholderHtml = `
         <p>
         </p>
       </div>
-      <div class="nav-sections" style="width: 424px; height: 38px;">
-        <ul>
-          <li>test</li>
-          <li >test</li>
-          <li>test</li>
+      <div class="nav-sections">
+        <ul style="width: 424px; height: 38px;">
         </ul>
       </div>
     </nav>
@@ -168,12 +165,17 @@ export default async function decorate(block) {
             }
 
             buttonWrapper.classList.toggle('open');
+            buttonWrapper.parentElement.classList.toggle('dropdown-open');
           };
 
           dropdownButton.onclick = buttonClick;
-          isDesktop.addEventListener('change', () => buttonWrapper.classList.remove('open'));
+          isDesktop.addEventListener('change', () => {
+            buttonWrapper.parentElement.classList.remove('dropdown-open');
+            buttonWrapper.classList.remove('open');
+          });
 
           const mobileBackButtonWrapper = document.createElement('li');
+          mobileBackButtonWrapper.className = 'mobile-back-button-wrapper';
           const mobileBackButton = document.createElement('button');
           mobileBackButton.className = 'mobile-back-button';
           mobileBackButton.onclick = buttonClick;
@@ -181,7 +183,6 @@ export default async function decorate(block) {
           mobileBackButtonWrapper.prepend(mobileBackButton);
           const linkList = item.querySelector('ul');
           linkList.prepend(mobileBackButtonWrapper);
-          // tagListElement.prepend(mobileBackButtonWrapper);
 
           const tagMenu = document.createElement('div');
           tagMenu.className = 'tag-menu';
