@@ -23,9 +23,11 @@
 .banner-text-wrapper h2 {
     font-size: 36px;
     margin-bottom: 1.5rem;
+    line-height: 2.5rem;
+    color: #777;
+    font-weight: normal;
 }
 
-.banner-text-wrapper h2,
 .banner-text-wrapper p {
     color: #777;
     font-weight: normal;
