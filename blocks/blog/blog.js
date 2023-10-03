@@ -78,9 +78,10 @@ export default async function decorate(block) {
 
     container.querySelector('.content').prepend(defaultContent);
 
-    document.querySelector('.copy-to-clipboard-btn').addEventListener('click', (event) => {
-      const button = event.currentTarget;
-      navigator.clipboard.writeText(button.dataset.url);
+    document.querySelectorAll('.copy-to-clipboard-btn').forEach((button) => {
+      button.addEventListener('click', (event) => {
+        navigator.clipboard.writeText(event.currentTarget.dataset.url);
+      });
     });
   }
 }
