@@ -25,24 +25,24 @@ export default async function decorate(block) {
     }
   } else if (document.body.classList.contains('page')) {
     if (block.querySelector('h1') && !block.querySelector('div.details')) {
+      const articleHeroWrapper = document.createElement('div');
+      articleHeroWrapper.className = 'article-hero-wrapper';
       const articleHeroDiv = document.createElement('div');
       articleHeroDiv.className = 'article-hero';
+      
+
+      const pictureElem = block.querySelector('picture');
+      if (pictureElem) {
+        articleHeroWrapper.appendChild(pictureElem);
+        articleHeroWrapper.appendChild(articleHeroDiv);
+      }
 
       const elementsToMove = block.querySelectorAll('h1, p:not(.hero-background)');
       elementsToMove.forEach((elem) => {
         articleHeroDiv.appendChild(elem);
       });
-
-      const pictureElem = block.querySelector('picture');
-      if (pictureElem) {
-        const articleHeroWrapper = document.createElement('div');
-        articleHeroWrapper.className = 'article-hero-wrapper';
-
-        articleHeroWrapper.appendChild(pictureElem);
-        articleHeroWrapper.appendChild(articleHeroDiv);
-
-        block.appendChild(articleHeroWrapper);
-      }
+      block.innerHTML = ''
+      block.appendChild(articleHeroWrapper)
     }
   }
 }
