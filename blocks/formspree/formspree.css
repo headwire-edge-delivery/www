@@ -3,13 +3,27 @@
 .formspree {
     max-width: 1200px;
     width: 100%;
-    padding: 32px;
     margin: auto;
+    padding: 0 0 35px;
 }
 
 .formspree form {
     max-width: 600px;
-    padding: 32px 0;
+}
+
+.formspree > div > div {
+    font-size: 20px;
+    color: #667085;
+    margin-bottom: 30px;
+}
+
+.formspree a {
+    color: #004990;
+    text-decoration: none;
+}
+
+.formspree a:hover {
+    text-decoration: underline;
 }
 
 #fs-frm input,
@@ -20,8 +34,9 @@
 #fs-frm label,
 #fs-frm #card-element:disabled {
     font-family: inherit;
-    font-size: 100%;
-    color: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    color: #344054;
     border: none;
     border-radius: 0;
     display: block;
@@ -40,22 +55,33 @@
     align-items: baseline;
 }
 
+#fs-frm label {
+    font-weight: 600;
+}
+
+#fs-frm label:not(:last-of-type):after {
+    content: "*";
+    margin-left: 3px;
+    font-size: 1.2rem;
+}
+
 /* border, padding, margin, width */
 #fs-frm input,
 #fs-frm select,
 #fs-frm textarea,
 #fs-frm #card-element {
-    border: 1px solid rgb(0 0 0 / 20%);
+    border: 1px solid #D0D5DD;
     background-color: rgb(255 255 255 / 90%);
-    padding: .75em 1rem;
+    padding: 12px 16px;
     margin-bottom: 1.5rem;
+    border-radius: 8px;
 }
 
 #fs-frm input:focus,
 #fs-frm select:focus,
 #fs-frm textarea:focus {
     background-color: white;
-    outline: gray solid thin;
+    outline: rgb(157, 157, 157) solid thin;
     outline-offset: -1px;
 }
 
@@ -81,6 +107,9 @@
 #fs-frm [type="submit"],
 #fs-frm [type="reset"] {
     margin-bottom: 0;
+    background-color: #004990;
+    color: white;
+    font-weight: bold;
 }
 
 #fs-frm select {
@@ -117,4 +146,10 @@
 #fs-frm fieldset.locale input[name="city"],
 #fs-frm fieldset.locale select[name="state"] {
     margin-right: 3%;
+}
+
+@media (max-width:1215px) {
+    .formspree {
+        padding: 15px 20px;
+    }
 }
