@@ -96,12 +96,16 @@ header nav .nav-hamburger button {
 header nav .nav-sections ul > li button,
 header nav .nav-sections ul > li a {
   transition: background-color 0.3s, color 0.3s, font-family 0.3s;
-  padding: 0 20px;
+  padding: 10px 20px;
   display: block;
   border-radius: 15px;
   color: var(--color-dark-blue);
   font-weight: bold;
   text-decoration: none;
+}
+
+header nav .nav-sections .button-dropdown {
+  padding-right: 28px;
 }
 
 header nav .nav-sections .button-dropdown-wrapper {
@@ -119,6 +123,7 @@ header nav .nav-sections .button-dropdown-wrapper.open {
   left: 0;
 }
 
+header nav .nav-sections .button-dropdown:hover,
 header nav .nav-sections ul > li a:hover {
   text-decoration: underline;
 }
@@ -136,7 +141,6 @@ header nav .nav-sections ul > li button {
 
 header nav .nav-sections ul > li button::after {
   content: "";
-  top: 2px;
   right: 0;
   position: absolute;
   display: block;
@@ -389,7 +393,7 @@ header nav .nav-tools {
     display: flex;
     gap: 1.5em;
     margin: 0;
-    padding: 0.6em 2em;
+    padding: 0 2em;
   }
 
   header nav .nav-sections > ul > li {

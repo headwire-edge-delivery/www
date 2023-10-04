@@ -50,6 +50,7 @@
   border: 1px solid #101828;;
   font-weight: bold;
   color: #101828;;
+  font-size: .8rem;
   border-radius: 5px;
 }
 
@@ -193,6 +194,11 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  transition: transform 1s;
+}
+
+.cards.blog.block .blog-card .blog-card-content:hover {
+  transform: scale(1.03);
 }
 
 .cards.blog.block .blog-card .blog-card-title h3 {

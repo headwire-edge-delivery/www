@@ -86,16 +86,17 @@ export default async function decorate(block) {
         contentWrapper.className = 'content-wrapper';
         contentWrapper.append(heroAuthorDate, title, description, details);
 
-        const flexParent = document.createElement('div');
-        flexParent.className = 'hero-blog-wrapper';
-        flexParent.append(imageWrapper, contentWrapper);
-
         const link = document.createElement('a');
         link.className = 'hero-blog-link';
         link.href = heroData.path;
-        link.appendChild(flexParent);
+        link.append(imageWrapper, contentWrapper); 
 
-        const hero = buildBlock('hero', { elems: [link] });
+        const flexParent = document.createElement('div');
+        flexParent.className = 'hero-blog-wrapper';
+        flexParent.append(link);
+
+
+        const hero = buildBlock('hero', { elems: [flexParent] });
         hero.classList.add('blog');
 
         const section = document.createElement('div');

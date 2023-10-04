@@ -4,6 +4,7 @@
   align-items: center;
   height: 100%;
   padding: 145px 10px 40px;
+  gap: 3rem;
 }
 
 .page .hero picture {
@@ -53,7 +54,7 @@
   width: 100%;
   margin: auto;
   text-align: left;
-  padding: 26px 26px 10px;
+  padding: 26px 0 10px;
 }
 
 .homepage .hero-text-wrapper h1 + p {
@@ -68,8 +69,8 @@
   text-align: left;
   line-height: 1.5;
   border-radius: 8px;
-  padding-left: 26px;
   margin-bottom: 10px;
+  font-size: 1.1rem;
 }
 
 @media (max-width: 1045px) {
@@ -178,11 +179,11 @@
 
 @media (max-width: 1515px) {
   .homepage .hero-wrapper {
-    height: 90vh;
+    height: 70vh;
   }
 
   .homepage .hero-background {
-    height: 90vh;
+    height: 70vh;
   }
 
   .homepage .hero-background img {
@@ -219,7 +220,6 @@
   background-color: #004990;
 }
 
-
 .page .hero.block {
   background-color: #004990;
   margin-bottom: 50px;
@@ -227,6 +227,10 @@
 
 .hero.blog.block .hero-blog-link {
   text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
 }
 
 .hero.blog.block .hero-blog-wrapper {
@@ -236,7 +240,7 @@
   border-radius: 15px;
   flex-direction: row;
   justify-content: center;
-  gap: 30px;
+  gap: 3rem;
   align-items: center;
 }
 
@@ -247,7 +251,7 @@
   border-radius: 15px;
   overflow: hidden;
   max-height: 500px;
-  transition: transform 1s, color 0.3s;
+  transition: transform 1s;
   object-position: top;
 }
 
@@ -259,6 +263,15 @@
 .content-wrapper {
   width: 600px;
 }
+
+.hero .content-wrapper {
+  transition: transform 1s;
+}
+
+.hero .content-wrapper:hover {
+  transform: scale(1.02);
+}
+
 
 .hero.blog.block .details {
   margin-top: 30px;
@@ -275,7 +288,7 @@
 }
 
 .hero.blog.block .content-wrapper p {
-  font-size: 16px;
+  font-size: 1.1rem;
   font-style: normal;
   font-weight: 400;
   line-height: 24px;
@@ -284,7 +297,7 @@
 }
 
 .hero.blog.block .blog-card-author-date {
-  font-size: 1rem;
+  font-size: .9rem;
   color: #fff;
   font-style: normal;
   font-weight: 600;
