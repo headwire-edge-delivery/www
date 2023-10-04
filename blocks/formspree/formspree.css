@@ -59,7 +59,7 @@
     font-weight: 600;
 }
 
-#fs-frm label:not(:last-of-type):after {
+#fs-frm label:not(:last-of-type)::after {
     content: "*";
     margin-left: 3px;
     font-size: 1.2rem;
@@ -81,7 +81,7 @@
 #fs-frm select:focus,
 #fs-frm textarea:focus {
     background-color: white;
-    outline: rgb(157, 157, 157) solid thin;
+    outline: rgb(157 157 157) solid thin;
     outline-offset: -1px;
 }
 

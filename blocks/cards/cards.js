@@ -89,12 +89,11 @@ export default async function decorate(block) {
         const link = document.createElement('a');
         link.className = 'hero-blog-link';
         link.href = heroData.path;
-        link.append(imageWrapper, contentWrapper); 
+        link.append(imageWrapper, contentWrapper);
 
         const flexParent = document.createElement('div');
         flexParent.className = 'hero-blog-wrapper';
         flexParent.append(link);
-
 
         const hero = buildBlock('hero', { elems: [flexParent] });
         hero.classList.add('blog');
