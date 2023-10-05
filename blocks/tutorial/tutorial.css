@@ -1,0 +1,15 @@
+
+
+body.tutorial main {
+  padding-top: 130px;
+}
+
+body.tutorial main .default-content-wrapper *:not(div) {
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+body.tutorial main div:not(.default-content-wrapper) {
+  
+}

@@ -7,6 +7,7 @@
   justify-content: center;
   grid-gap: 46px;
   max-width: 1160px;
+  margin: auto;
 }
 
 .cards .cards-card-body h2 {
