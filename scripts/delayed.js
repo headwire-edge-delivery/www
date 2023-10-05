@@ -9,7 +9,7 @@ sampleRUM('cwv');
 // Analytics
 if (window.location.hostname === 'www.headwire.workers.dev') {
   document.head.insertAdjacentHTML('beforeend', `
-    <!-- Google tag (gtag.js) -->
+    <script async src="https://app.enzuzo.com/apps/enzuzo/static/js/__enzuzo-cookiebar.js?uuid=04cbcc9c-62ba-11ee-b344-331207534791"></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-C3VLD9MKXK"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
