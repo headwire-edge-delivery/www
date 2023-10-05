@@ -20,6 +20,13 @@ const AUTHORS = {
     title: 'CTO, headwire',
   },
 };
+
+export const ARTICLE_TEMPLATES = {
+  // 'tag-list': 'tag-list'
+  // homepage: homepage
+  blog: 'blog',
+};
+
 export function createBlogDetails(data) {
   const authorExists = AUTHORS[data.author] && AUTHORS[data.author].image;
   const imageUrl = authorExists ? `${window.location.origin}${AUTHORS[data.author].image}` : '../icons/headwirelogo.svg';
@@ -115,17 +122,10 @@ async function loadEager(doc) {
     document.title += ' | headwire';
   }
 
-  if (window.location.pathname === '/') {
-    document.body.classList.add('homepage');
-  } else {
-    document.body.classList.add('page');
-  }
-
   const template = getMetadata('template');
-  if (template) {
+
+  if (ARTICLE_TEMPLATES[toClassName(template)]) {
     document.querySelector('main div').append(buildBlock(toClassName(template), { elems: [] }));
-  } else if (window.location.pathname.startsWith('/blog/') && !doc.querySelector('main.error')) {
-    document.querySelector('main div').append(buildBlock('blog', { elems: [] }));
   }
 
   document.documentElement.lang = 'en';

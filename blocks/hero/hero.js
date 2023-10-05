@@ -1,5 +1,5 @@
 export default async function decorate(block) {
-  if (document.body.classList.contains('homepage')) {
+  if (block.classList.contains('overlay')) {
     const firstPicture = block.querySelector('p > picture');
     if (firstPicture) {
       firstPicture.parentNode.classList.add('hero-background');
@@ -23,26 +23,23 @@ export default async function decorate(block) {
     if (h1Elem) {
       h1Elem.innerHTML = h1Elem.innerHTML.replace(/&amp;/g, '<span class="lighter-font">&</span>');
     }
-  } else if (document.body.classList.contains('page')) {
-    if (block.querySelector('h1') && !block.querySelector('div.details')) {
-      const articleHeroDiv = document.createElement('div');
-      articleHeroDiv.className = 'article-hero';
+  } else if (block.querySelector('h1') && !block.querySelector('div.details')) {
+    const articleHeroWrapper = document.createElement('div');
+    articleHeroWrapper.className = 'article-hero-wrapper';
+    const articleHeroDiv = document.createElement('div');
+    articleHeroDiv.className = 'article-hero';
 
-      const elementsToMove = block.querySelectorAll('h1, p:not(.hero-background)');
-      elementsToMove.forEach((elem) => {
-        articleHeroDiv.appendChild(elem);
-      });
-
-      const pictureElem = block.querySelector('picture');
-      if (pictureElem) {
-        const articleHeroWrapper = document.createElement('div');
-        articleHeroWrapper.className = 'article-hero-wrapper';
-
-        articleHeroWrapper.appendChild(pictureElem);
-        articleHeroWrapper.appendChild(articleHeroDiv);
-
-        block.appendChild(articleHeroWrapper);
-      }
+    const pictureElem = block.querySelector('picture');
+    if (pictureElem) {
+      articleHeroWrapper.appendChild(pictureElem);
+      articleHeroWrapper.appendChild(articleHeroDiv);
     }
+
+    const elementsToMove = block.querySelectorAll('h1, p:not(.hero-background)');
+    elementsToMove.forEach((elem) => {
+      articleHeroDiv.appendChild(elem);
+    });
+    block.innerHTML = '';
+    block.appendChild(articleHeroWrapper);
   }
 }

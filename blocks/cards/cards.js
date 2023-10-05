@@ -103,7 +103,7 @@ export default async function decorate(block) {
         section.append(hero);
 
         // Load hero
-        await decorateBlock(hero);
+        decorateBlock(hero);
         await loadBlock(hero);
 
         // Add hero to main once loaded
