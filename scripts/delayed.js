@@ -8,7 +8,7 @@ sampleRUM('cwv');
 
 // Analytics
 if (window.location.hostname === 'www.headwire.workers.dev') {
-    document.head.insertAdjacentHTML('beforeend', `
+  document.head.insertAdjacentHTML('beforeend', `
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-C3VLD9MKXK"></script>
       <script>
           window.dataLayer = window.dataLayer || [];
@@ -18,4 +18,4 @@ if (window.location.hostname === 'www.headwire.workers.dev') {
           gtag('config', 'G-C3VLD9MKXK');
       </script>
     `);
-  }
+}
