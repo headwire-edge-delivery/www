@@ -51,7 +51,9 @@
   font-weight: bold;
   color: #101828;;
   border-radius: 5px;
+  font-size: .8rem;
 }
+
 
 .cards.light.block ul > li  {
   background: 50% 50% / cover no-repeat var(--color-light-blue);
@@ -193,7 +195,12 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  transition: transform 1s;
 }
+
+.cards.blog.block .blog-card .blog-card-content:hover {
+  transform: scale(1.03);
+}	
 
 .cards.blog.block .blog-card .blog-card-title h3 {
   font-size: 24px;
