@@ -1,15 +1,156 @@
 
 
-body.tutorial main {
+.tutorial-wrapper {
   padding-top: 130px;
+  
+  --content-max-width: min(900px, calc(100% - 20px));
 }
 
-body.tutorial main .default-content-wrapper *:not(div) {
-  max-width: 900px;
+.tutorial-wrapper .block.tutorial > div > div > div > *:not(div) {
+  max-width: var(--content-max-width);
   margin-left: auto;
   margin-right: auto;
 }
 
-body.tutorial main div:not(.default-content-wrapper) {
-  
+.tutorial-wrapper .block.tutorial > div > div > div > :is(ol, ul) > li :is(img, picture),
+.tutorial-wrapper .block.tutorial > div > div > div > p :is(img, picture) {
+  width: 100%;
+  height: auto;
+}
+
+.tutorial-wrapper .block.tutorial .tutorial-nav-wrapper {
+  position: fixed;
+  bottom: 20px;
+  z-index: 1;
+  background-color: var(--color-dark-blue);
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 5px 0px #000;
+  max-width: calc(100% - 60px);
+  color: #fff;
+  font-weight: 600;
+  right: 0px;
+  transform: translateX(100%);
+}
+
+.tutorial-wrapper .block.tutorial .tutorial-nav-wrapper.open {
+  right: 30px;
+  transform: translateX(0%);
+}
+
+.tutorial-wrapper .block.tutorial .tutorial-nav-wrapper .tutorial-nav-toggle {
+  position: absolute;
+  z-index: 0;
+  top: 10px;
+  left: -30px;
+  border: none;
+  background-color: var(--color-dark-blue);
+  width: 30px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 30px 0 0 30px;
+  box-shadow: 0 0 5px 0px #000;
+}
+
+.tutorial-wrapper .block.tutorial .tutorial-nav-wrapper .tutorial-nav-toggle::after {
+  display: block;
+  content: "";
+  background: var(--arrow-svg), #fff;
+  background-blend-mode: multiply;
+  width: 16px;
+  height: 16px;
+  transform: rotate(90deg);
+}
+
+.tutorial-wrapper .block.tutorial .tutorial-nav-wrapper.open .tutorial-nav-toggle::after {
+  transform: rotate(-90deg);
+}
+
+
+.tutorial-wrapper .block.tutorial .tutorial-nav-wrapper .tutorial-nav ul {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 20px;
+  list-style: none;
+  margin-top: 10px;
+  width: 100%;
+  overflow: auto;
+}
+
+.tutorial-wrapper .block.tutorial .tutorial-nav-wrapper .tutorial-nav ul.main-link-list {
+  padding-bottom: 8px;
+  border-bottom: 1px dashed #fff;
+}
+
+.tutorial-wrapper .block.tutorial .block-example-wrapper {
+  max-width: var(--content-max-width);
+  margin: 0 auto 80px;
+  box-shadow: 0 0 2px 1px var(--color-dark-blue);
+  gap: 15px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.tutorial-wrapper .block.tutorial .table-wrapper {
+  width: calc(100% + 4px);
+  margin: -2px -2px 0;
+  text-transform: capitalize;
+  padding: 10px 50px 20px;
+  box-shadow: 0 0px 3px 1px var(--color-dark-blue);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.tutorial-wrapper .block.tutorial .table-wrapper .table-title{
+  font-weight: 600;
+  color: var(--color-logo-blue);
+}
+
+.tutorial-wrapper .block.tutorial .table-wrapper .block-example-table {
+  background-color: #e6b8af;
+  width: 100%;
+  padding: 4px;
+  border: 1px solid #000;
+  font-family: sans-serif;
+}
+
+.tutorial-wrapper .block.tutorial .inner-block-wrapper {
+  margin: 0 15px 15px;
+}
+
+.tutorial-wrapper .block.tutorial > div > div > div > p {
+  font-size: 18px;
+  line-height: 1.5em;
+  overflow: hidden;
+}
+
+@media (max-width: 900px) {
+  .tutorial-wrapper .block.tutorial .table-wrapper {
+    width: calc(100% + 4px);
+    margin: -2px -2px 0;
+    text-transform: capitalize;
+    padding: 10px 10px 20px;
+    box-shadow: 0 0px 3px 1px var(--color-dark-blue);
+  }
+
+  .tutorial-wrapper .block.tutorial .tutorial-nav-wrapper .tutorial-nav ul {
+    flex-direction: column;
+  }
+
+  .tutorial-wrapper .block.tutorial .tutorial-nav-wrapper {
+    bottom: 10px;
+    right: 0px;
+    max-width: calc(100% - 20px);
+  }
+
+  .tutorial-wrapper .block.tutorial .tutorial-nav-wrapper.open {
+    right: 10px;
+  }
 }

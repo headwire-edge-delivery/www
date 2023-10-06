@@ -55,7 +55,7 @@ export default async function decorate(block) {
         .sort((a, b) => new Date(b.publicationDate) - new Date(a.publicationDate));
 
       // First blog becomes Hero
-      const heroData = blogData.shift();
+      const heroData = !block.classList.contains('no-hero') ? blogData.shift() : null;
       if (heroData) {
         const keywordsArray = heroData.keywords ? heroData.keywords.split(',').map((keyword) => keyword.trim()) : [];
 
@@ -108,11 +108,11 @@ export default async function decorate(block) {
 
         // Add hero to main once loaded
         document.querySelector('main').prepend(section);
+      }
 
-        // Process the rest of the blogs
-        if (blogData.length) {
-          block.innerHTML = `<h2>More Blog Posts</h2><ul class="blog-cards">${blogData.map((data) => generateBlogCard(data)).join('')}</ul>`;
-        }
+      // Process the rest of the blogs
+      if (blogData.length) {
+        block.innerHTML = `<h2>More Blog Posts</h2><ul class="blog-cards">${blogData.map((data) => generateBlogCard(data)).join('')}</ul>`;
       }
     }
   } else {

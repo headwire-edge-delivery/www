@@ -1,3 +1,7 @@
+.hero-wrapper .hero.block.overlay {
+  position: relative;
+}
+
 .hero-wrapper .hero.block:not(.overlay) .article-hero-wrapper {
   display: flex;
   justify-content: center;

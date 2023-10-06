@@ -142,7 +142,7 @@ async function loadEager(doc) {
   const main = doc.querySelector('main');
 
   if (ARTICLE_TEMPLATES[toClassName(template)]) {const section = document.createElement('div');
-      const templateBlock = buildBlock(template, { elems: [...main.children] });
+      const templateBlock = buildBlock(toClassName(template), { elems: [...main.children] });
 
       // additionalClasses?.forEach((classString) => templateBlock.classList.add(classString));
       section.append(templateBlock);
