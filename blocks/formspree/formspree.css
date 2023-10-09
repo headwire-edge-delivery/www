@@ -13,13 +13,13 @@
 
 .formspree > div > div {
     font-size: 20px;
-    color: #667085;
+    color: var(--color-dark-gray);
     margin-bottom: 30px;
     padding-top: 0;
 }
 
 .formspree a {
-    color: #004990;
+    color: var(--color-dark-blue);
     text-decoration: none;
 }
 
