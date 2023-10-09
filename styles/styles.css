@@ -112,6 +112,17 @@ a {
   font-size: .8rem;
 }
 
+.tags.grey li {
+  padding: 4px 8px;
+  border: 1px solid #d0d5dd;
+  font-weight: bold;
+  color: #667085;
+  border-radius: 5px;
+  font-size: .8rem;
+  height: 25px;
+  margin: 20px 0;
+}
+
 .author {
   display: flex;
   gap: 16px;

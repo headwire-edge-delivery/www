@@ -19,6 +19,7 @@ export default async function decorate(block) {
     const publicationDate = getMetadata('publication-date');
     const keywords = getMetadata('keywords');
 
+    const keywordsArray = keywords ? keywords.split(',').map((keyword) => keyword.trim()) : [];
     const blogDetails = createBlogDetails({ author, keywords, publicationDate });
 
     const shareTemplate = `
@@ -55,6 +56,8 @@ export default async function decorate(block) {
                   ${blogDetails}
                   <hr>
                   ${toc}
+                  <hr>
+                  ${keywordsArray.length ? `<ul class="tags grey">${keywordsArray.map((keyword) => `<li>${keyword}</li>`).join('')}</ul>` : ''}
                   <hr>
                   ${shareTemplate}
               </div>
