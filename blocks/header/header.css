@@ -102,7 +102,34 @@ header nav .nav-sections ul > li a {
   color: var(--color-dark-blue);
   font-weight: bold;
   text-decoration: none;
+} 
+
+header nav .nav-sections ul > li button {
+  display: flex;
+  align-items: center;
+  border: none;
+  background: none;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  position: relative;
 }
+
+header nav[aria-expanded="true"] .nav-hamburger button {
+  padding: 5px 8px;
+  box-shadow: none;
+  border: none;
+}
+
+header nav .nav-sections ul > li[aria-expanded="true"] button {
+  padding: 10px 20px;
+}
+
+header nav .nav-sections ul > li[aria-expanded="false"] button,
+header nav .nav-sections ul > li[aria-expanded="false"] a {
+  padding: 10px 20px;
+}
+
 
 header nav .nav-sections .button-dropdown-wrapper {
   position: absolute;
@@ -119,24 +146,13 @@ header nav .nav-sections .button-dropdown-wrapper.open {
   left: 0;
 }
 
+header nav .nav-sections .button-dropdown:hover,
 header nav .nav-sections ul > li a:hover {
   text-decoration: underline;
 }
 
-header nav .nav-sections ul > li button {
-  display: flex;
-  align-items: center;
-  border: none;
-  background: none;
-  font-family: inherit;
-  font-size: inherit;
-  cursor: pointer;
-  position: relative;
-}
-
 header nav .nav-sections ul > li button::after {
   content: "";
-  top: 2px;
   right: 0;
   position: absolute;
   display: block;
@@ -145,6 +161,7 @@ header nav .nav-sections ul > li button::after {
   background-image: var(--arrow-svg);
   transform: rotate(180deg);
   transition: transform .3s;
+  margin-right: -5px;
 }
 
 header nav .nav-sections ul > li button.open::after {
@@ -160,11 +177,6 @@ header nav .nav-sections .button-dropdown-wrapper .mobile-back-button::after {
   left: 15px;
 }
 
-header nav[aria-expanded="true"] .nav-hamburger button {
-  padding: 5px 8px;
-  box-shadow: none;
-  border: none;
-}
 
 header nav .nav-hamburger-icon,
 header nav .nav-hamburger-icon::before,
@@ -324,6 +336,7 @@ header nav .nav-tools {
     transform: rotate(180deg);
   }
 
+
   header nav .nav-sections .button-dropdown-wrapper {
     top: 95px;
     position: absolute;
@@ -389,7 +402,7 @@ header nav .nav-tools {
     display: flex;
     gap: 1.5em;
     margin: 0;
-    padding: 0.6em 2em;
+    padding: 0 2em;
   }
 
   header nav .nav-sections > ul > li {

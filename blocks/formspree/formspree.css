@@ -1,15 +1,47 @@
 /* stylelint-disable no-descending-specificity */
 
 .formspree {
-    max-width: 1200px;
+    max-width: 500px;
     width: 100%;
-    padding: 32px;
     margin: auto;
+    padding: 0 0 85px;
 }
 
 .formspree form {
     max-width: 600px;
-    padding: 32px 0;
+}
+
+.formspree > div > div {
+    font-size: 20px;
+    color: var(--color-dark-gray);
+    margin-bottom: 30px;
+    padding-top: 0;
+}
+
+.formspree a {
+    color: var(--color-light-blue);
+}
+
+.formspree a:hover {
+    text-decoration: underline;
+}
+
+.input-wrapper {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+}
+
+.input-subwrapper {
+    flex: 1; 
+}
+
+.input-subwrapper:first-child {
+    margin-right: 10px;
+}
+
+.input-subwrapper:last-child {
+    margin-left: 10px;
 }
 
 #fs-frm input,
@@ -20,8 +52,9 @@
 #fs-frm label,
 #fs-frm #card-element:disabled {
     font-family: inherit;
-    font-size: 100%;
-    color: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    color: #344054;
     border: none;
     border-radius: 0;
     display: block;
@@ -33,11 +66,21 @@
 #fs-frm label,
 #fs-frm legend,
 #fs-frm ::placeholder {
-    font-size: .825rem;
+    font-size: .875rem;
     margin-bottom: .5rem;
-    padding-top: .2rem;
+    padding-top: .4rem;
     display: flex;
     align-items: baseline;
+}
+
+#fs-frm label {
+    font-weight: 600;
+}
+
+#fs-frm label::after {
+    content: "*";
+    margin-left: 3px;
+    font-size: 1.2rem;
 }
 
 /* border, padding, margin, width */
@@ -45,18 +88,22 @@
 #fs-frm select,
 #fs-frm textarea,
 #fs-frm #card-element {
-    border: 1px solid rgb(0 0 0 / 20%);
-    background-color: rgb(255 255 255 / 90%);
-    padding: .75em 1rem;
+    background-color: rgba(175 175 175 / 18.4%);
+    border: 1px solid rgba(128 128 128 / 3.4%);
+    padding: 12px 16px;
     margin-bottom: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 2px 2px 5px rgba(0 0 0 / 16.6%); 
+    transition: box-shadow 0.3s, background-color 0.3s;
 }
 
 #fs-frm input:focus,
 #fs-frm select:focus,
 #fs-frm textarea:focus {
     background-color: white;
-    outline: gray solid thin;
+    outline: rgba(157 157 157 /35%) solid thin;
     outline-offset: -1px;
+    box-shadow: 4px 4px 8px rgba(0 0 0 / 9.2%);
 }
 
 #fs-frm [type="text"],
@@ -70,6 +117,7 @@
     width: auto;
     cursor: pointer;
     appearance: button;
+    transition: background-color 0.3s; 
 }
 
 #fs-frm [type="button"]:focus,
@@ -78,9 +126,18 @@
     outline: none;
 }
 
+#fs-frm [type="submit"]:hover,
+#fs-frm [type="reset"]:hover {
+    background-color: #036; 
+}
+
 #fs-frm [type="submit"],
 #fs-frm [type="reset"] {
     margin-bottom: 0;
+    background-color: #004990;
+    color: white;
+    font-weight: bold;
+    transition: background-color 0.3s;
 }
 
 #fs-frm select {
@@ -117,4 +174,10 @@
 #fs-frm fieldset.locale input[name="city"],
 #fs-frm fieldset.locale select[name="state"] {
     margin-right: 3%;
+}
+
+@media (max-width:1215px) {
+    .formspree {
+        padding: 15px 20px 60px;
+    }
 }

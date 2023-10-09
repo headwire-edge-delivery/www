@@ -111,6 +111,7 @@ a {
   font-weight: bolder;
   border-radius: 5px;
   color: #FFF; 
+  font-size: .8rem;
 }
 
 .author {
@@ -143,3 +144,6 @@ main {
   position: relative;
 }
 
+.privacy {
+  padding: 150px;
+}
