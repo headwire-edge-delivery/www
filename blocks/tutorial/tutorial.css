@@ -6,6 +6,28 @@
   --content-max-width: min(900px, calc(100% - 20px));
 }
 
+.tutorial-wrapper .block.tutorial h2 {
+  font-size: 2.25rem;
+  margin: 2.5rem 0;
+  font-weight: 400;
+}
+
+.tutorial-wrapper .block.tutorial h3 {
+  font-size: 1.25rem;
+  font-weight: 400;
+}
+
+.tutorial-wrapper .block.tutorial a {
+  color: var(--color-light-blue);
+  font-weight: 600;
+}
+
+.tutorial-wrapper .block.tutorial :is(p, li) {
+  line-height: 1.5;
+  text-rendering: optimizelegibility;
+  color: #667085;
+}
+
 .tutorial-wrapper .block.tutorial > div > div > div > *:not(div) {
   max-width: var(--content-max-width);
   margin-left: auto;
