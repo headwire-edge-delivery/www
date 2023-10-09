@@ -6,28 +6,6 @@
   --content-max-width: min(900px, calc(100% - 20px));
 }
 
-.tutorial-wrapper .block.tutorial h2 {
-  font-size: 2.25rem;
-  margin: 2.5rem 0;
-  font-weight: 400;
-}
-
-.tutorial-wrapper .block.tutorial h3 {
-  font-size: 1.25rem;
-  font-weight: 400;
-}
-
-.tutorial-wrapper .block.tutorial a {
-  color: var(--color-light-blue);
-  font-weight: 600;
-}
-
-.tutorial-wrapper .block.tutorial :is(p, li) {
-  line-height: 1.5;
-  text-rendering: optimizelegibility;
-  color: #667085;
-}
-
 .tutorial-wrapper .block.tutorial > div > div > div > *:not(div) {
   max-width: var(--content-max-width);
   margin-left: auto;
@@ -38,6 +16,31 @@
 .tutorial-wrapper .block.tutorial > div > div > div > p :is(img, picture) {
   width: 100%;
   height: auto;
+}
+
+.tutorial-wrapper .block.tutorial > div > div > div > h2 {
+  font-size: 2.25rem;
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+  font-weight: 400;
+}
+
+.tutorial-wrapper .block.tutorial > div > div > div > h3 {
+  font-size: 1.25rem;
+  font-weight: 400;
+}
+
+.tutorial-wrapper .block.tutorial > div > div > div > a,
+.tutorial-wrapper .block.tutorial > div > div > div > p a,
+.tutorial-wrapper .block.tutorial > div > div > div > :is(ul, ol) a {
+  color: var(--color-light-blue);
+  font-weight: 600;
+}
+
+.tutorial-wrapper .block.tutorial > div > div > div > :is(p, ul, ol) {
+  line-height: 1.5;
+  text-rendering: optimizelegibility;
+  color: #667085;
 }
 
 .tutorial-wrapper .block.tutorial .block-example-wrapper {
