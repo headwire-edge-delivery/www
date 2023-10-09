@@ -20,7 +20,6 @@
 
 .formspree a {
     color: var(--color-light-blue);
-    text-decoration: none;
 }
 
 .formspree a:hover {
