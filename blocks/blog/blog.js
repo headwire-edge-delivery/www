@@ -4,7 +4,7 @@ import {
 import { createBlogDetails } from '../../scripts/scripts.js';
 
 export default async function decorate(block) {
-  const defaultContent = document.querySelector('.default-content-wrapper');
+  const defaultContent = block.querySelector('div > div > div');
   if (defaultContent) {
     let toc = '<div class="toc"><div class="sticky"><strong>Table of content</strong><ul>';
     defaultContent.querySelectorAll('h2, h3').forEach((heading) => {
