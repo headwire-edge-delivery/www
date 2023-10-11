@@ -41,6 +41,7 @@ function onDialogClose(nav, navSections) {
 
   nav.setAttribute('aria-expanded', 'false');
   toggleAllNavSections(navSections, 'false');
+  navSections.classList.remove('dropdown-open');
   button.setAttribute('aria-label', 'Open navigation');
   navSections.querySelector('.button-dropdown-wrapper')?.classList?.remove('open');
 }
