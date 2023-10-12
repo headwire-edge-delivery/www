@@ -38,6 +38,7 @@
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --nav-height: 64px;
   --color-dark-gray: rgb(34 34 34);
+  --color-light-gray: #f2f2f2;
   --color-logo-blue: rgb(0 73 144);
   --color-dark-blue: rgb(43 67 100);
   --color-light-blue: rgb(54 90 139);

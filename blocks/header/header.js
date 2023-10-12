@@ -1,5 +1,4 @@
 import { getMetadata, decorateIcons } from '../../scripts/lib-franklin.js';
-
 // media query match that indicates mobile/tablet width
 const isDesktop = window.matchMedia('(min-width: 900px)');
 
@@ -195,6 +194,52 @@ export default async function decorate(block) {
         }
       });
     }
+
+    // Overlay Search functionality
+    const searchIconContainer = nav.querySelector('.icon-search').parentNode;
+    const searchOverlay = document.createElement('div');
+    searchOverlay.className = 'search-overlay';
+    searchOverlay.style.display = 'none';
+
+    const searchForm = document.createElement('form');
+    searchForm.setAttribute('action', '/search-results');
+    searchForm.setAttribute('method', 'GET');
+
+    const searchInput = document.createElement('input');
+    searchInput.type = 'text';
+    searchInput.name = 'q';
+    searchInput.placeholder = 'Search...';
+    searchInput.className = 'search-input-overlay';
+
+    // Close button search
+    const closeBtn = document.createElement('button');
+    closeBtn.className = 'close-search';
+    closeBtn.textContent = 'X';
+    closeBtn.type = 'button';
+    closeBtn.addEventListener('click', () => {
+      searchOverlay.style.display = 'none';
+    });
+
+    searchForm.appendChild(searchInput);
+    searchForm.appendChild(closeBtn);
+    searchOverlay.appendChild(searchForm);
+    navSections.insertBefore(searchOverlay, navSections.firstChild);
+
+    // Toggle search overlay on search icon click.
+    searchIconContainer.addEventListener('click', () => {
+      if (searchOverlay.style.display === 'none') {
+        searchOverlay.style.display = 'block';
+        searchInput.focus();
+      } else {
+        searchOverlay.style.display = 'none';
+      }
+    });
+
+    // Listen for form submission
+    searchForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      window.location.href = `/search-results?q=${encodeURIComponent(searchInput.value)}`;
+    });
 
     // hamburger for mobile
     const hamburger = document.createElement('div');
