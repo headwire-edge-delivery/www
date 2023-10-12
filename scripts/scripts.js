@@ -72,10 +72,9 @@ function extractPath(url) {
  * @param {Array} originalData - The initial array of search results
  * @param {Element} resultsContainer - The container element where search results should be rendered
  * @param {Element} tagsPanel - The container element for the tags UI
- * @param {string|null} [selectedTag=null] - The tag that has been selected for filtering results
  * @param {string} [sortOrder='relevance'] - sorting results ('relevance', 'oldest', or 'newest')
  */
-export function renderResults(originalData, resultsContainer, tagsPanel, selectedTag = null, sortOrder = 'relevance') {
+export function renderResults(originalData, resultsContainer, tagsPanel, sortOrder = 'relevance') {
   let initialDataOrder = [];
   let data = [...originalData];
 
@@ -90,11 +89,11 @@ export function renderResults(originalData, resultsContainer, tagsPanel, selecte
     data = [...initialDataOrder];
   }
 
-  const filterResultsByTag = (tag) => {
+  const filterResultsByTag = (tags) => {
     const cards = resultsContainer.querySelectorAll('.result-card');
     cards.forEach((card) => {
       const cardTags = card.getAttribute('data-tags').split(', ');
-      if (tag && !cardTags.includes(tag)) {
+      if (tags.length && !tags.some((tag) => cardTags.includes(tag))) {
         card.style.display = 'none';
       } else {
         card.style.display = 'block';
@@ -125,6 +124,10 @@ export function renderResults(originalData, resultsContainer, tagsPanel, selecte
   while (tagsPanel.firstChild) {
     tagsPanel.removeChild(tagsPanel.firstChild);
   }
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const tagsFromUrl = urlParams.getAll('tags');
+  const selectedTags = tagsFromUrl.length ? tagsFromUrl : [];
 
   //  render tags
   const allTags = new Set(data.flatMap((result) => (result.tags || '').split(', ')));
@@ -157,22 +160,27 @@ export function renderResults(originalData, resultsContainer, tagsPanel, selecte
     const label = tagsPanel.querySelector(`label[for="${tag}"]`);
     label.textContent = `${tag} (${tagCounts[tag]})`;
   });
-  // apply selected tag filter
-  filterResultsByTag(selectedTag);
 
-  // event listener to respond to tag checkbox changes
+  // apply selected tag filter
+  filterResultsByTag(selectedTags);
+
+  // update url when tag checkbox is changed
   tagsPanel.addEventListener('change', (e) => {
     if (e.target.tagName === 'INPUT' && e.target.type === 'checkbox') {
-      // unheck all checkboxes - only possible to check one tag at the time
-      const allCheckboxes = tagsPanel.querySelectorAll('input[type="checkbox"]');
-      allCheckboxes.forEach((checkbox) => {
-        checkbox.checked = false;
+      // get all selected tags
+      const checkedBoxes = tagsPanel.querySelectorAll('input[type="checkbox"]:checked');
+      const currentlySelectedTags = Array.from(checkedBoxes)
+        .map((checkbox) => checkbox.value);
+
+      filterResultsByTag(currentlySelectedTags);
+
+      // update URL
+      const currentUrl = new URL(window.location.href);
+      currentUrl.searchParams.delete('tags');
+      currentlySelectedTags.forEach((tag) => {
+        currentUrl.searchParams.append('tags', tag);
       });
-
-      e.target.checked = true;
-
-      const tagToFilterBy = e.target.value;
-      filterResultsByTag(tagToFilterBy);
+      window.history.pushState({}, '', currentUrl.toString());
     }
   });
 }

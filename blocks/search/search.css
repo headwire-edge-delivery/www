@@ -81,6 +81,8 @@
 
 .search .results-sorting {
     width: auto; 
+    min-width: 130px;
+    margin-left: 5px;
     height: 35px;
     line-height: 35px;
     padding: 0 12px;
@@ -192,6 +194,7 @@
 
     .search .results-summary {
         width: 150px;
+        line-height: 1.5;
     }
 
     .search .tags-panel > div {
