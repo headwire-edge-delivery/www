@@ -1,3 +1,8 @@
+const setBackground = (block, image) => {
+  block.style.backgroundImage = `url(${image.currentSrc})`;
+  image.parentElement.remove();
+};
+
 export default async function decorate(block) {
   const textElems = block.querySelectorAll('h2, p');
 
@@ -18,6 +23,11 @@ export default async function decorate(block) {
   block.appendChild(bannerTextWrapper);
 
   const image = block.querySelector('.banner-text-wrapper picture img');
-  block.style.backgroundImage = `url(${image.currentSrc})`;
-  image.parentElement.remove();
+  if (image.complete) {
+    setBackground(block, image);
+  } else {
+    image.onload = () => {
+      setBackground(block, image);
+    };
+  }
 }
