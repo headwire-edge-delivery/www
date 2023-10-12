@@ -21,7 +21,7 @@ const AUTHORS = {
   },
 };
 
-export const ARTICLE_TEMPLATES = {
+export const TEMPLATES = {
   blog: 'blog',
   tutorial: 'tutorial',
 };
@@ -140,7 +140,7 @@ async function loadEager(doc) {
   const template = getMetadata('template');
   const main = doc.querySelector('main');
 
-  if (ARTICLE_TEMPLATES[toClassName(template)]) {
+  if (TEMPLATES[toClassName(template)]) {
     const section = document.createElement('div');
     const templateBlock = buildBlock(toClassName(template), { elems: [...main.children] });
 
