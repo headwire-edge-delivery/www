@@ -17,7 +17,7 @@ export default async function decorate(block) {
 
   block.appendChild(bannerTextWrapper);
 
-  const imageUrl = document.querySelector('.banner-text-wrapper picture img').src;
-
-  block.style.backgroundImage = `url(${imageUrl})`;
+  const image = block.querySelector('.banner-text-wrapper picture img');
+  block.style.backgroundImage = `url(${image.currentSrc})`;
+  image.parentElement.remove();
 }
