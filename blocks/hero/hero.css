@@ -264,11 +264,15 @@
   margin-bottom: 50px;
 }
 
+.hero.blog.block .hero-blog-wrapper {
+  padding: 145px 10px 40px;
+}
+
 .hero.blog.block .hero-blog-link{
   text-decoration: none;
   display: flex;
   color: #101828;
-  padding: 145px 10px 40px;
+  padding: 0;
   border-radius: 15px;
   flex-direction: row;
   justify-content: center;

@@ -65,6 +65,7 @@ function toggleMenu(nav, navSections, forceExpanded = null) {
     window.requestAnimationFrame(() => {
       window.requestAnimationFrame(() => {
         nav.setAttribute('aria-expanded', true);
+        nav.querySelector('.mobile-dropdown-open')?.classList?.remove('mobile-dropdown-open')
         toggleAllNavSections(navSections, false);
       });
     });
@@ -143,57 +144,111 @@ export default async function decorate(block) {
     const navSections = nav.querySelector('.nav-sections');
     if (navSections) {
       navSections.querySelectorAll(':scope > ul > li').forEach((navSection) => {
-        if (navSection.querySelector('ul')) navSection.classList.add('nav-drop');
-      });
+        const innerList = navSection.querySelector('ul')
+        
+        // inner list functionality setup
+        if (innerList) {
+          const innerListWrapper = document.createElement('div')
+          innerListWrapper.className = 'inner-list-wrapper'
+          innerListWrapper.append(innerList)
+          navSection.append(innerListWrapper)
 
-      const headerListItems = nav.querySelectorAll('.nav-sections > ul > li');
-      headerListItems.forEach((item) => {
-        if (item.classList.contains('nav-drop')) {
-          const buttonWrapper = document.createElement('div');
-          buttonWrapper.className = 'button-dropdown-wrapper';
-
-          const dropdownButton = document.createElement('button');
-          dropdownButton.className = 'button-dropdown';
-          dropdownButton.textContent = item.textContent.replace(item.children[0].textContent, '');
-
-          const buttonClick = () => {
-            const parent = dropdownButton.parentElement;
-            const expanded = parent.getAttribute('aria-expanded') === 'true';
+          navSection.classList.add('nav-drop')
+          navSection.setAttribute('tabindex', 0)
+          
+          const toggleOpen = (forceExpanded) => {
+            const expanded = forceExpanded !== undefined ? !forceExpanded : navSection.getAttribute('aria-expanded') === 'true';
             if (expanded) {
-              parent.setAttribute('aria-expanded', false);
+              navSection.setAttribute('aria-expanded', false);
+              navSection.parentElement.classList.add('mobile-dropdown-open')
             } else {
-              parent.setAttribute('aria-expanded', true);
+              navSection.setAttribute('aria-expanded', true);
+              navSection.parentElement.classList.remove('mobile-dropdown-open')
             }
 
-            buttonWrapper.classList.toggle('open');
-            buttonWrapper.parentElement.classList.toggle('dropdown-open');
           };
 
-          dropdownButton.onclick = buttonClick;
-          isDesktop.addEventListener('change', () => {
-            buttonWrapper.parentElement.classList.remove('dropdown-open');
-            buttonWrapper.classList.remove('open');
-          });
+            const keyNavThroughMenu = (up) => {
+              const firstLinkInMenu = innerList.querySelector('ul li a')
+              const lastLinkInMenu = innerList.querySelector('ul li:last-child a')
+              if (innerList.contains(document.activeElement)) {
+                if (up) {
+                  if (document.activeElement.isEqualNode(firstLinkInMenu)) {
+                    navSection.focus()
+                    return
+                  }
+                  document.activeElement.parentElement.previousElementSibling.children[0].focus()
+                  return
+                } else {
+                  if (document.activeElement.isEqualNode(lastLinkInMenu)) {
+                    return
+                  }
+                  document.activeElement.parentElement.nextElementSibling.children[0].focus()
+                }
+              }
+              if (document.activeElement.isEqualNode(navSection)) {
+                if (up) {
+                  return
+                }
+                firstLinkInMenu.focus()
+              }
+            }
 
+          const keyboardPressHandler = (e) => {
+            if (e.key === 'ArrowDown') {
+              e.preventDefault()
+              keyNavThroughMenu(false)
+            }
+            if (e.key === 'ArrowUp') {
+              e.preventDefault()
+              keyNavThroughMenu(true)
+            }
+            if (e.key === 'Tab') {
+              if (document.activeElement.isEqualNode(navSection) || navSection.contains(document.activeElement)) {
+                e.preventDefault()
+                if (e.shiftKey) {
+                  navSection.previousElementSibling.children[0].focus()
+                } else {
+                  navSection.nextElementSibling.children[0].focus()
+                }
+                toggleOpen(false)
+              }
+            }
+          }
+
+          innerList.classList.add('inner-list')
+          navSection.onclick = () => {
+            toggleOpen()
+          }
+          navSection.addEventListener('mouseenter', () => {
+            if (!isDesktop.matches) return
+            toggleOpen(true)
+          })
+          navSection.addEventListener('mouseleave', () => {
+            if (!isDesktop.matches || navSection.contains(document.activeElement)) return
+            toggleOpen(false)
+          })
+          navSection.addEventListener('focus', () => {
+            if (!isDesktop.matches) return
+            toggleOpen(true)
+          })
+          navSection.addEventListener('keydown', (e) => {
+            if (!isDesktop.matches) return
+            keyboardPressHandler(e)
+          })
+
+          // mobile inner menu control setup
           const mobileBackButtonWrapper = document.createElement('li');
           mobileBackButtonWrapper.className = 'mobile-back-button-wrapper';
           const mobileBackButton = document.createElement('button');
           mobileBackButton.className = 'mobile-back-button';
-          mobileBackButton.onclick = buttonClick;
+          mobileBackButton.onclick = () => toggleOpen(false);
 
           mobileBackButtonWrapper.prepend(mobileBackButton);
-          const linkList = item.querySelector('ul');
-          linkList.prepend(mobileBackButtonWrapper);
+          innerList.prepend(mobileBackButtonWrapper);
 
-          const tagMenu = document.createElement('div');
-          tagMenu.className = 'tag-menu';
-          tagMenu.append(linkList);
 
-          buttonWrapper.append(tagMenu);
-          navSections.append(buttonWrapper);
-          item.innerHTML = '';
-          item.append(dropdownButton);
-        }
+        };
       });
     }
 
@@ -213,10 +268,10 @@ export default async function decorate(block) {
     navWrapper.append(nav);
     block.innerHTML = '';
     block.append(navWrapper);
+
     // prevent mobile nav behavior on window resize
     toggleMenu(nav, navSections, false);
     isDesktop.addEventListener('change', () => toggleMenu(nav, navSections, false));
-    // debugger
 
     // Transform logo into home page link
     const logo = nav.querySelector('.icon-headwirelogo');
