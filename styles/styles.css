@@ -39,6 +39,7 @@
   --nav-height: 64px;
   --color-dark-gray: rgb(34 34 34);
   --color-light-gray: #f2f2f2;
+  --color-blog-text-gray: #667085;
   --color-logo-blue: rgb(0 73 144);
   --color-dark-blue: rgb(43 67 100);
   --color-light-blue: rgb(54 90 139);
@@ -135,7 +136,7 @@ a {
 }
 
 .author .title {
-  color: #667085;
+  color:var(--color-blog-text-gray);
   font-size: 14px;
 }
 

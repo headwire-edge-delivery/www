@@ -26,13 +26,14 @@
 }
 
 .blog-main a {
-  color: #667085;
+  color: var(--color-dark-gray);
   text-decoration: none;
 }
 
 .blog-main a:hover {
   text-decoration: underline;
 }
+
 
 .blog-main :is(h2, h3) {
   color: #000;
@@ -72,11 +73,17 @@
 .blog-main .content p {
   line-height: 1.5;
   text-rendering: optimizelegibility;
-  color: #667085;
+  color:var(--color-blog-text-gray);
 }
 
 .blog-main .details.hide p {
-  color: #667085;
+  color:var(--color-blog-text-gray);
+}
+
+.blog-main .content ul {
+  line-height: 1.5;
+  text-rendering: optimizelegibility;
+  color:var(--color-blog-text-gray);
 }
 
 .details hr {
