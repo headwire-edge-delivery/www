@@ -74,8 +74,9 @@ function extractPath(url) {
  * @param {Element} tagsPanel - The container element for the tags UI
  * @param {string} [sortOrder='relevance'] - sorting results ('relevance', 'oldest', or 'newest')
  */
+
+let initialDataOrder = [];
 export function renderResults(originalData, resultsContainer, tagsPanel, sortOrder = 'relevance') {
-  let initialDataOrder = [];
   let data = [...originalData];
 
   // save initial order on first search

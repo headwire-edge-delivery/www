@@ -66,7 +66,7 @@ export default async function decorate(block) {
       // Listen for changes in the sort dropdown and re-render the results accordingly
       sortDropdown.addEventListener('change', () => {
         const sortOrder = sortDropdown.value;
-        renderResults(data, resultsContainer, tagsPanel, null, sortOrder);
+        renderResults(data, resultsContainer, tagsPanel, sortOrder);
       });
     } else {
       block.insertAdjacentHTML('beforeend', `
