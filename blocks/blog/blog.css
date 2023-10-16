@@ -75,6 +75,10 @@
   color: #667085;
 }
 
+.blog-main .content :is(p, li) a {
+  text-decoration: underline;
+}
+
 .blog-main .details.hide p {
   color: #667085;
 }
