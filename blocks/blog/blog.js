@@ -1,5 +1,6 @@
 import {
-  getMetadata,
+  decorateBlock,
+  getMetadata, loadBlocks,
 } from '../../scripts/lib-franklin.js';
 import { createBlogDetails } from '../../scripts/scripts.js';
 
@@ -83,5 +84,8 @@ export default async function decorate(block) {
         navigator.clipboard.writeText(event.currentTarget.dataset.url);
       });
     });
+
+    block.querySelectorAll('.embed').forEach((innerBlock) => decorateBlock(innerBlock));
+    loadBlocks(document.querySelector('main'));
   }
 }
