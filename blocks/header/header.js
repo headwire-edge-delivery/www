@@ -65,7 +65,7 @@ function toggleMenu(nav, navSections, forceExpanded = null) {
     window.requestAnimationFrame(() => {
       window.requestAnimationFrame(() => {
         nav.setAttribute('aria-expanded', true);
-        nav.querySelector('.mobile-dropdown-open')?.classList?.remove('mobile-dropdown-open')
+        nav.querySelector('.mobile-dropdown-open')?.classList?.remove('mobile-dropdown-open');
         toggleAllNavSections(navSections, false);
       });
     });
@@ -144,98 +144,111 @@ export default async function decorate(block) {
     const navSections = nav.querySelector('.nav-sections');
     if (navSections) {
       navSections.querySelectorAll(':scope > ul > li').forEach((navSection) => {
-        const innerList = navSection.querySelector('ul')
-        
+        const innerList = navSection.querySelector('ul');
+
         // inner list functionality setup
         if (innerList) {
-          const innerListWrapper = document.createElement('div')
-          innerListWrapper.className = 'inner-list-wrapper'
-          innerListWrapper.append(innerList)
-          navSection.append(innerListWrapper)
+          const innerListWrapper = document.createElement('div');
+          innerListWrapper.className = 'inner-list-wrapper';
+          innerListWrapper.append(innerList);
+          navSection.append(innerListWrapper);
 
-          navSection.classList.add('nav-drop')
-          navSection.setAttribute('tabindex', 0)
-          
+          navSection.classList.add('nav-drop');
+          navSection.setAttribute('tabindex', 0);
+
           const toggleOpen = (forceExpanded) => {
             const expanded = forceExpanded !== undefined ? !forceExpanded : navSection.getAttribute('aria-expanded') === 'true';
             if (expanded) {
               navSection.setAttribute('aria-expanded', false);
-              navSection.parentElement.classList.add('mobile-dropdown-open')
+              navSection.parentElement.classList.add('mobile-dropdown-open');
             } else {
               navSection.setAttribute('aria-expanded', true);
-              navSection.parentElement.classList.remove('mobile-dropdown-open')
+              navSection.parentElement.classList.remove('mobile-dropdown-open');
             }
-
           };
 
-            const keyNavThroughMenu = (up) => {
-              const firstLinkInMenu = innerList.querySelector('ul li a')
-              const lastLinkInMenu = innerList.querySelector('ul li:last-child a')
-              if (innerList.contains(document.activeElement)) {
-                if (up) {
-                  if (document.activeElement.isEqualNode(firstLinkInMenu)) {
-                    navSection.focus()
-                    return
-                  }
-                  document.activeElement.parentElement.previousElementSibling.children[0].focus()
-                  return
-                } else {
-                  if (document.activeElement.isEqualNode(lastLinkInMenu)) {
-                    return
-                  }
-                  document.activeElement.parentElement.nextElementSibling.children[0].focus()
+          const keyNavThroughMenu = (up) => {
+            const firstLinkInMenu = innerList.querySelector('ul li a');
+            const lastLinkInMenu = innerList.querySelector('ul li:last-child a');
+            if (innerList.contains(document.activeElement)) {
+              if (up) {
+                if (document.activeElement.isEqualNode(firstLinkInMenu)) {
+                  navSection.focus();
+                  return;
                 }
+                document.activeElement.parentElement.previousElementSibling.children[0].focus();
+                return;
               }
-              if (document.activeElement.isEqualNode(navSection)) {
-                if (up) {
-                  return
-                }
-                firstLinkInMenu.focus()
+              if (document.activeElement.isEqualNode(lastLinkInMenu)) {
+                return;
               }
+              document.activeElement.parentElement.nextElementSibling.children[0].focus();
             }
+            if (document.activeElement.isEqualNode(navSection)) {
+              if (up) {
+                return;
+              }
+              firstLinkInMenu.focus();
+            }
+          };
 
           const keyboardPressHandler = (e) => {
             if (e.key === 'ArrowDown') {
-              e.preventDefault()
-              keyNavThroughMenu(false)
+              e.preventDefault();
+              keyNavThroughMenu(false);
             }
             if (e.key === 'ArrowUp') {
-              e.preventDefault()
-              keyNavThroughMenu(true)
+              e.preventDefault();
+              keyNavThroughMenu(true);
             }
             if (e.key === 'Tab') {
-              if (document.activeElement.isEqualNode(navSection) || navSection.contains(document.activeElement)) {
-                e.preventDefault()
+              if (
+                document.activeElement.isEqualNode(navSection)
+                || navSection.contains(document.activeElement)
+              ) {
+                e.preventDefault();
                 if (e.shiftKey) {
-                  navSection.previousElementSibling.children[0].focus()
+                  navSection.previousElementSibling.children[0].focus();
                 } else {
-                  navSection.nextElementSibling.children[0].focus()
+                  navSection.nextElementSibling.children[0].focus();
                 }
-                toggleOpen(false)
+                toggleOpen(false);
               }
             }
-          }
+          };
 
-          innerList.classList.add('inner-list')
+          const focusOutHandler = () => {
+            requestAnimationFrame(() => {
+              if (!navSection.contains(document.activeElement)) {
+                toggleOpen(false);
+              }
+            });
+          };
+
+          innerList.classList.add('inner-list');
           navSection.onclick = () => {
-            toggleOpen()
-          }
+            toggleOpen();
+          };
           navSection.addEventListener('mouseenter', () => {
-            if (!isDesktop.matches) return
-            toggleOpen(true)
-          })
+            if (!isDesktop.matches) return;
+            toggleOpen(true);
+          });
           navSection.addEventListener('mouseleave', () => {
-            if (!isDesktop.matches || navSection.contains(document.activeElement)) return
-            toggleOpen(false)
-          })
+            if (!isDesktop.matches || navSection.contains(document.activeElement)) return;
+            toggleOpen(false);
+          });
           navSection.addEventListener('focus', () => {
-            if (!isDesktop.matches) return
-            toggleOpen(true)
-          })
+            if (!isDesktop.matches) return;
+            toggleOpen(true);
+          });
           navSection.addEventListener('keydown', (e) => {
-            if (!isDesktop.matches) return
-            keyboardPressHandler(e)
-          })
+            if (!isDesktop.matches) return;
+            keyboardPressHandler(e);
+          });
+          navSection.addEventListener('focusout', () => {
+            if (!isDesktop.matches) return;
+            focusOutHandler();
+          });
 
           // mobile inner menu control setup
           const mobileBackButtonWrapper = document.createElement('li');
@@ -246,9 +259,7 @@ export default async function decorate(block) {
 
           mobileBackButtonWrapper.prepend(mobileBackButton);
           innerList.prepend(mobileBackButtonWrapper);
-
-
-        };
+        }
       });
     }
 
