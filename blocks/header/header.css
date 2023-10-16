@@ -157,6 +157,7 @@ header nav .nav-sections .button-dropdown-wrapper .mobile-back-button {
 header nav .nav-sections .button-dropdown-wrapper .mobile-back-button::after {
   right: unset;
   left: 15px;
+  transform: rotate(180deg);
 }
 
 
@@ -560,5 +561,9 @@ header nav .nav-sections ul.inner-list li.mobile-back-button-wrapper {
 
   header nav .nav-sections ul li button::after {
     margin: 0;
+  }
+  
+  header nav .nav-sections ul li button.mobile-back-button::after {
+    transform: rotate(225deg);
   }
 }
