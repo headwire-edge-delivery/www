@@ -60,7 +60,7 @@ export default async function decorate(block) {
     const searchField = block.querySelector('.search-input');
     searchField.value = searchTerm;
 
-    const response = await fetch(`https://gd-search.gd-search.workers.dev/?search=${searchTerm}`);
+    const response = await fetch(`https://search.headwire.workers.dev/?search=${searchTerm}`);
     data = await response.json();
 
     // only display if results are found for the search term
