@@ -1,6 +1,6 @@
 import {
-    decorateBlock,
-    getMetadata, loadBlocks,
+  decorateBlock,
+  getMetadata, loadBlocks,
 } from '../../scripts/lib-franklin.js';
 import { createBlogDetails } from '../../scripts/scripts.js';
 
