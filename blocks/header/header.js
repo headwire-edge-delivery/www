@@ -1,5 +1,4 @@
 import { getMetadata, decorateIcons } from '../../scripts/lib-franklin.js';
-
 // media query match that indicates mobile/tablet width
 const isDesktop = window.matchMedia('(min-width: 900px)');
 
@@ -26,6 +25,57 @@ const placeholderHtml = `
 `;
 
 /**
+ * creates and returns a search overlay component for both mobile and desktop view
+ *
+ * @param {string} className -tThe class name to be assigned to the created overlay
+ * @returns {HTMLElement} overlay - the created search overlay element
+ */
+function createSearchOverlayComponent(className) {
+  const overlay = document.createElement('div');
+  overlay.className = className;
+  overlay.style.display = 'none';
+
+  const searchForm = document.createElement('form');
+  searchForm.setAttribute('action', '/search-results');
+  searchForm.setAttribute('method', 'GET');
+
+  const searchInput = document.createElement('input');
+  searchInput.type = 'text';
+  searchInput.name = 'q';
+  searchInput.placeholder = 'Search...';
+  searchInput.className = 'search-input-overlay';
+
+  // Close button search
+  const closeBtn = document.createElement('button');
+  closeBtn.className = 'close-search';
+  closeBtn.textContent = 'X';
+  closeBtn.type = 'button';
+  closeBtn.addEventListener('click', () => {
+    overlay.style.display = 'none';
+  });
+
+  searchForm.appendChild(searchInput);
+  searchForm.appendChild(closeBtn);
+  overlay.appendChild(searchForm);
+
+  // Event listeners for the search form
+  searchForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    window.location.href = `/search-results?q=${encodeURIComponent(searchInput.value)}`;
+  });
+
+  // Listen for the keydown event directly on the searchInput
+  searchInput.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      window.location.href = `/search-results?q=${encodeURIComponent(searchInput.value)}`;
+    }
+  });
+
+  return overlay;
+}
+
+/**
  * Toggles all nav sections
  * @param {Element} sections The container element
  * @param {Boolean} expanded Whether the element should be expanded or collapsed
@@ -38,6 +88,11 @@ function toggleAllNavSections(sections, expanded = false) {
 
 function onDialogClose(nav, navSections) {
   const button = nav.querySelector('.nav-hamburger button');
+
+  const mobileOverlay = document.querySelector('.mobile-search-overlay');
+  const desktopOverlay = document.querySelector('.search-overlay');
+  mobileOverlay.style.display = 'none';
+  desktopOverlay.style.display = 'none';
 
   nav.setAttribute('aria-expanded', 'false');
   toggleAllNavSections(navSections, 'false');
@@ -262,6 +317,42 @@ export default async function decorate(block) {
         }
       });
     }
+    // Overlay Search functionality for desktop
+    const searchIconContainer = nav.querySelector('.icon-search').parentNode;
+    searchIconContainer.classList.add('icon-search-container');
+    searchIconContainer.setAttribute('tabindex', '0');
+
+    const searchOverlay = createSearchOverlayComponent('search-overlay');
+    navSections.insertBefore(searchOverlay, navSections.firstChild);
+
+    // Overlay Search functionality for mobile
+    const mobileSearchOverlay = createSearchOverlayComponent('mobile-search-overlay');
+    searchIconContainer.appendChild(mobileSearchOverlay);
+
+    // Toggle search overlay on search icon click.
+    searchIconContainer.addEventListener('click', () => {
+      const overlayToToggle = window.innerWidth < 900 ? mobileSearchOverlay : searchOverlay;
+      if (overlayToToggle.style.display === 'none') {
+        overlayToToggle.style.display = 'block';
+        overlayToToggle.querySelector('.search-input-overlay').focus();
+      } else {
+        overlayToToggle.style.display = 'none';
+      }
+    });
+
+    // Event listener for the 'keydown' event on the searchIconContainer
+    searchIconContainer.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        const overlayToToggle = window.innerWidth < 900 ? mobileSearchOverlay : searchOverlay;
+        if (overlayToToggle.style.display === 'none') {
+          overlayToToggle.style.display = 'block';
+          overlayToToggle.querySelector('.search-input-overlay').focus();
+        } else {
+          overlayToToggle.style.display = 'none';
+        }
+      }
+    });
 
     // hamburger for mobile
     const hamburger = document.createElement('div');

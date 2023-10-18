@@ -46,6 +46,163 @@ export function createBlogDetails(data) {
   `;
 }
 
+// sort publication date
+function sortByPublicationDate(a, b, sortOrder) {
+  const dateA = new Date(a.publicationDate);
+  const dateB = new Date(b.publicationDate);
+
+  if (sortOrder === 'oldest') {
+    return dateA - dateB;
+  } if (sortOrder === 'newest') {
+    return dateB - dateA;
+  }
+  return 0;
+}
+
+// extracts path from url
+function extractPath(url) {
+  const match = url.match(/hlx\.live\/(.+)$/);
+  return match ? match[1] : '';
+}
+
+/**
+ * Renders search results, manages sorting, and updates the UI based on selected tags
+ *
+ * @param {Array} originalData - The initial array of search results
+ * @param {Element} resultsContainer - The container element where search results should be rendered
+ * @param {Element} tagsPanel - The container element for the tags UI
+ * @param {string} [sortOrder='relevance'] - sorting results ('relevance', 'oldest', or 'newest')
+ * @param {Array<string>} [filterTags=[]] - array of tags to filter results by
+ */
+
+let initialDataOrder = [];
+export function renderResults(originalData, resultsContainer, tagsPanel, sortOrder = 'relevance', filterTags = []) {
+  let data = [...originalData];
+
+  // save initial order on first search
+  if (!initialDataOrder.length) {
+    initialDataOrder = [...data];
+  }
+
+  if (sortOrder === 'oldest' || sortOrder === 'newest') {
+    data.sort((a, b) => sortByPublicationDate(a, b, sortOrder));
+  } else if (sortOrder === 'relevance') {
+    data = [...initialDataOrder];
+  }
+
+  const filterResultsByTag = (tags) => {
+    const cards = resultsContainer.querySelectorAll('.result-card');
+    cards.forEach((card) => {
+      const cardTags = card.getAttribute('data-tags').split(', ');
+      if (tags.length && !tags.some((tag) => cardTags.includes(tag))) {
+        card.style.display = 'none';
+      } else {
+        card.style.display = 'block';
+      }
+    });
+  };
+
+  // clear existing result cards
+  while (resultsContainer.firstChild) {
+    resultsContainer.removeChild(resultsContainer.firstChild);
+  }
+
+  // show result cards based on filtered data
+  data.forEach((result) => {
+    const resultCard = document.createElement('a');
+    const newPath = extractPath(result.url);
+    resultCard.href = `${window.location.origin}/${newPath}`;
+    resultCard.classList.add('result-card');
+    resultCard.setAttribute('data-tags', result.tags || '');
+    resultCard.innerHTML = `
+        <h2>${result.title}</h2>
+        <p>${result.snippet ? result.snippet : result.intro}</p>
+    `;
+    resultsContainer.appendChild(resultCard);
+  });
+
+  // clear existing tags
+  while (tagsPanel.firstChild) {
+    tagsPanel.removeChild(tagsPanel.firstChild);
+  }
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const tagsFromUrl = urlParams.getAll('tags');
+  const selectedTags = tagsFromUrl.length ? tagsFromUrl : [];
+
+  //  render tags
+  // render tags
+  const allTags = new Set(data.flatMap((result) => (result.tags || '').split(', ')));
+  allTags.forEach((tag) => {
+    const tagItem = document.createElement('div');
+
+    // Nest the checkbox inside the label and remove the ID attribute
+    tagItem.innerHTML = `
+      <label>
+        <input type="checkbox" value="${tag}">
+        <span>${tag} (0)</span>
+      </label>
+  `;
+
+    tagsPanel.appendChild(tagItem);
+  });
+
+  // add tag count number
+  const tagCounts = {};
+  data.forEach((result) => {
+    if (result.tags) {
+      const tags = result.tags.split(', ');
+      tags.forEach((tag) => {
+        if (tagCounts[tag]) {
+          tagCounts[tag] += 1;
+        } else {
+          tagCounts[tag] = 1;
+        }
+      });
+    }
+  });
+
+  // render tag counts
+  Object.keys(tagCounts).forEach((tag) => {
+    const labels = tagsPanel.querySelectorAll('label');
+    labels.forEach((label) => {
+      const spanInsideLabel = label.querySelector('span');
+      if (spanInsideLabel && spanInsideLabel.textContent.includes(tag)) {
+        spanInsideLabel.textContent = `${tag} (${tagCounts[tag]})`;
+      }
+    });
+  });
+
+  // check checkboxes if tag is present in the search params
+  selectedTags.forEach((tag) => {
+    const checkbox = tagsPanel.querySelector(`input[type="checkbox"][value="${tag}"]`);
+    if (checkbox) checkbox.checked = true;
+  });
+
+  // filters the search results by the given tags
+  filterResultsByTag(filterTags.length ? filterTags : selectedTags);
+
+  // update url when tag checkbox is changed
+  tagsPanel.addEventListener('change', (e) => {
+    if (e.target.tagName === 'INPUT' && e.target.type === 'checkbox') {
+      // get all selected tags
+      const checkedBoxes = tagsPanel.querySelectorAll('input[type="checkbox"]:checked');
+      const currentlySelectedTags = Array.from(checkedBoxes)
+        .map((checkbox) => checkbox.value);
+
+      filterResultsByTag(currentlySelectedTags);
+
+      // update URL
+      const currentUrl = new URL(window.location.href);
+      currentUrl.searchParams.delete('tags');
+      currentlySelectedTags.forEach((tag) => {
+        currentUrl.searchParams.append('tags', tag);
+      });
+      window.history.pushState({}, '', currentUrl.toString());
+    }
+  });
+}
+
 /**
  * Adds the favicons.
  */
