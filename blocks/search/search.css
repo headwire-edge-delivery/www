@@ -94,6 +94,12 @@
   outline: none;
 }
 
+.search .sort-by {
+  font-size: 14px;
+  font-weight: bold;
+  width: 50px;
+}
+
 /*  tags   */
 
 .search .tags-toggle-btn {

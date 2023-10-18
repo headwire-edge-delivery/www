@@ -69,8 +69,8 @@ export default async function decorate(block) {
         <div class="results-summary-and-sorting">
           <span class="results-summary"></span>
           <div class="sort-container">
-            <span>Sort By</span>
-            <select class="results-sorting">
+          <label for="results-sorting" class="sort-by">Sort By</label>
+            <select class="results-sorting" aria-label="Sort results by">
               <option value="relevance">Relevance</option>
               <option value="oldest">Oldest Content</option>
               <option value="newest">Newest Content</option>
@@ -122,6 +122,7 @@ export default async function decorate(block) {
 
       // Retrieve the current sort order from the dropdown
       const sortDropdown = block.querySelector('.results-sorting');
+      sortDropdown.setAttribute('aria-label', 'Sort search results by');
       // Listen for changes in the sort dropdown and re-render the results accordingly
       sortDropdown.addEventListener('change', () => {
         const sortOrder = sortDropdown.value;
