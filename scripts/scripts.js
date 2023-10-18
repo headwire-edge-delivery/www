@@ -132,13 +132,19 @@ export function renderResults(originalData, resultsContainer, tagsPanel, sortOrd
   const selectedTags = tagsFromUrl.length ? tagsFromUrl : [];
 
   //  render tags
+  // render tags
   const allTags = new Set(data.flatMap((result) => (result.tags || '').split(', ')));
   allTags.forEach((tag) => {
     const tagItem = document.createElement('div');
+
+    // Nest the checkbox inside the label and remove the ID attribute
     tagItem.innerHTML = `
-        <input type="checkbox" id="${tag}" value="${tag}">
-        <label for="${tag}">${tag} (0)</label>
-    `;
+      <label>
+        <input type="checkbox" value="${tag}">
+        <span>${tag} (0)</span>
+      </label>
+  `;
+
     tagsPanel.appendChild(tagItem);
   });
 
@@ -159,8 +165,13 @@ export function renderResults(originalData, resultsContainer, tagsPanel, sortOrd
 
   // render tag counts
   Object.keys(tagCounts).forEach((tag) => {
-    const label = tagsPanel.querySelector(`label[for="${tag}"]`);
-    label.textContent = `${tag} (${tagCounts[tag]})`;
+    const labels = tagsPanel.querySelectorAll('label');
+    labels.forEach((label) => {
+      const spanInsideLabel = label.querySelector('span');
+      if (spanInsideLabel && spanInsideLabel.textContent.includes(tag)) {
+        spanInsideLabel.textContent = `${tag} (${tagCounts[tag]})`;
+      }
+    });
   });
 
   // check checkboxes if tag is present in the search params
