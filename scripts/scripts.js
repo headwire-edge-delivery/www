@@ -21,10 +21,9 @@ const AUTHORS = {
   },
 };
 
-export const ARTICLE_TEMPLATES = {
-  // 'tag-list': 'tag-list'
-  // homepage: homepage
+export const TEMPLATES = {
   blog: 'blog',
+  tutorial: 'tutorial',
 };
 
 export function createBlogDetails(data) {
@@ -258,6 +257,21 @@ function buildAutoBlocks(main) {
 }
 
 /**
+ * Adds target="_blank" and rel="noopener noreferrer nofollow" to links
+ * within the node that leave the site.
+ * @param {Element} node to apply these changes to the links
+ */
+export function applyLinkTargets(node) {
+  node.querySelectorAll('a').forEach((anchor) => {
+    if (anchor.href.startsWith(window.location.origin)) {
+      return;
+    }
+    anchor.setAttribute('rel', 'noopener noreferrer nofollow');
+    anchor.setAttribute('target', '_blank');
+  });
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
@@ -268,6 +282,7 @@ export function decorateMain(main) {
   buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
+  applyLinkTargets(main);
 }
 
 /**
@@ -280,14 +295,18 @@ async function loadEager(doc) {
   }
 
   const template = getMetadata('template');
+  const main = doc.querySelector('main');
 
-  if (ARTICLE_TEMPLATES[toClassName(template)]) {
-    document.querySelector('main div').append(buildBlock(toClassName(template), { elems: [] }));
+  if (TEMPLATES[toClassName(template)]) {
+    const section = document.createElement('div');
+    const templateBlock = buildBlock(toClassName(template), { elems: [...main.children] });
+
+    section.append(templateBlock);
+    main.prepend(section);
   }
 
   document.documentElement.lang = 'en';
   decorateTemplateAndTheme();
-  const main = doc.querySelector('main');
   if (main) {
     decorateMain(main);
     document.body.classList.add('appear');

@@ -1,3 +1,7 @@
+.hero-wrapper .hero.block.overlay {
+  position: relative;
+}
+
 .hero-wrapper .hero.block:not(.overlay) .article-hero-wrapper {
   display: flex;
   justify-content: center;
@@ -260,11 +264,15 @@
   margin-bottom: 50px;
 }
 
+.hero.blog.block .hero-blog-wrapper {
+  padding: 145px 10px 40px;
+}
+
 .hero.blog.block .hero-blog-link{
   text-decoration: none;
   display: flex;
   color: #101828;
-  padding: 145px 10px 40px;
+  padding: 0;
   border-radius: 15px;
   flex-direction: row;
   justify-content: center;

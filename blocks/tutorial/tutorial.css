@@ -1,0 +1,196 @@
+
+
+.tutorial-wrapper {
+  padding-top: 130px;
+  
+  --content-max-width: min(900px, calc(100% - 20px));
+}
+
+.tutorial-wrapper .block.tutorial > div > div > div > *:not(div) {
+  max-width: var(--content-max-width);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.tutorial-wrapper .block.tutorial > div > div > div > :is(ol, ul) > li :is(img, picture),
+.tutorial-wrapper .block.tutorial > div > div > div > p :is(img, picture) {
+  width: 100%;
+  height: auto;
+}
+
+.tutorial-wrapper .block.tutorial > div > div > div > h2 {
+  font-size: 2.25rem;
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+  font-weight: 400;
+}
+
+.tutorial-wrapper .block.tutorial > div > div > div > h3 {
+  font-size: 1.25rem;
+  font-weight: 400;
+}
+
+.tutorial-wrapper .block.tutorial > div > div > div > a,
+.tutorial-wrapper .block.tutorial > div > div > div > p a,
+.tutorial-wrapper .block.tutorial > div > div > div > :is(ul, ol) a {
+  color: var(--color-light-blue);
+  font-weight: 600;
+}
+
+.tutorial-wrapper .block.tutorial > div > div > div > :is(p, ul, ol) {
+  line-height: 1.5;
+  text-rendering: optimizelegibility;
+  color: #667085;
+}
+
+.tutorial-wrapper .block.tutorial .block-example-wrapper {
+  max-width: var(--content-max-width);
+  margin: 0 auto 80px;
+  box-shadow: 0 0 2px 1px var(--color-dark-blue);
+  gap: 15px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.tutorial-wrapper .block.tutorial .table-wrapper {
+  width: calc(100% + 4px);
+  margin: -2px -2px 0;
+  text-transform: capitalize;
+  padding: 10px 50px 20px;
+  box-shadow: 0 0 3px 1px var(--color-dark-blue);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.tutorial-wrapper .block.tutorial .table-wrapper .table-title{
+  font-weight: 600;
+  color: var(--color-logo-blue);
+}
+
+.tutorial-wrapper .block.tutorial .table-wrapper .block-example-table {
+  background-color: #e6b8af;
+  width: 100%;
+  padding: 4px;
+  border: 1px solid #000;
+  font-family: sans-serif;
+}
+
+.tutorial-wrapper .block.tutorial .inner-block-wrapper {
+  margin: 0 15px 15px;
+}
+
+.tutorial-wrapper .block.tutorial > div > div > div > p {
+  font-size: 18px;
+  line-height: 1.5em;
+  overflow: hidden;
+}
+
+@media (max-width: 900px) {
+  .tutorial-wrapper .block.tutorial .table-wrapper {
+    width: calc(100% + 4px);
+    margin: -2px -2px 0;
+    text-transform: capitalize;
+    padding: 10px 10px 20px;
+    box-shadow: 0 0 3px 1px var(--color-dark-blue);
+  }
+}
+
+
+/* Navigation styling */
+
+body .tutorial-nav-wrapper {
+  position: sticky;
+  bottom: 20px;
+  z-index: 1;
+  background-color: var(--color-dark-blue);
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 0 0 #000;
+  max-width: calc(100% - 60px);
+  color: #fff;
+  font-weight: 600;
+  right: 0;
+  transform: translateX(calc(100% + 1px));
+  margin: 20px 0 20px auto;
+  transition-property: transform, right, box-shadow;
+  transition-duration: 0.3s;
+  min-height: 80px;
+  flex-shrink: 0;
+  height: max-content;
+}
+
+body .tutorial-nav-wrapper.open {
+  right: 30px;
+  transform: translateX(0%);
+  box-shadow: 0 0 5px 0 #000;
+}
+
+body .tutorial-nav-wrapper .tutorial-nav-toggle {
+  position: absolute;
+  z-index: 0;
+  top: 10px;
+  left: -30px;
+  border: none;
+  background-color: var(--color-dark-blue);
+  width: 30px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 30px 0 0 30px;
+  box-shadow: 0 0 5px 0 #000;
+  cursor: pointer;
+}
+
+body .tutorial-nav-wrapper .tutorial-nav-toggle::after {
+  display: block;
+  content: "";
+  background: var(--arrow-svg-white);
+  background-blend-mode: multiply;
+  width: 16px;
+  height: 16px;
+  transform: rotate(90deg);
+  transition-property: transform;
+  transition-duration: 0.3s;
+}
+
+body .tutorial-nav-wrapper.open .tutorial-nav-toggle::after {
+  transform: rotate(-90deg);
+}
+
+
+body .tutorial-nav-wrapper .tutorial-nav ul {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 20px;
+  list-style: none;
+  margin-top: 10px;
+  width: 100%;
+  overflow: auto;
+}
+
+body .tutorial-nav-wrapper .tutorial-nav ul.main-link-list + ul {
+  padding-top: 8px;
+  border-top: 1px dashed #fff;
+}
+
+@media (max-width: 900px) {
+  body .tutorial-nav-wrapper .tutorial-nav ul {
+    flex-direction: column;
+  }
+
+  body .tutorial-nav-wrapper {
+    bottom: 10px;
+    right: 0;
+    max-width: calc(100% - 20px);
+  }
+
+  body .tutorial-nav-wrapper.open {
+    right: 10px;
+  }
+}

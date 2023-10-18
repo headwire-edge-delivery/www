@@ -1,10 +1,11 @@
 import {
-  getMetadata,
+  decorateBlock,
+  getMetadata, loadBlocks,
 } from '../../scripts/lib-franklin.js';
 import { createBlogDetails } from '../../scripts/scripts.js';
 
 export default async function decorate(block) {
-  const defaultContent = document.querySelector('.default-content-wrapper');
+  const defaultContent = block.querySelector('div > div > div');
   if (defaultContent) {
     let toc = '<div class="toc"><div class="sticky"><strong>Table of content</strong><ul>';
     defaultContent.querySelectorAll('h2, h3').forEach((heading) => {
@@ -83,5 +84,8 @@ export default async function decorate(block) {
         navigator.clipboard.writeText(event.currentTarget.dataset.url);
       });
     });
+
+    block.querySelectorAll('.embed').forEach((innerBlock) => decorateBlock(innerBlock));
+    loadBlocks(document.querySelector('main'));
   }
 }
