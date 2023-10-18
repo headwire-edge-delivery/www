@@ -73,10 +73,11 @@ function extractPath(url) {
  * @param {Element} resultsContainer - The container element where search results should be rendered
  * @param {Element} tagsPanel - The container element for the tags UI
  * @param {string} [sortOrder='relevance'] - sorting results ('relevance', 'oldest', or 'newest')
+ * @param {Array<string>} [filterTags=[]] - array of tags to filter results by
  */
 
 let initialDataOrder = [];
-export function renderResults(originalData, resultsContainer, tagsPanel, sortOrder = 'relevance') {
+export function renderResults(originalData, resultsContainer, tagsPanel, sortOrder = 'relevance', filterTags = []) {
   let data = [...originalData];
 
   // save initial order on first search
@@ -162,8 +163,14 @@ export function renderResults(originalData, resultsContainer, tagsPanel, sortOrd
     label.textContent = `${tag} (${tagCounts[tag]})`;
   });
 
-  // apply selected tag filter
-  filterResultsByTag(selectedTags);
+  // check checkboxes if tag is present in the search params
+  selectedTags.forEach((tag) => {
+    const checkbox = tagsPanel.querySelector(`input[type="checkbox"][value="${tag}"]`);
+    if (checkbox) checkbox.checked = true;
+  });
+
+  // filters the search results by the given tags
+  filterResultsByTag(filterTags.length ? filterTags : selectedTags);
 
   // update url when tag checkbox is changed
   tagsPanel.addEventListener('change', (e) => {
