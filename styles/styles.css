@@ -48,7 +48,7 @@
   --arrow-svg-white: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/></svg>");
 }
 
-/* disabling scroll on html in favor of 
+/* disabling scroll on html in favor of
 having it on the body, so scrolling can be blocked
 by the mobile nav menu. */
 html {
@@ -112,7 +112,7 @@ a {
   border: 1px solid #fff;
   font-weight: bolder;
   border-radius: 5px;
-  color: #FFF; 
+  color: #FFF;
   font-size: .8rem;
 }
 
@@ -144,4 +144,8 @@ a {
 
 .privacy {
   padding: 150px;
+}
+
+#cookie-notification:not(.appear) {
+  display: none !important;
 }
