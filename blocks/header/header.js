@@ -93,6 +93,7 @@ function onDialogClose(nav, navSections) {
   const desktopOverlay = document.querySelector('.search-overlay');
   mobileOverlay.style.display = 'none';
   desktopOverlay.style.display = 'none';
+  nav.querySelectorAll('ul.mobile-dropdown-open')?.forEach((openNavList) => openNavList.classList.remove('mobile-dropdown-open'));
 
   nav.setAttribute('aria-expanded', 'false');
   toggleAllNavSections(navSections, 'false');
@@ -107,7 +108,7 @@ function onDialogClose(nav, navSections) {
  * @param {Element} navSections The nav sections within the container element
  * @param {*} forceExpanded Optional param to force nav expand behavior when not null
  */
-function toggleMenu(nav, navSections, forceExpanded = null) {
+function toggleMobileMenu(nav, navSections, forceExpanded = null) {
   if (!nav || !navSections) {
     return;
   }
@@ -211,7 +212,7 @@ export default async function decorate(block) {
           navSection.classList.add('nav-drop');
           navSection.setAttribute('tabindex', 0);
 
-          const toggleOpen = (forceExpanded) => {
+          const toggleOpenDropdown = (forceExpanded) => {
             const expanded = forceExpanded !== undefined ? !forceExpanded : navSection.getAttribute('aria-expanded') === 'true';
             if (expanded) {
               navSection.setAttribute('aria-expanded', false);
@@ -267,7 +268,7 @@ export default async function decorate(block) {
                 } else {
                   navSection.nextElementSibling.children[0].focus();
                 }
-                toggleOpen(false);
+                toggleOpenDropdown(false);
               }
             }
           };
@@ -275,26 +276,26 @@ export default async function decorate(block) {
           const focusOutHandler = () => {
             requestAnimationFrame(() => {
               if (!navSection.contains(document.activeElement)) {
-                toggleOpen(false);
+                toggleOpenDropdown(false);
               }
             });
           };
 
           innerList.classList.add('inner-list');
           navSection.onclick = () => {
-            toggleOpen();
+            toggleOpenDropdown();
           };
           navSection.addEventListener('mouseenter', () => {
             if (!isDesktop.matches) return;
-            toggleOpen(true);
+            toggleOpenDropdown(true);
           });
           navSection.addEventListener('mouseleave', () => {
             if (!isDesktop.matches || navSection.contains(document.activeElement)) return;
-            toggleOpen(false);
+            toggleOpenDropdown(false);
           });
           navSection.addEventListener('focus', () => {
             if (!isDesktop.matches) return;
-            toggleOpen(true);
+            toggleOpenDropdown(true);
           });
           navSection.addEventListener('keydown', (e) => {
             if (!isDesktop.matches) return;
@@ -310,7 +311,7 @@ export default async function decorate(block) {
           mobileBackButtonWrapper.className = 'mobile-back-button-wrapper';
           const mobileBackButton = document.createElement('button');
           mobileBackButton.className = 'mobile-back-button';
-          mobileBackButton.onclick = () => toggleOpen(false);
+          mobileBackButton.onclick = () => toggleOpenDropdown(false);
 
           mobileBackButtonWrapper.prepend(mobileBackButton);
           innerList.prepend(mobileBackButtonWrapper);
@@ -360,7 +361,7 @@ export default async function decorate(block) {
     hamburger.innerHTML = `<button type="button" aria-controls="nav" aria-label="Open navigation">
         <span class="nav-hamburger-icon"></span>
       </button>`;
-    hamburger.addEventListener('click', () => toggleMenu(nav, navSections));
+    hamburger.addEventListener('click', () => toggleMobileMenu(nav, navSections));
     nav.prepend(hamburger);
     nav.setAttribute('aria-expanded', 'false');
 
@@ -372,8 +373,8 @@ export default async function decorate(block) {
     block.append(navWrapper);
 
     // prevent mobile nav behavior on window resize
-    toggleMenu(nav, navSections, false);
-    isDesktop.addEventListener('change', () => toggleMenu(nav, navSections, false));
+    toggleMobileMenu(nav, navSections, false);
+    isDesktop.addEventListener('change', () => toggleMobileMenu(nav, navSections, false));
 
     // Transform logo into home page link
     const logo = nav.querySelector('.icon-headwirelogo');
