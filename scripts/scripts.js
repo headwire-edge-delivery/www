@@ -342,6 +342,13 @@ async function loadLazy(doc) {
   loadFonts();
   addFavIcon();
 
+  document.body.addEventListener('scroll', () => {
+    const cookieBanner = document.getElementById('cookie-notification');
+    if (cookieBanner) {
+      cookieBanner.classList.add('appear');
+    }
+  }, { once: true });
+
   sampleRUM('lazy');
   sampleRUM.observe(main.querySelectorAll('div[data-block-name]'));
   sampleRUM.observe(main.querySelectorAll('picture > img'));
