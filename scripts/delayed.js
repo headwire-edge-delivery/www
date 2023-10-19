@@ -5,7 +5,9 @@ import { sampleRUM } from './lib-franklin.js';
 sampleRUM('cwv');
 
 // add more delayed functionality here
-const cookieBanner = document.getElementById('cookie-notification');
-if (cookieBanner) {
-  cookieBanner.classList.add('appear');
-}
+setTimeout(() => {
+  const cookieBanner = document.getElementById('cookie-notification');
+  if (cookieBanner) {
+    cookieBanner.classList.add('appear');
+  }
+}, 100);
