@@ -358,7 +358,7 @@ header nav .nav-sections ul.inner-list li.mobile-back-button-wrapper {
   }
 
   header nav .mobile-back-button-wrapper {
-    display: none;
+    display: none !important;
   }
 
   header nav .nav-hamburger {
@@ -411,8 +411,6 @@ header nav .nav-sections ul.inner-list li.mobile-back-button-wrapper {
 
   header nav .nav-sections ul li {
     flex: 0 1 auto;
-    position: relative;
-    font-weight: normal;
     display: flex;
     align-items: center;
   }
