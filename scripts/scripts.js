@@ -26,6 +26,13 @@ export const TEMPLATES = {
   tutorial: 'tutorial',
 };
 
+function showCookieBanner() {
+  const cookieBanner = document.body.querySelector('#cookie-notification:not(.appear)');
+  if (cookieBanner) {
+    cookieBanner.classList.add('appear');
+  }
+}
+
 export function createBlogDetails(data) {
   const authorExists = AUTHORS[data.author] && AUTHORS[data.author].image;
   const imageUrl = authorExists ? `${window.location.origin}${AUTHORS[data.author].image}` : '../icons/headwirelogo.svg';
@@ -342,12 +349,10 @@ async function loadLazy(doc) {
   loadFonts();
   addFavIcon();
 
-  document.body.addEventListener('scroll', () => {
-    const cookieBanner = document.getElementById('cookie-notification');
-    if (cookieBanner) {
-      cookieBanner.classList.add('appear');
-    }
-  }, { once: true });
+  document.body.addEventListener('scroll', showCookieBanner, { once: true, passive: true });
+  document.body.addEventListener('mousemove', showCookieBanner, { once: true, passive: true });
+  document.body.addEventListener('touchmove', showCookieBanner, { once: true, passive: true });
+  document.body.addEventListener('keydown', showCookieBanner, { once: true, passive: true });
 
   sampleRUM('lazy');
   sampleRUM.observe(main.querySelectorAll('div[data-block-name]'));
