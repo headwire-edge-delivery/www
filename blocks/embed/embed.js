@@ -55,15 +55,15 @@ const embedTwitter = (url) => {
   return embedHTML;
 };
 
-const embedDrive = (url) => {
+const embedDrive = (url, autoplay, placeholder) => {
   return `
-    <video autoplay="" loop="" muted="" playsinline="">
+    <video autoplay="" loop="" muted="" playsinline="" poster="${placeholder.querySelector('img').currentSrc}">
     <source src="${url.toString()}" type="video/mp4">
   </video>
   `;
 }
 
-const loadEmbed = (block, link, autoplay) => {
+const loadEmbed = (block, link, autoplay, placeholder) => {
   if (block.classList.contains('embed-is-loaded')) {
     return;
   }
@@ -90,7 +90,7 @@ const loadEmbed = (block, link, autoplay) => {
   const config = EMBEDS_CONFIG.find((e) => e.match.some((match) => link.includes(match)));
   const url = new URL(link);
   if (config) {
-    block.innerHTML = config.embed(url, autoplay);
+    block.innerHTML = config.embed(url, autoplay, placeholder);
     block.classList = `block embed embed-${config.match[0]}`;
   } else {
     block.innerHTML = getDefaultEmbed(url);
@@ -104,7 +104,9 @@ export default function decorate(block) {
   const link = block.querySelector('a').href;
   block.textContent = '';
 
-  if (placeholder && !link.includes('drive')) {
+  const isDrive = link.includes('drive.google.com');
+
+  if (placeholder && !isDrive) {
     const wrapper = document.createElement('div');
     wrapper.className = 'embed-placeholder';
     wrapper.innerHTML = '<div class="embed-placeholder-play"><button title="Play"></button></div>';
@@ -117,7 +119,7 @@ export default function decorate(block) {
     const observer = new IntersectionObserver((entries) => {
       if (entries.some((e) => e.isIntersecting)) {
         observer.disconnect();
-        loadEmbed(block, link);
+        loadEmbed(block, link, true, placeholder);
       }
     });
     observer.observe(block);
