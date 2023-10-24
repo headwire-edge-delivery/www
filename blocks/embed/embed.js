@@ -1,84 +1,125 @@
-import { loadCSS } from '../../scripts/lib-franklin.js';
+/*
+ * Embed Block
+ * Show videos and social posts directly on your page
+ * https://www.hlx.live/developer/block-collection/embed
+ */
 
-const jsonpGist = (url, callback) => {
-  // Setup a unique name that cane be called & destroyed
-  const callbackName = `jsonp_${Math.round(100000 * Math.random())}`;
-
-  // Create the script tag
+const loadScript = (url, callback, type) => {
+  const head = document.querySelector('head');
   const script = document.createElement('script');
-  script.src = `${url}${(url.indexOf('?') >= 0 ? '&' : '?')}callback=${callbackName}`;
-
-  // Define the function that the script will call
-  window[callbackName] = (data) => {
-    delete window[callbackName];
-    document.body.removeChild(script);
-    callback(data);
-  };
-
-  // Append to the document
-  document.body.appendChild(script);
+  script.src = url;
+  if (type) {
+    script.setAttribute('type', type);
+  }
+  script.onload = callback;
+  head.append(script);
+  return script;
 };
 
-const gist = (element) => {
-  const { href } = element;
-  const url = href.slice(-2) === 'js' ? `${href}on` : `${href}.json`;
+const getDefaultEmbed = (url) => `<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;">
+    <iframe src="${url.href}" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen=""
+      scrolling="no" allow="encrypted-media" title="Content from ${url.hostname}" loading="lazy">
+    </iframe>
+  </div>`;
 
-  jsonpGist(url, (data) => {
-    loadCSS(data.stylesheet);
-    element.insertAdjacentHTML('afterend', data.div);
-    element.remove();
-  });
+const embedYoutube = (url, autoplay) => {
+  const usp = new URLSearchParams(url.search);
+  const suffix = autoplay ? '&muted=1&autoplay=1' : '';
+  let vid = usp.get('v') ? encodeURIComponent(usp.get('v')) : '';
+  const embed = url.pathname;
+  if (url.origin.includes('youtu.be')) {
+    [, vid] = url.pathname.split('/');
+  }
+  const embedHTML = `<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;">
+      <iframe src="https://www.youtube.com${vid ? `/embed/${vid}?rel=0&v=${vid}${suffix}` : embed}" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" 
+      allow="autoplay; fullscreen; picture-in-picture; encrypted-media; accelerometer; gyroscope; picture-in-picture" allowfullscreen="" scrolling="no" title="Content from Youtube" loading="lazy"></iframe>
+    </div>`;
+  return embedHTML;
 };
 
-const youtube = (block, a, picture) => {
-  const url = new URL(a.href);
-  const vid = url.searchParams.get('v');
+const embedVimeo = (url, autoplay) => {
+  const [, video] = url.pathname.split('/');
+  const suffix = autoplay ? '?muted=1&autoplay=1' : '';
+  const embedHTML = `<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;">
+      <iframe src="https://player.vimeo.com/video/${video}${suffix}" 
+      style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" 
+      frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen  
+      title="Content from Vimeo" loading="lazy"></iframe>
+    </div>`;
+  return embedHTML;
+};
 
-  const html = `
-    <div class="youtube-poster">
-      ${picture.outerHTML}
-      <button aria-label="Play">
-          <svg height="100%" viewBox="0 0 68 48" width="100%">
-              <path d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="#f00"></path><path d="M 45,24 27,14 27,34" fill="#fff"></path>
-          </svg>
-      </button>
-    </div>
-    <div class="youtube-wrapper">
-        <iframe allow="autoplay" title="Content from Youtube"></iframe>
-    </div>
+const embedTwitter = (url) => {
+  const embedHTML = `<blockquote class="twitter-tweet"><a href="${url.href}"></a></blockquote>`;
+  loadScript('https://platform.twitter.com/widgets.js');
+  return embedHTML;
+};
+
+const embedDrive = (url) => {
+  return `
+    <video autoplay="" loop="" muted="" playsinline="">
+    <source src="${url.toString()}" type="video/mp4">
+  </video>
   `;
+}
 
-  block.innerHTML = html;
+const loadEmbed = (block, link, autoplay) => {
+  if (block.classList.contains('embed-is-loaded')) {
+    return;
+  }
 
-  const button = block.querySelector('button');
-  button.addEventListener('click', () => {
-    block.classList.add('is-loaded');
-    block.querySelector('iframe').src = `https://www.youtube.com/embed/${vid}?autoplay=1`;
-  });
+  const EMBEDS_CONFIG = [
+    {
+      match: ['youtube', 'youtu.be'],
+      embed: embedYoutube,
+    },
+    {
+      match: ['vimeo'],
+      embed: embedVimeo,
+    },
+    {
+      match: ['twitter'],
+      embed: embedTwitter,
+    },
+    {
+      match: ['drive'],
+      embed: embedDrive,
+    },
+  ];
 
-  block.querySelector('img').addEventListener('click', () => {
-    button.click();
-  });
+  const config = EMBEDS_CONFIG.find((e) => e.match.some((match) => link.includes(match)));
+  const url = new URL(link);
+  if (config) {
+    block.innerHTML = config.embed(url, autoplay);
+    block.classList = `block embed embed-${config.match[0]}`;
+  } else {
+    block.innerHTML = getDefaultEmbed(url);
+    block.classList = 'block embed';
+  }
+  block.classList.add('embed-is-loaded');
 };
-
-const initObserver = (callback) => new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-      callback(entry.target);
-    }
-  });
-}, { root: null, rootMargin: '200px', threshold: 0 });
 
 export default function decorate(block) {
-  const a = block.querySelector('a');
-  const picture = block.querySelector('picture');
-  const { hostname } = new URL(a.href);
-  if (hostname.includes('youtu')) {
-    youtube(block, a, picture);
-  }
-  if (hostname.includes('gist')) {
-    initObserver(() => {
-      gist(a);
-    }).observe(a);
+  const placeholder = block.querySelector('picture');
+  const link = block.querySelector('a').href;
+  block.textContent = '';
+
+  if (placeholder && !link.includes('drive')) {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'embed-placeholder';
+    wrapper.innerHTML = '<div class="embed-placeholder-play"><button title="Play"></button></div>';
+    wrapper.prepend(placeholder);
+    wrapper.addEventListener('click', () => {
+      loadEmbed(block, link, true);
+    });
+    block.append(wrapper);
+  } else {
+    const observer = new IntersectionObserver((entries) => {
+      if (entries.some((e) => e.isIntersecting)) {
+        observer.disconnect();
+        loadEmbed(block, link);
+      }
+    });
+    observer.observe(block);
   }
 }

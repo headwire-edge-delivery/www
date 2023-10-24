@@ -1,68 +1,69 @@
-.gist .gist-file.gist-file {
-    margin: 12px 0;
+main .embed {
+    width: unset;
+    text-align: center;
 }
 
-.gist .gist-meta a {
-    font-size: 12px;
-}
-
-.youtube-poster {
-    position: relative;
-    margin-block: 24px;
-    height: 0;
-    padding-bottom: 56.25%;
-    overflow: hidden;
-}
-
-.youtube-poster picture {
-    display: flex;
-}
-
-.youtube-poster img {
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
+main .embed video {
+    width: 100vw;
+    height: 100vh;
     object-fit: cover;
-    position: absolute;
 }
 
-.youtube-poster button {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 68px;
-    height: 48px;
-    margin-left: -34px;
-    margin-top: -24px;
-    background: transparent;
-    border: none;
-    padding: 0;
-    cursor: pointer;
+main .embed > div {
+    display: flex;
+    justify-content: center;
 }
 
-.youtube-wrapper {
-    display: none;
+main .embed.embed-twitter .twitter-tweet-rendered {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+main .embed .embed-placeholder {
     width: 100%;
-    height: 0;
+    aspect-ratio: 16 / 9;
     position: relative;
-    padding-bottom: 56.25%;
-    margin-block: 24px;
 }
 
-.youtube-wrapper iframe {
-    width: 100%;
-    border: none;
-    border: 0;
+main .embed .embed-placeholder > * {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
     top: 0;
     left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+main .embed .embed-placeholder picture img {
+    width: 100%;
     height: 100%;
-    position: absolute;
+    object-fit: cover;
 }
 
-.embed.is-loaded .youtube-wrapper {
+main .embed .embed-placeholder-play button {
+    box-sizing: border-box;
+    position: relative;
     display: block;
+    transform: scale(3);
+    width: 22px;
+    height: 22px;
+    border: 2px solid;
+    border-radius: 20px;
+    padding: 0;
 }
 
-.embed.is-loaded .youtube-poster {
-    display: none;
+main .embed .embed-placeholder-play button::before {
+    content: "";
+    display: block;
+    box-sizing: border-box;
+    position: absolute;
+    width: 0;
+    height: 10px;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 6px solid;
+    top: 4px;
+    left: 7px;
 }
