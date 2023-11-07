@@ -4,13 +4,20 @@ import {
 } from '../../scripts/lib-franklin.js';
 import { createBlogDetails } from '../../scripts/scripts.js';
 
+const escape = (s) => s
+  .replaceAll('&', '&amp')
+  .replaceAll('<', '&lt')
+  .replaceAll('>', '&gt;')
+  .replaceAll("'", '&#39;')
+  .replaceAll('"', '&quot;');
+
 export default async function decorate(block) {
   const defaultContent = block.querySelector('div > div > div');
   if (defaultContent) {
     let toc = '<div class="toc"><div class="sticky"><strong>Table of content</strong><ul>';
     defaultContent.querySelectorAll('h2, h3').forEach((heading) => {
       const level = parseInt(heading.tagName.slice(1), 10) - 1;
-      toc += `<li class="level-${level}"><a href="#${heading.id}">${heading.textContent}</a></li>`;
+      toc += `<li class="level-${level}"><a href="#${heading.id}">${escape(heading.textContent)}</a></li>`;
     });
     toc += '</ul></div></div>';
 
