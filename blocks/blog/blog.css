@@ -64,6 +64,14 @@
   max-width: 280px;
 }
 
+.blog-main > .details-container > .details {
+  position: sticky;
+  top: 128px;
+  padding-bottom: 50px;
+  overflow: auto;
+  max-height: calc(100vh - 128px);
+}
+
 .blog-main .details.hide {
   display: flex;
   justify-content: space-between;
